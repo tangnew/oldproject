@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Web Socket</title>
+<script type="text/javascript" src="jquery-1.11.1.js"></script>
+<script type="text/javascript">
+    function startWebScoket(){
+    	//创建WebSocket对象
+    	var ws = new WebSocket(
+    			"ws://localhost:8080/jwebsocket0/fileUpAndDownload");
+    	
+    	ws.onopen = function(){
+    		alert("onopen");
+    		ws.send("test");
+    	}
+
+    	ws.onmessage = function(evt){
+    		alert("onmessage");
+    	}
+    	
+    	ws.close = function(evt){
+    		alert("close");
+    	}
+    	
+    	ws.onerror= function(evt){
+    		alert("onerror");
+    	}
+    }
+    
+    
+	
+
+</script>
+</head>
+<body>
+	<div style="width: 600px; height: 240px; overflow-y: auto; border: 1px solid #333;"
+		id="show"></div>
+		<input type="text" id="msg"/>
+		<button id="send">send</button><button id="startWebSocket" onclick="startWebScoket()">start</button>
+	
+</body>
+</html>

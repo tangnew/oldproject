@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="userServiceImpl0" class="com.service.impl.UserServiceImpl0" />
+	<bean id="userServiceImpl1" class="com.service.impl.UserServiceImpl1" />
+	<!-- 静态工厂方法注入 -->
+	<bean id="staticFactory" class="com.inject.FactoryInject"
+		factory-method="getInstanceByStaticFactory">
+		<constructor-arg index="0" value="1" />
+		<constructor-arg index="1" value="method1" />
+	</bean>
+
+	<!-- 实例工厂注入 -->
+	<bean id="factoryBean" class="com.inject.FactoryInject" />
+	<bean id="factoryBeanInject" factory-bean="factoryBean"
+		factory-method="getInstanceByFactoryBean">
+		<constructor-arg index="0" value="2" />
+		<constructor-arg index="1" value="method2" />
+	</bean>
+
+	<!-- 构造方法注入 by index -->
+	<bean id="user0" class="com.modual.User">
+		<constructor-arg index="0" value="3" />
+		<constructor-arg index="1" value="user0" />
+	</bean>
+	<!-- 构造方法注入 by type -->
+	<bean id="user1" class="com.modual.User">
+		<constructor-arg type="int" value="4" />
+		<constructor-arg type="String" value="user1" />
+	</bean>
+
+	<!-- 构造方法注入 by name -->
+	<bean id="user2" class="com.modual.User">
+		<constructor-arg name="id" value="5" />
+		<constructor-arg name="name" value="user2" />
+	</bean>
+
+	<!-- setter方法注入 -->
+	<bean id="user3" class="com.modual.User">
+		<property name="id" value="6" />
+		<property name="name" value="user3" />
+		<property name="addresses">
+			<list>
+				<value>test1</value>
+				<value>test2</value>
+				<value>test3</value>
+			</list>
+		</property>
+		<property name="map">
+			<map>
+				<entry key="a" value="a" />
+				<entry key="b" value="b" />
+			</map>
+		</property>
+	</bean>
+
+	<!-- 注入boolean -->
+	<bean id="user4" class="com.modual.User">
+		<!-- <property name="success" value="1" /> -->
+		<!-- <property name="success" value="yes" /> -->
+		<property name="success" value="off" />
+	</bean>
+
+	<!-- 注入常量 -->
+	<bean id="stringConstant" class="java.lang.String">
+		<constructor-arg index="0">
+			<value>Hello World</value>
+		</constructor-arg>
+	</bean>
+	<!--容器 初始化时会检查bean是否存在，容易发现错误. 第一种方式可以在容器初始化时校验被引用的Bean是否存在，如果不存在将抛出异常 -->
+	<bean id="user5" class="com.modual.User">
+		<property name="name">
+			<idref bean="stringConstant" />
+		</property>
+	</bean>
+	<!-- 将在XML解析时校验注入的stringConstant对于的Bean在当前配置文件中是否存在，如果不存在将抛出异 常 .第二种方式只有在Bean实际 
+		使用时才能发现传入的Bean的ID是否正确，可能发生不可预料的错误 -->
+	<bean id="user6" class="com.modual.User">
+		<property name="name">
+			<idref local="stringConstant" />
+		</property>
+	</bean>
+
+	<!-- collection注入 -->
+	<bean id="collectionInject" class="com.inject.CollectionInject">
+		<property name="map">
+			<map>
+				<entry>
+					<key>
+						<value>test1</value>
+					</key>
+					<value>test1</value>
+				</entry>
+				<entry key="test2" value="test2"></entry>
+			</map>
+		</property>
+		<property name="set">
+			<set>
+				<value>set1</value>
+				<value>set2</value>
+			</set>
+		</property>
+		<property name="list">
+			<list>
+				<value>list1</value>
+				<value>list2</value>
+			</list>
+		</property>
+		<property name="array">
+			<array>
+				<value>array1</value>
+				<value>array1</value>
+			</array>
+		</property>
+		<property name="props">
+			<props>
+				<prop key="prop1">prop1</prop>
+			</props>
+		</property>
+	</bean>
+</beans>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>回调</title>
+</head>
+<body>
+
+</body>
+<script>
+  function A(other){
+	  alert("A");
+	  //callback();
+	  console.log(typeof other);
+  }
+  
+  /* function B(){
+	 alert("B");
+  }*/
+  
+  var B = function(){
+	  alert("B");
+  }
+  
+  A(B);
+</script>
+</html>

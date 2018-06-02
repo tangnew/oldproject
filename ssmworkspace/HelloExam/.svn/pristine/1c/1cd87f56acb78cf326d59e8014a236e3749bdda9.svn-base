@@ -1,0 +1,19 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <ul class="nav nav-pills">
+            <li role="presentation">
+                <a ui-sref="main.menu.list" ui-sref-active="btn btn-primary">
+                    <span class="glyphicon glyphicon-list"></span>列表
+                </a>
+            </li>
+            <li role="presentation">
+                <a ui-sref="main.menu.create" ui-sref-active="btn btn-primary">
+                    <span class="glyphicon glyphicon-plus"></span>创建
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="panel-body" ng-controller="menuController">
+        <div ui-view></div>
+    </div>
+</div>

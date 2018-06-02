@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>验证typeof</title>
+</head>
+<body>
+
+</body>
+<script>
+	var dog = (function(){
+				function Dog() {
+					this.name = 'name';
+					this.sayHello = function() {
+					}
+		        }
+				console.log(Dog);
+				return Dog;
+	      })();
+
+	console.log(dog);
+	console.log(typeof new dog().sayHello);
+	console.log(typeof new dog().name);
+</script>
+</html>

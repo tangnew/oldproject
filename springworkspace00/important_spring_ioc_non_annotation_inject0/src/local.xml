@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="recLocParent" class="com.inject.RefLocParent">
+		<property name="name" value="local" />
+	</bean>
+
+	<bean id="recLoc" class="com.inject.RefLocParent">
+		<property name="object">
+			<ref local="recLocParent" />
+		</property>
+	</bean>
+
+	<bean id="recParent" class="com.inject.RefLocParent">
+		<property name="object">
+			<ref parent="recLocParent" />
+		</property>
+	</bean>
+	
+	<bean id="inlineBean" class="com.inject.RefLocParent">
+	 <property name="object">
+	  <bean id="inline" class="com.inject.RefLocParent">
+	    <property name="name" value="inlinebean"></property>
+	  </bean>
+	 </property>
+	</bean>
+	
+	<bean id="nullBean" class="com.inject.RefLocParent">
+	 <property name="name"><null/></property>
+	</bean>
+</beans>

@@ -1,0 +1,2 @@
+delete from data;
+load data infile "D:/caipiao_data/data.txt" into table data fields terminated by '|';

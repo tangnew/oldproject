@@ -1,0 +1,18 @@
+/**
+ *  Created by JW
+ *  User: JW
+ *  Date: 2016-11-08
+ *  Time: 14:50
+ *  Description:
+ */
+EXAM.mainModuleApp.registerApp.controller("registerController", ["$scope",  "registerService", function ($scope,  registerService) {
+        $scope.register = function (registerData) {
+            var promise = registerService.register(registerData);
+            promise.success(function (response) {
+                console.log(response);
+               // $state.go("default.login");
+            }).error(function (response) {
+            });
+        };
+    }]
+);

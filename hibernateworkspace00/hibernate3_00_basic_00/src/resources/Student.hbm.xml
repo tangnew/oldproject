@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.tjj.model">
+	<class name="Student" table="student" lazy="false">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<property name="name">
+			<column name="name" not-null="true" unique="true"></column>
+		</property>
+		<property name="age" />
+		<property name="studentGuid" column="student_guid"/>
+
+		<many-to-one name="teacher" class="Teacher" property-ref="guid"
+			outer-join="true" cascade="all">
+			<column name="teacher_guid"></column>
+		</many-to-one>
+	</class>
+
+</hibernate-mapping>

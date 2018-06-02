@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.tjj.model">
+	<class name="Teacher" table="teacher">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<property name="name">
+			<column name="name" not-null="true" unique="true"></column>
+		</property>
+		<property name="guid">
+			<column name="guid" not-null="true" unique="true"></column>
+		</property>
+		<property name="age" />
+
+		<set name="students" fetch="join" inverse="true">
+			<key column="teacher_guid" property-ref="guid" />
+			<one-to-many class="Student" not-found="ignore" />
+		</set>
+	</class>
+
+</hibernate-mapping>

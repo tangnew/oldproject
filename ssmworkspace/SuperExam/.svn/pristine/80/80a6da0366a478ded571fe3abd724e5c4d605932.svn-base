@@ -1,0 +1,25 @@
+/**
+ *  Created by JW
+ *  User: JW
+ *  Date: 2016-11-09
+ *  Time: 15:45
+ *  Description:
+ */
+EXAM.mainModuleApp.config([
+    "$stateProvider",
+    "$urlRouterProvider",
+    function ($stateProvider, $urlRouterProvider) {
+        $urlRouterProvider.when("", EXAM.mainModuleApp.defaultUrl);
+
+        var stateAndConfigs = EXAM.modules.states;
+        angular.forEach(stateAndConfigs, function (module) {
+            angular.forEach(module, function (value) {
+                var templateUrl = value.stateConfig.templateUrl;
+                if (templateUrl) {
+                    value.stateConfig.templateUrl = EXAM.constant.state.viewPrefix + templateUrl;
+                }
+                $stateProvider.state(value.stateName, value.stateConfig);
+            });
+        });
+    }
+]);

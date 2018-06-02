@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exam.dao.MenuMapper">
+	<resultMap id="Menu_Base_Result_Map" type="Menu">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="module_name" property="moduleName" jdbcType="VARCHAR" />
+		<result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+		<result column="seq" property="seq" jdbcType="INTEGER" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+		<result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+		<result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+		<result column="status" property="status" jdbcType="INTEGER"/>
+		<result column="style_class" property="styleClass" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Menu_Column_List">
+		id,
+		menu_name,
+		module_name,
+		description,
+		seq,
+		created_time,
+		updated_time,
+		status,
+		style_class
+	</sql>
+
+	<insert id="insertMenu" parameterType="Menu">
+		insert into menu (id,
+		menu_name,
+		module_name,
+		seq, 
+		description,
+		created_time,
+		updated_time,
+		status,
+		style_class)
+		values
+		(#{id,jdbcType=VARCHAR},
+		#{menuName,jdbcType=VARCHAR},
+		#{moduleName,jdbcType=VARCHAR},
+		#{seq,jdbcType=INTEGER},
+		#{description,jdbcType=VARCHAR},
+		#{createdTime,jdbcType=TIMESTAMP},
+		#{updatedTime,jdbcType=TIMESTAMP},
+		#{status,jdbcType=INTEGER},
+		#{styleClass,jdbcType=VARCHAR})
+	</insert>
+
+	<select id="selectAllMenus" resultMap="Menu_Base_Result_Map"
+		parameterType="string">
+		select
+		<include refid="Menu_Column_List" />
+		from menu
+	</select>
+
+	<select id="selectMenuById" resultMap="Menu_Base_Result_Map"
+		parameterType="string">
+		select
+		<include refid="Menu_Column_List" />
+		from menu
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectMenuCount" resultType="int">
+	    select
+		 count(*)
+		  from menu
+	</select>
+	
+	<select id="selectMenuByPage" resultMap="Menu_Base_Result_Map"
+		parameterType="com.exam.vo.PageItem">
+	    select
+		 <include refid="Menu_Column_List" />
+		  from menu
+		  order by seq asc
+		  limit #{startIndex},#{pageSize}
+	</select>
+	
+	
+	<update id="updateMenuByMenu" parameterType="Menu">
+		update menu
+		<set>
+			<if test="menuName != null">
+				menu_name = #{menuName,jdbcType=VARCHAR},
+			</if>
+			<if test="moduleName != null">
+				module_name = #{moduleName,jdbcType=VARCHAR},
+			</if>
+		    <if test="updatedTime != null">
+				updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="seq != null">
+				seq = #{seq,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="styleClass != null">
+				style_class = #{styleClass,jdbcType=VARCHAR},
+			</if>
+			
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<delete id="deleteMenuById" parameterType="string">
+		delete 
+		from menu
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+</mapper>

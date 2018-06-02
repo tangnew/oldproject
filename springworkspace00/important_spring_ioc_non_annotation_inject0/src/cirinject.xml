@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 构造器循环依赖是无法解决 -->
+	<!-- <bean id="cirA" class="com.inject.circulate.CirA"> <constructor-arg 
+		index="0" ref="cirB"></constructor-arg> <constructor-arg index="1" value="cirA 
+		constructor inject"></constructor-arg> </bean> <bean id="cirB" class="com.inject.circulate.CirB"> 
+		<constructor-arg index="0" ref="cirC"></constructor-arg> <constructor-arg 
+		index="1" value="cirB constructor inject"></constructor-arg> </bean> <bean 
+		id="cirC" class="com.inject.circulate.CirC"> <constructor-arg index="0" ref="cirA"></constructor-arg> 
+		<constructor-arg index="1" value="cirC constructor inject"></constructor-arg> 
+		</bean> -->
+
+
+	<!-- set循环依赖只能解决单例作用域的Bean循环依赖 -->
+	<!-- <bean id="cirAcall" class="com.inject.circulate.CirA"> <property name="cirB" 
+		ref="cirBcall"></property> </bean> <bean id="cirBcall" class="com.inject.circulate.CirB"> 
+		<property name="cirC" ref="cirCcall"></property> </bean> <bean id="cirCcall" 
+		class="com.inject.circulate.CirC"> <property name="cirA" ref="cirAcall"></property> 
+		</bean> -->
+		
+	<!-- set循环依赖不能解决prototype作用域的Bean循环依赖,因为prototype，Spring容器不进行缓存，因此无法提前暴露一个创建中的Bean -->
+	");
+	<bean id="cirAcall" class="com.inject.circulate.CirA" scope="prototype">
+		<property name="cirB" ref="cirBcall"></property>
+	</bean>
+	<bean id="cirBcall" class="com.inject.circulate.CirB" scope="prototype">
+		<property name="cirC" ref="cirCcall"></property>
+	</bean>
+	<bean id="cirCcall" class="com.inject.circulate.CirC" scope="prototype">
+		<property name="cirA" ref="cirAcall"></property>
+	</bean>
+</beans>

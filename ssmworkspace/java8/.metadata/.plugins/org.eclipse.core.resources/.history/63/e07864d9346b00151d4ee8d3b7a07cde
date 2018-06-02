@@ -1,0 +1,25 @@
+package com.jiawen.tong.collection.high;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Main {
+
+	public static void main(String[] args) {
+
+	}
+
+	public static void maxBy() {
+		Student s0 = new Student(1, "lisi1", 1, 1, 1);
+		Student s1 = new Student(2, "lisi2", 2, 1, 1);
+		Student s2 = new Student(3, "lisi3", 3, 2, 1);
+		Student s3 = new Student(4, "lisi4", 4, 2, 1);
+		List<Student> students = Arrays.asList(s0, s1, s2, s3);
+
+		students.stream().collect(Collectors.maxBy((s0, s1) -> {
+			return s0.getAge - s1.getAge();
+		}));
+	}
+}

@@ -1,0 +1,20 @@
+<style>
+.header-welcome {
+    font-style: oblique;
+    font-weight: bold;
+    color: #50C167;
+}
+</style>
+<nav class="nav navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{{homePage}}">
+                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                <span>Super Exam</span>
+            </a>
+        </div>
+        <div class="navbar-brand">
+            <span class="header-welcome">欢迎来到JW考试系统</span>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,64 @@
+<div class="container-fluid" ng-controller="registerController">
+    <div class="row">
+        <div class="col-md-12 panel panel-default panel-body">
+            <form name="registerForm" novalidate>
+                <legend>
+                    <strong>注册</strong>
+                    <span style="font-weight:bold;font-size:1.2rem;">
+                        <span class="glyphicon glyphicon-info-sign"></span> 已有账号，请点击
+                    <a href="#"  ui-sref="{{states.login.home.stateName}}">
+                            这里登录<span class="glyphicon glyphicon-arrow-right"></span>
+                        </a>
+                    </span>
+                </legend>
+                <div class="form-group">
+                    <label for="email">邮箱</label>
+                    <input type="email" ng-model="registerData.email" class="form-control" id="email" name="email" placeholder="请输入邮箱" required/>
+                    <div class="error" ng-show="registerForm.email.$invalid && registerForm.email.$dirty">
+                        <span ng-show="registerForm.email.$error.email">
+                        请输入合法的邮箱地址 
+                        </span>
+                        <span ng-show="registerForm.email.$error.required">
+                        请输入邮箱地址 
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="loginName">用户名</label>
+                    <input type="text" ng-model="registerData.loginName" class="form-control" id="loginName" name="loginName" placeholder="请输入用户名" required/>
+                    <div class="error" ng-show="registerForm.loginName.$invalid && registerForm.loginName.$dirty">
+                        <span ng-show="registerForm.loginName.$error.required">
+                        请输入用户名
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password">密码</label>
+                    <input type="password" ng-model="registerData.password" class="form-control" id="password" name="password" placeholder="请输入密码" required/>
+                    <div class="error" ng-show="registerForm.password.$invalid && registerForm.password.$dirty">
+                        <span ng-show="registerForm.password.$error.required">
+                        请输入密码
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">密码确认</label>
+                    <input type="password" ng-model="registerData.confirmPassword" class="form-control" id="confirmPassword"
+                           compare="registerData.password" name="confirmPassword" placeholder="请再次输入密码" required />
+                    <div class="error" ng-show="registerForm.confirmPassword.$dirty">
+                        <span ng-show="registerForm.confirmPassword.$invalid && registerForm.confirmPassword.$error.required">
+                        请再次输入密码
+                        </span>
+                        <span ng-show="registerForm.confirmPassword.$error.compare">
+                        输入的两次密码不一致
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" ng-disabled="registerForm.$invalid" ng-click="register(registerData)">
+                        <i class="icon-save"></i>&nbsp;保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

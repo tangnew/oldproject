@@ -1,0 +1,26 @@
+/**
+ *  Created by JW
+ *  User: JW
+ *  Date: 2016-11-11
+ *  Time: 16:41
+ *  Description:
+ */
+/**
+ * 加载主模块的state、http配置
+ */
+EXAM.loadResources.loadJavaScript("./common/httpProviderConfig.js");
+EXAM.loadResources.loadJavaScript("./common/stateProviderConfig.js");
+
+/**
+ * 加载主模块的controller
+ */
+EXAM.loadResources.loadJavaScript("./controllers/mainController.js");
+
+
+EXAM.mainModuleApp.run(["$rootScope", "$window", function ($rootScope, $window) {
+    $rootScope.$on('$stateNotFound', function (event, unfoundState, fromState, fromParams) {
+        $log.error('The request state was not found: ' + unfoundState);
+        alert("系统无法找到该" + unfoundState + "状态");
+        $window.location = EXAM.constant.homePage;
+    });
+}]);

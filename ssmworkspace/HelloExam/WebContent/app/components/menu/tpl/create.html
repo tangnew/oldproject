@@ -1,0 +1,106 @@
+<div class="container">
+   <div class="row">
+       <div class="col-md-offset-0 col-md-8">
+	     <div class="panel panel-default">
+	     	<div class="panel-body">
+	         <form name="menuDataForm" novalidate>
+	             <legend>
+	                 <div class="text-left">
+                 		<strong ng-show="!menuData.id">创建菜单</strong>
+                 		<strong ng-show="menuData.id">更新菜单</strong>
+	                 </div>
+	             </legend>
+	             <input type="hidden" ng-model="menuData.id">
+	             <input type="hidden" ng-model="menuData.currentPage">
+	             <div class="form-group">
+	                 <label for="moduleName">模块名称</label>
+	                 <input type="text" ng-disabled="menuData.status" class="form-control" id="moduleName" name="moduleName"
+	                 	ng-model="menuData.moduleName" placeholder="请输入模块名称,仅限英文" required 
+	                 	ng-pattern="/^[A-Za-z]{1,50}$/"/>
+	                 <div class="error" ng-show="menuDataForm.moduleName.$invalid && menuDataForm.moduleName.$dirty">
+	                     <span ng-show="menuDataForm.moduleName.$error.required">请输入模块名称</span>
+	                     <span ng-show="menuDataForm.moduleName.$error.pattern">模块名称仅仅为英文</span>
+	                 </div>
+	             </div>
+	             <div class="form-group">
+	                 <label for="menuName">菜单名称</label>
+	                 <input type="text" class="form-control" id="menuName" name="menuName" 
+	                 	ng-model="menuData.menuName" placeholder="请输入菜单名称，仅限英文" required/>
+	                 <div class="error" ng-show="menuDataForm.menuName.$invalid && menuDataForm.menuName.$dirty">
+	                     <span ng-show="menuDataForm.menuName.$error.required">请输入菜单名称，仅限英文</span>
+	                 </div>
+	             </div>
+	             <div class="form-group">
+	                 <label for="seq">顺序</label>
+	                 <input type="number" class="form-control" id="seq" name="seq" 
+	                 	ng-model="menuData.seq" placeholder="请输入顺序" required/>
+	                 <div class="error" ng-show="menuDataForm.seq.$invalid && menuDataForm.seq.$dirty">
+	                     <span ng-show="menuDataForm.seq.$error.required">请输入顺序</span>
+	                 </div>
+	             </div>
+	             <div class="form-group">
+	                 <label for="status">状态</label>
+	                 <input type="number" class="form-control" id="status" name="status" 
+	                 	ng-model="menuData.status" placeholder="请输入状态" required/>
+	                 <div class="error" ng-show="menuDataForm.status.$invalid && menuDataForm.status.$dirty">
+	                     <span ng-show="menuDataForm.status.$error.required">请输入状态</span>
+	                 </div>
+	             </div>
+	             <div class="form-group form-inline">
+	                 <label for="styleClass">图标</label>
+	                 <select class="form-control form-inline" id="styleClass" name="styleClass"
+	                 	ng-model="menuData.styleClass" required>
+	                 	<option value="">请选择一个图标</option>
+	                 	<option value="icon-cog">icon-cog</option>
+	                 	<option value="icon-sitemap">icon-sitemap</option>
+	                 	<option value="icon-user">icon-user</option>
+	                 	<option value="icon-star">icon-star</option>
+	                 	<option value="icon-reorder">icon-reorder</option>
+	                 	<option value="icon-bar-chart">icon-bar-chart</option>
+	                 	<option value="icon-group">icon-group</option>
+	                 	<option value="icon-th-list">icon-th-list</option>
+	                 	<option value="icon-rss">icon-rss</option>
+	                 	<option value="icon-tasks">icon-tasks</option>
+	                 </select>
+	                 <select class="form-control form-inline" 
+	                 	ng-model="menuData.styleClassSize">
+	                 	<option value="">请选择一个图标大小</option>
+	                 	<option value="icon-large">icon-large</option>
+	                 	<option value="icon-2x">icon-2x</option>
+	                 	<option value="icon-3x">icon-3x</option>
+	                 	<option value="icon-4x">icon-4x</option>
+	                 </select>
+	                 <i class="form-control {{menuData.styleClass}} {{menuData.styleClassSize}}"></i>
+	                 <div class="error" ng-show="menuDataForm.styleClass.$invalid && menuDataForm.styleClass.$dirty">
+	                     <span ng-show="menuDataForm.styleClass.$error.required">请选择一个图标</span>
+	                 </div>
+	             </div>
+	             <div class="form-group">
+	                 <button ng-show="!menuData.id" class="btn btn-primary" ng-disabled="menuDataForm.$invalid" ng-click="createMenu(menuData)">
+	                     <i class="icon-save"></i>&nbsp;保存</button>
+	                <button ng-show="menuData.id" class="btn btn-primary" ng-disabled="menuDataForm.$invalid" ng-click="updateMenu(menuData)">
+	                     <i class="icon-save"></i>&nbsp;更新</button>
+	                <button class="btn btn-primary" ng-click="cancelCreateOrUpdate(menuData)">
+	                     <i class="icon-reply"></i>&nbsp;取消</button>
+	             </div>
+	         </form>
+	         </div>
+	     </div>
+       </div>
+   </div>
+</div>
+<script>
+ $("#styleClass").select2({
+	templateResult: formatState,
+	templateSelection: formatState
+ });
+
+ function formatState(state){
+	if(!state.id){
+		return state.text;
+	}
+	
+	var $state = $("<i class='"+state.text+"'></i>&nbsp;<span>"+state.text+"</span>");
+	return $state;
+ }
+</script>

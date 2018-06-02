@@ -1,0 +1,16 @@
+1.ResourceLoader在进行加载资源时需要使用前缀来指定需要加载：“classpath:path”表示返回
+ClasspathResource，“http://path”和“file:path”表示返回UrlResource资源，
+如果不加前缀则需要根据当前上下文来决定，DefaultResourceLoader默认实现可以加载classpath资源
+2.对于目前所有ApplicationContext都实现了ResourceLoader，因此可以使用其来加载资源。
+         ClassPathXmlApplicationContext：不指定前缀将返回默认的ClassPathResource资源，否则将根据前缀来加载资源；
+         FileSystemXmlApplicationContext：不指定前缀将返回FileSystemResource，否则将根据前缀来加载资源；
+         WebApplicationContext：不指定前缀将返回ServletContextResource，否则将根据前缀来加载资源；
+         其他：不指定前缀根据当前上下文返回Resource实现，否则将根据前缀来加载资源。
+3. ResourceLoaderAware是一个标记接口，用于通过ApplicationContext上下文注入ResourceLoader。
+4.资源路径都是非常简单的一个路径匹配一个资源，Spring还提供了一种更强大的Ant模式通配符匹配，
+从能一个路径匹配一批资源。Ant路径通配符支持“？”、“*”、“**”，注意通配符匹配不包括目录分隔符“/”：
+    “?”：匹配一个字符，如“config?.xml”将匹配“config1.xml”；
+    “*”：匹配零个或多个字符串，如“cn/*/config.xml”将匹配“cn/javass/config.xml”，但不匹配匹配“cn/config.xml”；而“cn/config-*.xml”将匹配“cn/config-dao.xml”；
+    “**”：匹配路径中的零个或多个目录，如“cn/**/config.xml”将匹配“cn /config.xml”，也匹配“cn/javass/spring/config.xml”；而“cn/javass/config-**.xml”将匹配“cn/javass/config-dao.xml”，即把“**”当做两个“*”处理。
+    Spring在加载类路径资源时除了提供前缀“classpath:”的来支持加载一个Resource，还提供一个前缀“classpath*:”来支持加载所有匹配的类路径Resource。
+    Spring提供了一个ResourcePatternResolver实现PathMatchingResourcePatternResolver，它是基于模式匹配的，默认使用AntPathMatcher进行路径匹配，它除了支持ResourceLoader支持的前缀外，还额外支持“classpath*:”用于加载所有匹配的类路径Resource，ResourceLoader不支持前缀“classpath*:”：

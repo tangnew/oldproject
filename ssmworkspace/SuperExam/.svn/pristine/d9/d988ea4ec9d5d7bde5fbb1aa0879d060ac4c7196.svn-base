@@ -1,0 +1,63 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <table class="table table-bordered table-hover table-striped">
+                        <caption><strong>菜单列表</strong></caption>
+                        <thead>
+                        <tr>
+                            <th>模块名称</th>
+                            <th>菜单名称</th>
+                            <th>顺序</th>
+                            <th>图标</th>
+                            <th>是否开放</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="menu in pageItems.items|orderBy:'seq'">
+                            <td>{{menu.moduleName}}</td>
+                            <td>{{menu.menuName}}</td>
+                            <td>{{menu.seq}}</td>
+                            <td><i class="{{menu.styleClass}}"></i></td>
+                            <td>
+                            	<i ng-if="menu.status" class="icon-ok">OK</i>
+                            	<i ng-if="!menu.status" class="icon-remove">暂时未开发</i>
+                            </td>
+                            <td>
+                                <a class="btn btn-default" ng-click="edit(menu,pageItems.currentPage)">
+                                    <i class="icon-edit"></i>&nbsp;编辑
+                                </a>
+                                <a ng-hide="menu.status" class="btn btn-default" ng-click="deleteMenu(menu.id)">
+                                    <i class="icon-trash"></i>&nbsp;删除
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <nav class="text-center">
+                        <ul class="pager">
+                            <li ng-class="getPrevPageClass()">
+                            	<a href="#" ng-click="listMenuByPage(pageItems.currentPage - 1)">上一页</a>
+                            </li>
+                            <li class="form-inline">
+                                <div class="input-group">
+                                    <input type="text" class="form-control text-center"
+                                           ng-model="pageItems.currentPage" style="width:4rem" aria-describedby="goPageId">
+                                    <span class="input-group-addon btn btn-default" id="goPageId"
+                                     ng-click="goPage(pageItems.currentPage)">Go</span>
+                                </div>
+                                <label ng-bind-template="共{{pageItems.counts}}条记录,{{pageItems.totalPage?pageItems.totalPage:0}}页"></label>
+                            </li>
+                            <li ng-class="getNextPageClass()">
+                            	<a href="#" ng-click="listMenuByPage(pageItems.currentPage + 1)">下一页</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    

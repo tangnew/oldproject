@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="navigation" class="com.inject.Navigation">
+		<property name="list">
+			<list></list>
+		</property>
+		<property name="arrays">
+			<array></array>
+		</property>
+		<property name="maps">
+			<map></map>
+		</property>
+	</bean>
+
+
+	<bean id="navigation0" class="com.inject.Navigation">
+		<property name="name">
+			<value>navigation</value>
+		</property>
+	</bean>
+	<bean id="list" class="java.util.ArrayList">
+	</bean>
+	<bean id="navigations" class="com.inject.Navigation">
+		<property name="list" ref="list" />
+		<property name="list[0]" ref="navigation0" />
+
+		<property name="maps">
+			<bean class="java.util.HashMap"></bean>
+		</property>
+
+		<property name="maps[key]" ref="navigation0">
+		</property>
+	</bean>
+
+	<bean id="navigationsSimple" class="com.inject.Navigation" p:name="simple">
+	</bean>
+</beans>

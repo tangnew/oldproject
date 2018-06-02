@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.army.building.manytoone">
+	<class name="Teacher" table="teacher">
+		<id name="id">
+			<generator class="increment" />
+		</id>
+		<property name="name" />
+		<property name="age" />
+	</class>
+
+	<class name="Student" table="student">
+		<id name="id">
+			<generator class="increment" />
+		</id>
+		<property name="name" />
+		<property name="age" />
+		<property name="address" />
+		<many-to-one name="teacher" column="teacherId" cascade="all"/>
+
+	</class>
+</hibernate-mapping>

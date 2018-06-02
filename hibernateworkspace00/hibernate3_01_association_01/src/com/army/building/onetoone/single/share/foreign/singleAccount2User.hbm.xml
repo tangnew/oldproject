@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.army.building.onetoone.single.share.foreign">
+  <!-- 一对一共享主键 -->
+  <class name="User" table="t_user">
+		<id name="id">
+			<generator class="increment" />
+		</id>
+		<property name="name" />
+		<!--<one-to-one name="account"/> 添加该行表示:一对一中的主端开始双向关联 -->
+		
+	</class>
+	<class name="Account" table="t_account">
+		<id name="id">
+			<generator class="foreign">
+			  <param name="property">user</param><!-- 表示主键引用主端的id为主键来进行约束 -->
+			</generator>
+		</id>
+		<property name="name"></property>
+		<one-to-one name="user" constrained="true" /><!-- 添加该行表示:一对一中的从端 -->
+	</class>
+</hibernate-mapping>

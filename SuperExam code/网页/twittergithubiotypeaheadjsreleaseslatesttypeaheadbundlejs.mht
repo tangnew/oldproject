@@ -1,0 +1,2626 @@
+From: <Saved by Blink>
+Subject: 
+Date: Thu, 24 Aug 2016 23:37:06 -0000
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----=_NextPart_000_6BB4_34D0CF98.2C39C352"
+
+------=_NextPart_000_6BB4_34D0CF98.2C39C352
+Content-Type: text/html
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; charset=
+=3DUTF-8"></head><body><pre style=3D"word-wrap: break-word; white-space: pr=
+e-wrap;">/*!
+ * typeahead.js 0.11.1
+ * https://github.com/twitter/typeahead.js
+ * Copyright 2013-2015 Twitter, Inc. and other contributors; Licensed MIT
+ */
+
+(function(root, factory) {
+    if (typeof define =3D=3D=3D "function" &amp;&amp; define.amd) {
+        define("bloodhound", [ "jquery" ], function(a0) {
+            return root["Bloodhound"] =3D factory(a0);
+        });
+    } else if (typeof exports =3D=3D=3D "object") {
+        module.exports =3D factory(require("jquery"));
+    } else {
+        root["Bloodhound"] =3D factory(jQuery);
+    }
+})(this, function($) {
+    var _ =3D function() {
+        "use strict";
+        return {
+            isMsie: function() {
+                return /(msie|trident)/i.test(navigator.userAgent) ? naviga=
+tor.userAgent.match(/(msie |rv:)(\d+(.\d+)?)/i)[2] : false;
+            },
+            isBlankString: function(str) {
+                return !str || /^\s*$/.test(str);
+            },
+            escapeRegExChars: function(str) {
+                return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "=
+\\$&amp;");
+            },
+            isString: function(obj) {
+                return typeof obj =3D=3D=3D "string";
+            },
+            isNumber: function(obj) {
+                return typeof obj =3D=3D=3D "number";
+            },
+            isArray: $.isArray,
+            isFunction: $.isFunction,
+            isObject: $.isPlainObject,
+            isUndefined: function(obj) {
+                return typeof obj =3D=3D=3D "undefined";
+            },
+            isElement: function(obj) {
+                return !!(obj &amp;&amp; obj.nodeType =3D=3D=3D 1);
+            },
+            isJQuery: function(obj) {
+                return obj instanceof $;
+            },
+            toStr: function toStr(s) {
+                return _.isUndefined(s) || s =3D=3D=3D null ? "" : s + "";
+            },
+            bind: $.proxy,
+            each: function(collection, cb) {
+                $.each(collection, reverseArgs);
+                function reverseArgs(index, value) {
+                    return cb(value, index);
+                }
+            },
+            map: $.map,
+            filter: $.grep,
+            every: function(obj, test) {
+                var result =3D true;
+                if (!obj) {
+                    return result;
+                }
+                $.each(obj, function(key, val) {
+                    if (!(result =3D test.call(null, val, key, obj))) {
+                        return false;
+                    }
+                });
+                return !!result;
+            },
+            some: function(obj, test) {
+                var result =3D false;
+                if (!obj) {
+                    return result;
+                }
+                $.each(obj, function(key, val) {
+                    if (result =3D test.call(null, val, key, obj)) {
+                        return false;
+                    }
+                });
+                return !!result;
+            },
+            mixin: $.extend,
+            identity: function(x) {
+                return x;
+            },
+            clone: function(obj) {
+                return $.extend(true, {}, obj);
+            },
+            getIdGenerator: function() {
+                var counter =3D 0;
+                return function() {
+                    return counter++;
+                };
+            },
+            templatify: function templatify(obj) {
+                return $.isFunction(obj) ? obj : template;
+                function template() {
+                    return String(obj);
+                }
+            },
+            defer: function(fn) {
+                setTimeout(fn, 0);
+            },
+            debounce: function(func, wait, immediate) {
+                var timeout, result;
+                return function() {
+                    var context =3D this, args =3D arguments, later, callNo=
+w;
+                    later =3D function() {
+                        timeout =3D null;
+                        if (!immediate) {
+                            result =3D func.apply(context, args);
+                        }
+                    };
+                    callNow =3D immediate &amp;&amp; !timeout;
+                    clearTimeout(timeout);
+                    timeout =3D setTimeout(later, wait);
+                    if (callNow) {
+                        result =3D func.apply(context, args);
+                    }
+                    return result;
+                };
+            },
+            throttle: function(func, wait) {
+                var context, args, timeout, result, previous, later;
+                previous =3D 0;
+                later =3D function() {
+                    previous =3D new Date();
+                    timeout =3D null;
+                    result =3D func.apply(context, args);
+                };
+                return function() {
+                    var now =3D new Date(), remaining =3D wait - (now - pre=
+vious);
+                    context =3D this;
+                    args =3D arguments;
+                    if (remaining &lt;=3D 0) {
+                        clearTimeout(timeout);
+                        timeout =3D null;
+                        previous =3D now;
+                        result =3D func.apply(context, args);
+                    } else if (!timeout) {
+                        timeout =3D setTimeout(later, remaining);
+                    }
+                    return result;
+                };
+            },
+            stringify: function(val) {
+                return _.isString(val) ? val : JSON.stringify(val);
+            },
+            noop: function() {}
+        };
+    }();
+    var VERSION =3D "0.11.1";
+    var tokenizers =3D function() {
+        "use strict";
+        return {
+            nonword: nonword,
+            whitespace: whitespace,
+            obj: {
+                nonword: getObjTokenizer(nonword),
+                whitespace: getObjTokenizer(whitespace)
+            }
+        };
+        function whitespace(str) {
+            str =3D _.toStr(str);
+            return str ? str.split(/\s+/) : [];
+        }
+        function nonword(str) {
+            str =3D _.toStr(str);
+            return str ? str.split(/\W+/) : [];
+        }
+        function getObjTokenizer(tokenizer) {
+            return function setKey(keys) {
+                keys =3D _.isArray(keys) ? keys : [].slice.call(arguments, =
+0);
+                return function tokenize(o) {
+                    var tokens =3D [];
+                    _.each(keys, function(k) {
+                        tokens =3D tokens.concat(tokenizer(_.toStr(o[k])));
+                    });
+                    return tokens;
+                };
+            };
+        }
+    }();
+    var LruCache =3D function() {
+        "use strict";
+        function LruCache(maxSize) {
+            this.maxSize =3D _.isNumber(maxSize) ? maxSize : 100;
+            this.reset();
+            if (this.maxSize &lt;=3D 0) {
+                this.set =3D this.get =3D $.noop;
+            }
+        }
+        _.mixin(LruCache.prototype, {
+            set: function set(key, val) {
+                var tailItem =3D this.list.tail, node;
+                if (this.size &gt;=3D this.maxSize) {
+                    this.list.remove(tailItem);
+                    delete this.hash[tailItem.key];
+                    this.size--;
+                }
+                if (node =3D this.hash[key]) {
+                    node.val =3D val;
+                    this.list.moveToFront(node);
+                } else {
+                    node =3D new Node(key, val);
+                    this.list.add(node);
+                    this.hash[key] =3D node;
+                    this.size++;
+                }
+            },
+            get: function get(key) {
+                var node =3D this.hash[key];
+                if (node) {
+                    this.list.moveToFront(node);
+                    return node.val;
+                }
+            },
+            reset: function reset() {
+                this.size =3D 0;
+                this.hash =3D {};
+                this.list =3D new List();
+            }
+        });
+        function List() {
+            this.head =3D this.tail =3D null;
+        }
+        _.mixin(List.prototype, {
+            add: function add(node) {
+                if (this.head) {
+                    node.next =3D this.head;
+                    this.head.prev =3D node;
+                }
+                this.head =3D node;
+                this.tail =3D this.tail || node;
+            },
+            remove: function remove(node) {
+                node.prev ? node.prev.next =3D node.next : this.head =3D no=
+de.next;
+                node.next ? node.next.prev =3D node.prev : this.tail =3D no=
+de.prev;
+            },
+            moveToFront: function(node) {
+                this.remove(node);
+                this.add(node);
+            }
+        });
+        function Node(key, val) {
+            this.key =3D key;
+            this.val =3D val;
+            this.prev =3D this.next =3D null;
+        }
+        return LruCache;
+    }();
+    var PersistentStorage =3D function() {
+        "use strict";
+        var LOCAL_STORAGE;
+        try {
+            LOCAL_STORAGE =3D window.localStorage;
+            LOCAL_STORAGE.setItem("~~~", "!");
+            LOCAL_STORAGE.removeItem("~~~");
+        } catch (err) {
+            LOCAL_STORAGE =3D null;
+        }
+        function PersistentStorage(namespace, override) {
+            this.prefix =3D [ "__", namespace, "__" ].join("");
+            this.ttlKey =3D "__ttl__";
+            this.keyMatcher =3D new RegExp("^" + _.escapeRegExChars(this.pr=
+efix));
+            this.ls =3D override || LOCAL_STORAGE;
+            !this.ls &amp;&amp; this._noop();
+        }
+        _.mixin(PersistentStorage.prototype, {
+            _prefix: function(key) {
+                return this.prefix + key;
+            },
+            _ttlKey: function(key) {
+                return this._prefix(key) + this.ttlKey;
+            },
+            _noop: function() {
+                this.get =3D this.set =3D this.remove =3D this.clear =3D th=
+is.isExpired =3D _.noop;
+            },
+            _safeSet: function(key, val) {
+                try {
+                    this.ls.setItem(key, val);
+                } catch (err) {
+                    if (err.name =3D=3D=3D "QuotaExceededError") {
+                        this.clear();
+                        this._noop();
+                    }
+                }
+            },
+            get: function(key) {
+                if (this.isExpired(key)) {
+                    this.remove(key);
+                }
+                return decode(this.ls.getItem(this._prefix(key)));
+            },
+            set: function(key, val, ttl) {
+                if (_.isNumber(ttl)) {
+                    this._safeSet(this._ttlKey(key), encode(now() + ttl));
+                } else {
+                    this.ls.removeItem(this._ttlKey(key));
+                }
+                return this._safeSet(this._prefix(key), encode(val));
+            },
+            remove: function(key) {
+                this.ls.removeItem(this._ttlKey(key));
+                this.ls.removeItem(this._prefix(key));
+                return this;
+            },
+            clear: function() {
+                var i, keys =3D gatherMatchingKeys(this.keyMatcher);
+                for (i =3D keys.length; i--; ) {
+                    this.remove(keys[i]);
+                }
+                return this;
+            },
+            isExpired: function(key) {
+                var ttl =3D decode(this.ls.getItem(this._ttlKey(key)));
+                return _.isNumber(ttl) &amp;&amp; now() &gt; ttl ? true : f=
+alse;
+            }
+        });
+        return PersistentStorage;
+        function now() {
+            return new Date().getTime();
+        }
+        function encode(val) {
+            return JSON.stringify(_.isUndefined(val) ? null : val);
+        }
+        function decode(val) {
+            return $.parseJSON(val);
+        }
+        function gatherMatchingKeys(keyMatcher) {
+            var i, key, keys =3D [], len =3D LOCAL_STORAGE.length;
+            for (i =3D 0; i &lt; len; i++) {
+                if ((key =3D LOCAL_STORAGE.key(i)).match(keyMatcher)) {
+                    keys.push(key.replace(keyMatcher, ""));
+                }
+            }
+            return keys;
+        }
+    }();
+    var Transport =3D function() {
+        "use strict";
+        var pendingRequestsCount =3D 0, pendingRequests =3D {}, maxPendingR=
+equests =3D 6, sharedCache =3D new LruCache(10);
+        function Transport(o) {
+            o =3D o || {};
+            this.cancelled =3D false;
+            this.lastReq =3D null;
+            this._send =3D o.transport;
+            this._get =3D o.limiter ? o.limiter(this._get) : this._get;
+            this._cache =3D o.cache =3D=3D=3D false ? new LruCache(0) : sha=
+redCache;
+        }
+        Transport.setMaxPendingRequests =3D function setMaxPendingRequests(=
+num) {
+            maxPendingRequests =3D num;
+        };
+        Transport.resetCache =3D function resetCache() {
+            sharedCache.reset();
+        };
+        _.mixin(Transport.prototype, {
+            _fingerprint: function fingerprint(o) {
+                o =3D o || {};
+                return o.url + o.type + $.param(o.data || {});
+            },
+            _get: function(o, cb) {
+                var that =3D this, fingerprint, jqXhr;
+                fingerprint =3D this._fingerprint(o);
+                if (this.cancelled || fingerprint !=3D=3D this.lastReq) {
+                    return;
+                }
+                if (jqXhr =3D pendingRequests[fingerprint]) {
+                    jqXhr.done(done).fail(fail);
+                } else if (pendingRequestsCount &lt; maxPendingRequests) {
+                    pendingRequestsCount++;
+                    pendingRequests[fingerprint] =3D this._send(o).done(don=
+e).fail(fail).always(always);
+                } else {
+                    this.onDeckRequestArgs =3D [].slice.call(arguments, 0);
+                }
+                function done(resp) {
+                    cb(null, resp);
+                    that._cache.set(fingerprint, resp);
+                }
+                function fail() {
+                    cb(true);
+                }
+                function always() {
+                    pendingRequestsCount--;
+                    delete pendingRequests[fingerprint];
+                    if (that.onDeckRequestArgs) {
+                        that._get.apply(that, that.onDeckRequestArgs);
+                        that.onDeckRequestArgs =3D null;
+                    }
+                }
+            },
+            get: function(o, cb) {
+                var resp, fingerprint;
+                cb =3D cb || $.noop;
+                o =3D _.isString(o) ? {
+                    url: o
+                } : o || {};
+                fingerprint =3D this._fingerprint(o);
+                this.cancelled =3D false;
+                this.lastReq =3D fingerprint;
+                if (resp =3D this._cache.get(fingerprint)) {
+                    cb(null, resp);
+                } else {
+                    this._get(o, cb);
+                }
+            },
+            cancel: function() {
+                this.cancelled =3D true;
+            }
+        });
+        return Transport;
+    }();
+    var SearchIndex =3D window.SearchIndex =3D function() {
+        "use strict";
+        var CHILDREN =3D "c", IDS =3D "i";
+        function SearchIndex(o) {
+            o =3D o || {};
+            if (!o.datumTokenizer || !o.queryTokenizer) {
+                $.error("datumTokenizer and queryTokenizer are both require=
+d");
+            }
+            this.identify =3D o.identify || _.stringify;
+            this.datumTokenizer =3D o.datumTokenizer;
+            this.queryTokenizer =3D o.queryTokenizer;
+            this.reset();
+        }
+        _.mixin(SearchIndex.prototype, {
+            bootstrap: function bootstrap(o) {
+                this.datums =3D o.datums;
+                this.trie =3D o.trie;
+            },
+            add: function(data) {
+                var that =3D this;
+                data =3D _.isArray(data) ? data : [ data ];
+                _.each(data, function(datum) {
+                    var id, tokens;
+                    that.datums[id =3D that.identify(datum)] =3D datum;
+                    tokens =3D normalizeTokens(that.datumTokenizer(datum));
+                    _.each(tokens, function(token) {
+                        var node, chars, ch;
+                        node =3D that.trie;
+                        chars =3D token.split("");
+                        while (ch =3D chars.shift()) {
+                            node =3D node[CHILDREN][ch] || (node[CHILDREN][=
+ch] =3D newNode());
+                            node[IDS].push(id);
+                        }
+                    });
+                });
+            },
+            get: function get(ids) {
+                var that =3D this;
+                return _.map(ids, function(id) {
+                    return that.datums[id];
+                });
+            },
+            search: function search(query) {
+                var that =3D this, tokens, matches;
+                tokens =3D normalizeTokens(this.queryTokenizer(query));
+                _.each(tokens, function(token) {
+                    var node, chars, ch, ids;
+                    if (matches &amp;&amp; matches.length =3D=3D=3D 0) {
+                        return false;
+                    }
+                    node =3D that.trie;
+                    chars =3D token.split("");
+                    while (node &amp;&amp; (ch =3D chars.shift())) {
+                        node =3D node[CHILDREN][ch];
+                    }
+                    if (node &amp;&amp; chars.length =3D=3D=3D 0) {
+                        ids =3D node[IDS].slice(0);
+                        matches =3D matches ? getIntersection(matches, ids)=
+ : ids;
+                    } else {
+                        matches =3D [];
+                        return false;
+                    }
+                });
+                return matches ? _.map(unique(matches), function(id) {
+                    return that.datums[id];
+                }) : [];
+            },
+            all: function all() {
+                var values =3D [];
+                for (var key in this.datums) {
+                    values.push(this.datums[key]);
+                }
+                return values;
+            },
+            reset: function reset() {
+                this.datums =3D {};
+                this.trie =3D newNode();
+            },
+            serialize: function serialize() {
+                return {
+                    datums: this.datums,
+                    trie: this.trie
+                };
+            }
+        });
+        return SearchIndex;
+        function normalizeTokens(tokens) {
+            tokens =3D _.filter(tokens, function(token) {
+                return !!token;
+            });
+            tokens =3D _.map(tokens, function(token) {
+                return token.toLowerCase();
+            });
+            return tokens;
+        }
+        function newNode() {
+            var node =3D {};
+            node[IDS] =3D [];
+            node[CHILDREN] =3D {};
+            return node;
+        }
+        function unique(array) {
+            var seen =3D {}, uniques =3D [];
+            for (var i =3D 0, len =3D array.length; i &lt; len; i++) {
+                if (!seen[array[i]]) {
+                    seen[array[i]] =3D true;
+                    uniques.push(array[i]);
+                }
+            }
+            return uniques;
+        }
+        function getIntersection(arrayA, arrayB) {
+            var ai =3D 0, bi =3D 0, intersection =3D [];
+            arrayA =3D arrayA.sort();
+            arrayB =3D arrayB.sort();
+            var lenArrayA =3D arrayA.length, lenArrayB =3D arrayB.length;
+            while (ai &lt; lenArrayA &amp;&amp; bi &lt; lenArrayB) {
+                if (arrayA[ai] &lt; arrayB[bi]) {
+                    ai++;
+                } else if (arrayA[ai] &gt; arrayB[bi]) {
+                    bi++;
+                } else {
+                    intersection.push(arrayA[ai]);
+                    ai++;
+                    bi++;
+                }
+            }
+            return intersection;
+        }
+    }();
+    var Prefetch =3D function() {
+        "use strict";
+        var keys;
+        keys =3D {
+            data: "data",
+            protocol: "protocol",
+            thumbprint: "thumbprint"
+        };
+        function Prefetch(o) {
+            this.url =3D o.url;
+            this.ttl =3D o.ttl;
+            this.cache =3D o.cache;
+            this.prepare =3D o.prepare;
+            this.transform =3D o.transform;
+            this.transport =3D o.transport;
+            this.thumbprint =3D o.thumbprint;
+            this.storage =3D new PersistentStorage(o.cacheKey);
+        }
+        _.mixin(Prefetch.prototype, {
+            _settings: function settings() {
+                return {
+                    url: this.url,
+                    type: "GET",
+                    dataType: "json"
+                };
+            },
+            store: function store(data) {
+                if (!this.cache) {
+                    return;
+                }
+                this.storage.set(keys.data, data, this.ttl);
+                this.storage.set(keys.protocol, location.protocol, this.ttl=
+);
+                this.storage.set(keys.thumbprint, this.thumbprint, this.ttl=
+);
+            },
+            fromCache: function fromCache() {
+                var stored =3D {}, isExpired;
+                if (!this.cache) {
+                    return null;
+                }
+                stored.data =3D this.storage.get(keys.data);
+                stored.protocol =3D this.storage.get(keys.protocol);
+                stored.thumbprint =3D this.storage.get(keys.thumbprint);
+                isExpired =3D stored.thumbprint !=3D=3D this.thumbprint || =
+stored.protocol !=3D=3D location.protocol;
+                return stored.data &amp;&amp; !isExpired ? stored.data : nu=
+ll;
+            },
+            fromNetwork: function(cb) {
+                var that =3D this, settings;
+                if (!cb) {
+                    return;
+                }
+                settings =3D this.prepare(this._settings());
+                this.transport(settings).fail(onError).done(onResponse);
+                function onError() {
+                    cb(true);
+                }
+                function onResponse(resp) {
+                    cb(null, that.transform(resp));
+                }
+            },
+            clear: function clear() {
+                this.storage.clear();
+                return this;
+            }
+        });
+        return Prefetch;
+    }();
+    var Remote =3D function() {
+        "use strict";
+        function Remote(o) {
+            this.url =3D o.url;
+            this.prepare =3D o.prepare;
+            this.transform =3D o.transform;
+            this.transport =3D new Transport({
+                cache: o.cache,
+                limiter: o.limiter,
+                transport: o.transport
+            });
+        }
+        _.mixin(Remote.prototype, {
+            _settings: function settings() {
+                return {
+                    url: this.url,
+                    type: "GET",
+                    dataType: "json"
+                };
+            },
+            get: function get(query, cb) {
+                var that =3D this, settings;
+                if (!cb) {
+                    return;
+                }
+                query =3D query || "";
+                settings =3D this.prepare(query, this._settings());
+                return this.transport.get(settings, onResponse);
+                function onResponse(err, resp) {
+                    err ? cb([]) : cb(that.transform(resp));
+                }
+            },
+            cancelLastRequest: function cancelLastRequest() {
+                this.transport.cancel();
+            }
+        });
+        return Remote;
+    }();
+    var oParser =3D function() {
+        "use strict";
+        return function parse(o) {
+            var defaults, sorter;
+            defaults =3D {
+                initialize: true,
+                identify: _.stringify,
+                datumTokenizer: null,
+                queryTokenizer: null,
+                sufficient: 5,
+                sorter: null,
+                local: [],
+                prefetch: null,
+                remote: null
+            };
+            o =3D _.mixin(defaults, o || {});
+            !o.datumTokenizer &amp;&amp; $.error("datumTokenizer is require=
+d");
+            !o.queryTokenizer &amp;&amp; $.error("queryTokenizer is require=
+d");
+            sorter =3D o.sorter;
+            o.sorter =3D sorter ? function(x) {
+                return x.sort(sorter);
+            } : _.identity;
+            o.local =3D _.isFunction(o.local) ? o.local() : o.local;
+            o.prefetch =3D parsePrefetch(o.prefetch);
+            o.remote =3D parseRemote(o.remote);
+            return o;
+        };
+        function parsePrefetch(o) {
+            var defaults;
+            if (!o) {
+                return null;
+            }
+            defaults =3D {
+                url: null,
+                ttl: 24 * 60 * 60 * 1e3,
+                cache: true,
+                cacheKey: null,
+                thumbprint: "",
+                prepare: _.identity,
+                transform: _.identity,
+                transport: null
+            };
+            o =3D _.isString(o) ? {
+                url: o
+            } : o;
+            o =3D _.mixin(defaults, o);
+            !o.url &amp;&amp; $.error("prefetch requires url to be set");
+            o.transform =3D o.filter || o.transform;
+            o.cacheKey =3D o.cacheKey || o.url;
+            o.thumbprint =3D VERSION + o.thumbprint;
+            o.transport =3D o.transport ? callbackToDeferred(o.transport) :=
+ $.ajax;
+            return o;
+        }
+        function parseRemote(o) {
+            var defaults;
+            if (!o) {
+                return;
+            }
+            defaults =3D {
+                url: null,
+                cache: true,
+                prepare: null,
+                replace: null,
+                wildcard: null,
+                limiter: null,
+                rateLimitBy: "debounce",
+                rateLimitWait: 300,
+                transform: _.identity,
+                transport: null
+            };
+            o =3D _.isString(o) ? {
+                url: o
+            } : o;
+            o =3D _.mixin(defaults, o);
+            !o.url &amp;&amp; $.error("remote requires url to be set");
+            o.transform =3D o.filter || o.transform;
+            o.prepare =3D toRemotePrepare(o);
+            o.limiter =3D toLimiter(o);
+            o.transport =3D o.transport ? callbackToDeferred(o.transport) :=
+ $.ajax;
+            delete o.replace;
+            delete o.wildcard;
+            delete o.rateLimitBy;
+            delete o.rateLimitWait;
+            return o;
+        }
+        function toRemotePrepare(o) {
+            var prepare, replace, wildcard;
+            prepare =3D o.prepare;
+            replace =3D o.replace;
+            wildcard =3D o.wildcard;
+            if (prepare) {
+                return prepare;
+            }
+            if (replace) {
+                prepare =3D prepareByReplace;
+            } else if (o.wildcard) {
+                prepare =3D prepareByWildcard;
+            } else {
+                prepare =3D idenityPrepare;
+            }
+            return prepare;
+            function prepareByReplace(query, settings) {
+                settings.url =3D replace(settings.url, query);
+                return settings;
+            }
+            function prepareByWildcard(query, settings) {
+                settings.url =3D settings.url.replace(wildcard, encodeURICo=
+mponent(query));
+                return settings;
+            }
+            function idenityPrepare(query, settings) {
+                return settings;
+            }
+        }
+        function toLimiter(o) {
+            var limiter, method, wait;
+            limiter =3D o.limiter;
+            method =3D o.rateLimitBy;
+            wait =3D o.rateLimitWait;
+            if (!limiter) {
+                limiter =3D /^throttle$/i.test(method) ? throttle(wait) : d=
+ebounce(wait);
+            }
+            return limiter;
+            function debounce(wait) {
+                return function debounce(fn) {
+                    return _.debounce(fn, wait);
+                };
+            }
+            function throttle(wait) {
+                return function throttle(fn) {
+                    return _.throttle(fn, wait);
+                };
+            }
+        }
+        function callbackToDeferred(fn) {
+            return function wrapper(o) {
+                var deferred =3D $.Deferred();
+                fn(o, onSuccess, onError);
+                return deferred;
+                function onSuccess(resp) {
+                    _.defer(function() {
+                        deferred.resolve(resp);
+                    });
+                }
+                function onError(err) {
+                    _.defer(function() {
+                        deferred.reject(err);
+                    });
+                }
+            };
+        }
+    }();
+    var Bloodhound =3D function() {
+        "use strict";
+        var old;
+        old =3D window &amp;&amp; window.Bloodhound;
+        function Bloodhound(o) {
+            o =3D oParser(o);
+            this.sorter =3D o.sorter;
+            this.identify =3D o.identify;
+            this.sufficient =3D o.sufficient;
+            this.local =3D o.local;
+            this.remote =3D o.remote ? new Remote(o.remote) : null;
+            this.prefetch =3D o.prefetch ? new Prefetch(o.prefetch) : null;
+            this.index =3D new SearchIndex({
+                identify: this.identify,
+                datumTokenizer: o.datumTokenizer,
+                queryTokenizer: o.queryTokenizer
+            });
+            o.initialize !=3D=3D false &amp;&amp; this.initialize();
+        }
+        Bloodhound.noConflict =3D function noConflict() {
+            window &amp;&amp; (window.Bloodhound =3D old);
+            return Bloodhound;
+        };
+        Bloodhound.tokenizers =3D tokenizers;
+        _.mixin(Bloodhound.prototype, {
+            __ttAdapter: function ttAdapter() {
+                var that =3D this;
+                return this.remote ? withAsync : withoutAsync;
+                function withAsync(query, sync, async) {
+                    return that.search(query, sync, async);
+                }
+                function withoutAsync(query, sync) {
+                    return that.search(query, sync);
+                }
+            },
+            _loadPrefetch: function loadPrefetch() {
+                var that =3D this, deferred, serialized;
+                deferred =3D $.Deferred();
+                if (!this.prefetch) {
+                    deferred.resolve();
+                } else if (serialized =3D this.prefetch.fromCache()) {
+                    this.index.bootstrap(serialized);
+                    deferred.resolve();
+                } else {
+                    this.prefetch.fromNetwork(done);
+                }
+                return deferred.promise();
+                function done(err, data) {
+                    if (err) {
+                        return deferred.reject();
+                    }
+                    that.add(data);
+                    that.prefetch.store(that.index.serialize());
+                    deferred.resolve();
+                }
+            },
+            _initialize: function initialize() {
+                var that =3D this, deferred;
+                this.clear();
+                (this.initPromise =3D this._loadPrefetch()).done(addLocalTo=
+Index);
+                return this.initPromise;
+                function addLocalToIndex() {
+                    that.add(that.local);
+                }
+            },
+            initialize: function initialize(force) {
+                return !this.initPromise || force ? this._initialize() : th=
+is.initPromise;
+            },
+            add: function add(data) {
+                this.index.add(data);
+                return this;
+            },
+            get: function get(ids) {
+                ids =3D _.isArray(ids) ? ids : [].slice.call(arguments);
+                return this.index.get(ids);
+            },
+            search: function search(query, sync, async) {
+                var that =3D this, local;
+                local =3D this.sorter(this.index.search(query));
+                sync(this.remote ? local.slice() : local);
+                if (this.remote &amp;&amp; local.length &lt; this.sufficien=
+t) {
+                    this.remote.get(query, processRemote);
+                } else if (this.remote) {
+                    this.remote.cancelLastRequest();
+                }
+                return this;
+                function processRemote(remote) {
+                    var nonDuplicates =3D [];
+                    _.each(remote, function(r) {
+                        !_.some(local, function(l) {
+                            return that.identify(r) =3D=3D=3D that.identify=
+(l);
+                        }) &amp;&amp; nonDuplicates.push(r);
+                    });
+                    async &amp;&amp; async(nonDuplicates);
+                }
+            },
+            all: function all() {
+                return this.index.all();
+            },
+            clear: function clear() {
+                this.index.reset();
+                return this;
+            },
+            clearPrefetchCache: function clearPrefetchCache() {
+                this.prefetch &amp;&amp; this.prefetch.clear();
+                return this;
+            },
+            clearRemoteCache: function clearRemoteCache() {
+                Transport.resetCache();
+                return this;
+            },
+            ttAdapter: function ttAdapter() {
+                return this.__ttAdapter();
+            }
+        });
+        return Bloodhound;
+    }();
+    return Bloodhound;
+});
+
+(function(root, factory) {
+    if (typeof define =3D=3D=3D "function" &amp;&amp; define.amd) {
+        define("typeahead.js", [ "jquery" ], function(a0) {
+            return factory(a0);
+        });
+    } else if (typeof exports =3D=3D=3D "object") {
+        module.exports =3D factory(require("jquery"));
+    } else {
+        factory(jQuery);
+    }
+})(this, function($) {
+    var _ =3D function() {
+        "use strict";
+        return {
+            isMsie: function() {
+                return /(msie|trident)/i.test(navigator.userAgent) ? naviga=
+tor.userAgent.match(/(msie |rv:)(\d+(.\d+)?)/i)[2] : false;
+            },
+            isBlankString: function(str) {
+                return !str || /^\s*$/.test(str);
+            },
+            escapeRegExChars: function(str) {
+                return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "=
+\\$&amp;");
+            },
+            isString: function(obj) {
+                return typeof obj =3D=3D=3D "string";
+            },
+            isNumber: function(obj) {
+                return typeof obj =3D=3D=3D "number";
+            },
+            isArray: $.isArray,
+            isFunction: $.isFunction,
+            isObject: $.isPlainObject,
+            isUndefined: function(obj) {
+                return typeof obj =3D=3D=3D "undefined";
+            },
+            isElement: function(obj) {
+                return !!(obj &amp;&amp; obj.nodeType =3D=3D=3D 1);
+            },
+            isJQuery: function(obj) {
+                return obj instanceof $;
+            },
+            toStr: function toStr(s) {
+                return _.isUndefined(s) || s =3D=3D=3D null ? "" : s + "";
+            },
+            bind: $.proxy,
+            each: function(collection, cb) {
+                $.each(collection, reverseArgs);
+                function reverseArgs(index, value) {
+                    return cb(value, index);
+                }
+            },
+            map: $.map,
+            filter: $.grep,
+            every: function(obj, test) {
+                var result =3D true;
+                if (!obj) {
+                    return result;
+                }
+                $.each(obj, function(key, val) {
+                    if (!(result =3D test.call(null, val, key, obj))) {
+                        return false;
+                    }
+                });
+                return !!result;
+            },
+            some: function(obj, test) {
+                var result =3D false;
+                if (!obj) {
+                    return result;
+                }
+                $.each(obj, function(key, val) {
+                    if (result =3D test.call(null, val, key, obj)) {
+                        return false;
+                    }
+                });
+                return !!result;
+            },
+            mixin: $.extend,
+            identity: function(x) {
+                return x;
+            },
+            clone: function(obj) {
+                return $.extend(true, {}, obj);
+            },
+            getIdGenerator: function() {
+                var counter =3D 0;
+                return function() {
+                    return counter++;
+                };
+            },
+            templatify: function templatify(obj) {
+                return $.isFunction(obj) ? obj : template;
+                function template() {
+                    return String(obj);
+                }
+            },
+            defer: function(fn) {
+                setTimeout(fn, 0);
+            },
+            debounce: function(func, wait, immediate) {
+                var timeout, result;
+                return function() {
+                    var context =3D this, args =3D arguments, later, callNo=
+w;
+                    later =3D function() {
+                        timeout =3D null;
+                        if (!immediate) {
+                            result =3D func.apply(context, args);
+                        }
+                    };
+                    callNow =3D immediate &amp;&amp; !timeout;
+                    clearTimeout(timeout);
+                    timeout =3D setTimeout(later, wait);
+                    if (callNow) {
+                        result =3D func.apply(context, args);
+                    }
+                    return result;
+                };
+            },
+            throttle: function(func, wait) {
+                var context, args, timeout, result, previous, later;
+                previous =3D 0;
+                later =3D function() {
+                    previous =3D new Date();
+                    timeout =3D null;
+                    result =3D func.apply(context, args);
+                };
+                return function() {
+                    var now =3D new Date(), remaining =3D wait - (now - pre=
+vious);
+                    context =3D this;
+                    args =3D arguments;
+                    if (remaining &lt;=3D 0) {
+                        clearTimeout(timeout);
+                        timeout =3D null;
+                        previous =3D now;
+                        result =3D func.apply(context, args);
+                    } else if (!timeout) {
+                        timeout =3D setTimeout(later, remaining);
+                    }
+                    return result;
+                };
+            },
+            stringify: function(val) {
+                return _.isString(val) ? val : JSON.stringify(val);
+            },
+            noop: function() {}
+        };
+    }();
+    var WWW =3D function() {
+        "use strict";
+        var defaultClassNames =3D {
+            wrapper: "twitter-typeahead",
+            input: "tt-input",
+            hint: "tt-hint",
+            menu: "tt-menu",
+            dataset: "tt-dataset",
+            suggestion: "tt-suggestion",
+            selectable: "tt-selectable",
+            empty: "tt-empty",
+            open: "tt-open",
+            cursor: "tt-cursor",
+            highlight: "tt-highlight"
+        };
+        return build;
+        function build(o) {
+            var www, classes;
+            classes =3D _.mixin({}, defaultClassNames, o);
+            www =3D {
+                css: buildCss(),
+                classes: classes,
+                html: buildHtml(classes),
+                selectors: buildSelectors(classes)
+            };
+            return {
+                css: www.css,
+                html: www.html,
+                classes: www.classes,
+                selectors: www.selectors,
+                mixin: function(o) {
+                    _.mixin(o, www);
+                }
+            };
+        }
+        function buildHtml(c) {
+            return {
+                wrapper: '&lt;span class=3D"' + c.wrapper + '"&gt;&lt;/span=
+&gt;',
+                menu: '&lt;div class=3D"' + c.menu + '"&gt;&lt;/div&gt;'
+            };
+        }
+        function buildSelectors(classes) {
+            var selectors =3D {};
+            _.each(classes, function(v, k) {
+                selectors[k] =3D "." + v;
+            });
+            return selectors;
+        }
+        function buildCss() {
+            var css =3D {
+                wrapper: {
+                    position: "relative",
+                    display: "inline-block"
+                },
+                hint: {
+                    position: "absolute",
+                    top: "0",
+                    left: "0",
+                    borderColor: "transparent",
+                    boxShadow: "none",
+                    opacity: "1"
+                },
+                input: {
+                    position: "relative",
+                    verticalAlign: "top",
+                    backgroundColor: "transparent"
+                },
+                inputWithNoHint: {
+                    position: "relative",
+                    verticalAlign: "top"
+                },
+                menu: {
+                    position: "absolute",
+                    top: "100%",
+                    left: "0",
+                    zIndex: "100",
+                    display: "none"
+                },
+                ltr: {
+                    left: "0",
+                    right: "auto"
+                },
+                rtl: {
+                    left: "auto",
+                    right: " 0"
+                }
+            };
+            if (_.isMsie()) {
+                _.mixin(css.input, {
+                    backgroundImage: "url(data:image/gif;base64,R0lGODlhAQA=
+BAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7)"
+                });
+            }
+            return css;
+        }
+    }();
+    var EventBus =3D function() {
+        "use strict";
+        var namespace, deprecationMap;
+        namespace =3D "typeahead:";
+        deprecationMap =3D {
+            render: "rendered",
+            cursorchange: "cursorchanged",
+            select: "selected",
+            autocomplete: "autocompleted"
+        };
+        function EventBus(o) {
+            if (!o || !o.el) {
+                $.error("EventBus initialized without el");
+            }
+            this.$el =3D $(o.el);
+        }
+        _.mixin(EventBus.prototype, {
+            _trigger: function(type, args) {
+                var $e;
+                $e =3D $.Event(namespace + type);
+                (args =3D args || []).unshift($e);
+                this.$el.trigger.apply(this.$el, args);
+                return $e;
+            },
+            before: function(type) {
+                var args, $e;
+                args =3D [].slice.call(arguments, 1);
+                $e =3D this._trigger("before" + type, args);
+                return $e.isDefaultPrevented();
+            },
+            trigger: function(type) {
+                var deprecatedType;
+                this._trigger(type, [].slice.call(arguments, 1));
+                if (deprecatedType =3D deprecationMap[type]) {
+                    this._trigger(deprecatedType, [].slice.call(arguments, =
+1));
+                }
+            }
+        });
+        return EventBus;
+    }();
+    var EventEmitter =3D function() {
+        "use strict";
+        var splitter =3D /\s+/, nextTick =3D getNextTick();
+        return {
+            onSync: onSync,
+            onAsync: onAsync,
+            off: off,
+            trigger: trigger
+        };
+        function on(method, types, cb, context) {
+            var type;
+            if (!cb) {
+                return this;
+            }
+            types =3D types.split(splitter);
+            cb =3D context ? bindContext(cb, context) : cb;
+            this._callbacks =3D this._callbacks || {};
+            while (type =3D types.shift()) {
+                this._callbacks[type] =3D this._callbacks[type] || {
+                    sync: [],
+                    async: []
+                };
+                this._callbacks[type][method].push(cb);
+            }
+            return this;
+        }
+        function onAsync(types, cb, context) {
+            return on.call(this, "async", types, cb, context);
+        }
+        function onSync(types, cb, context) {
+            return on.call(this, "sync", types, cb, context);
+        }
+        function off(types) {
+            var type;
+            if (!this._callbacks) {
+                return this;
+            }
+            types =3D types.split(splitter);
+            while (type =3D types.shift()) {
+                delete this._callbacks[type];
+            }
+            return this;
+        }
+        function trigger(types) {
+            var type, callbacks, args, syncFlush, asyncFlush;
+            if (!this._callbacks) {
+                return this;
+            }
+            types =3D types.split(splitter);
+            args =3D [].slice.call(arguments, 1);
+            while ((type =3D types.shift()) &amp;&amp; (callbacks =3D this.=
+_callbacks[type])) {
+                syncFlush =3D getFlush(callbacks.sync, this, [ type ].conca=
+t(args));
+                asyncFlush =3D getFlush(callbacks.async, this, [ type ].con=
+cat(args));
+                syncFlush() &amp;&amp; nextTick(asyncFlush);
+            }
+            return this;
+        }
+        function getFlush(callbacks, context, args) {
+            return flush;
+            function flush() {
+                var cancelled;
+                for (var i =3D 0, len =3D callbacks.length; !cancelled &amp=
+;&amp; i &lt; len; i +=3D 1) {
+                    cancelled =3D callbacks[i].apply(context, args) =3D=3D=
+=3D false;
+                }
+                return !cancelled;
+            }
+        }
+        function getNextTick() {
+            var nextTickFn;
+            if (window.setImmediate) {
+                nextTickFn =3D function nextTickSetImmediate(fn) {
+                    setImmediate(function() {
+                        fn();
+                    });
+                };
+            } else {
+                nextTickFn =3D function nextTickSetTimeout(fn) {
+                    setTimeout(function() {
+                        fn();
+                    }, 0);
+                };
+            }
+            return nextTickFn;
+        }
+        function bindContext(fn, context) {
+            return fn.bind ? fn.bind(context) : function() {
+                fn.apply(context, [].slice.call(arguments, 0));
+            };
+        }
+    }();
+    var highlight =3D function(doc) {
+        "use strict";
+        var defaults =3D {
+            node: null,
+            pattern: null,
+            tagName: "strong",
+            className: null,
+            wordsOnly: false,
+            caseSensitive: false
+        };
+        return function hightlight(o) {
+            var regex;
+            o =3D _.mixin({}, defaults, o);
+            if (!o.node || !o.pattern) {
+                return;
+            }
+            o.pattern =3D _.isArray(o.pattern) ? o.pattern : [ o.pattern ];
+            regex =3D getRegex(o.pattern, o.caseSensitive, o.wordsOnly);
+            traverse(o.node, hightlightTextNode);
+            function hightlightTextNode(textNode) {
+                var match, patternNode, wrapperNode;
+                if (match =3D regex.exec(textNode.data)) {
+                    wrapperNode =3D doc.createElement(o.tagName);
+                    o.className &amp;&amp; (wrapperNode.className =3D o.cla=
+ssName);
+                    patternNode =3D textNode.splitText(match.index);
+                    patternNode.splitText(match[0].length);
+                    wrapperNode.appendChild(patternNode.cloneNode(true));
+                    textNode.parentNode.replaceChild(wrapperNode, patternNo=
+de);
+                }
+                return !!match;
+            }
+            function traverse(el, hightlightTextNode) {
+                var childNode, TEXT_NODE_TYPE =3D 3;
+                for (var i =3D 0; i &lt; el.childNodes.length; i++) {
+                    childNode =3D el.childNodes[i];
+                    if (childNode.nodeType =3D=3D=3D TEXT_NODE_TYPE) {
+                        i +=3D hightlightTextNode(childNode) ? 1 : 0;
+                    } else {
+                        traverse(childNode, hightlightTextNode);
+                    }
+                }
+            }
+        };
+        function getRegex(patterns, caseSensitive, wordsOnly) {
+            var escapedPatterns =3D [], regexStr;
+            for (var i =3D 0, len =3D patterns.length; i &lt; len; i++) {
+                escapedPatterns.push(_.escapeRegExChars(patterns[i]));
+            }
+            regexStr =3D wordsOnly ? "\\b(" + escapedPatterns.join("|") + "=
+)\\b" : "(" + escapedPatterns.join("|") + ")";
+            return caseSensitive ? new RegExp(regexStr) : new RegExp(regexS=
+tr, "i");
+        }
+    }(window.document);
+    var Input =3D function() {
+        "use strict";
+        var specialKeyCodeMap;
+        specialKeyCodeMap =3D {
+            9: "tab",
+            27: "esc",
+            37: "left",
+            39: "right",
+            13: "enter",
+            38: "up",
+            40: "down"
+        };
+        function Input(o, www) {
+            o =3D o || {};
+            if (!o.input) {
+                $.error("input is missing");
+            }
+            www.mixin(this);
+            this.$hint =3D $(o.hint);
+            this.$input =3D $(o.input);
+            this.query =3D this.$input.val();
+            this.queryWhenFocused =3D this.hasFocus() ? this.query : null;
+            this.$overflowHelper =3D buildOverflowHelper(this.$input);
+            this._checkLanguageDirection();
+            if (this.$hint.length =3D=3D=3D 0) {
+                this.setHint =3D this.getHint =3D this.clearHint =3D this.c=
+learHintIfInvalid =3D _.noop;
+            }
+        }
+        Input.normalizeQuery =3D function(str) {
+            return _.toStr(str).replace(/^\s*/g, "").replace(/\s{2,}/g, " "=
+);
+        };
+        _.mixin(Input.prototype, EventEmitter, {
+            _onBlur: function onBlur() {
+                this.resetInputValue();
+                this.trigger("blurred");
+            },
+            _onFocus: function onFocus() {
+                this.queryWhenFocused =3D this.query;
+                this.trigger("focused");
+            },
+            _onKeydown: function onKeydown($e) {
+                var keyName =3D specialKeyCodeMap[$e.which || $e.keyCode];
+                this._managePreventDefault(keyName, $e);
+                if (keyName &amp;&amp; this._shouldTrigger(keyName, $e)) {
+                    this.trigger(keyName + "Keyed", $e);
+                }
+            },
+            _onInput: function onInput() {
+                this._setQuery(this.getInputValue());
+                this.clearHintIfInvalid();
+                this._checkLanguageDirection();
+            },
+            _managePreventDefault: function managePreventDefault(keyName, $=
+e) {
+                var preventDefault;
+                switch (keyName) {
+                  case "up":
+                  case "down":
+                    preventDefault =3D !withModifier($e);
+                    break;
+
+                  default:
+                    preventDefault =3D false;
+                }
+                preventDefault &amp;&amp; $e.preventDefault();
+            },
+            _shouldTrigger: function shouldTrigger(keyName, $e) {
+                var trigger;
+                switch (keyName) {
+                  case "tab":
+                    trigger =3D !withModifier($e);
+                    break;
+
+                  default:
+                    trigger =3D true;
+                }
+                return trigger;
+            },
+            _checkLanguageDirection: function checkLanguageDirection() {
+                var dir =3D (this.$input.css("direction") || "ltr").toLower=
+Case();
+                if (this.dir !=3D=3D dir) {
+                    this.dir =3D dir;
+                    this.$hint.attr("dir", dir);
+                    this.trigger("langDirChanged", dir);
+                }
+            },
+            _setQuery: function setQuery(val, silent) {
+                var areEquivalent, hasDifferentWhitespace;
+                areEquivalent =3D areQueriesEquivalent(val, this.query);
+                hasDifferentWhitespace =3D areEquivalent ? this.query.lengt=
+h !=3D=3D val.length : false;
+                this.query =3D val;
+                if (!silent &amp;&amp; !areEquivalent) {
+                    this.trigger("queryChanged", this.query);
+                } else if (!silent &amp;&amp; hasDifferentWhitespace) {
+                    this.trigger("whitespaceChanged", this.query);
+                }
+            },
+            bind: function() {
+                var that =3D this, onBlur, onFocus, onKeydown, onInput;
+                onBlur =3D _.bind(this._onBlur, this);
+                onFocus =3D _.bind(this._onFocus, this);
+                onKeydown =3D _.bind(this._onKeydown, this);
+                onInput =3D _.bind(this._onInput, this);
+                this.$input.on("blur.tt", onBlur).on("focus.tt", onFocus).o=
+n("keydown.tt", onKeydown);
+                if (!_.isMsie() || _.isMsie() &gt; 9) {
+                    this.$input.on("input.tt", onInput);
+                } else {
+                    this.$input.on("keydown.tt keypress.tt cut.tt paste.tt"=
+, function($e) {
+                        if (specialKeyCodeMap[$e.which || $e.keyCode]) {
+                            return;
+                        }
+                        _.defer(_.bind(that._onInput, that, $e));
+                    });
+                }
+                return this;
+            },
+            focus: function focus() {
+                this.$input.focus();
+            },
+            blur: function blur() {
+                this.$input.blur();
+            },
+            getLangDir: function getLangDir() {
+                return this.dir;
+            },
+            getQuery: function getQuery() {
+                return this.query || "";
+            },
+            setQuery: function setQuery(val, silent) {
+                this.setInputValue(val);
+                this._setQuery(val, silent);
+            },
+            hasQueryChangedSinceLastFocus: function hasQueryChangedSinceLas=
+tFocus() {
+                return this.query !=3D=3D this.queryWhenFocused;
+            },
+            getInputValue: function getInputValue() {
+                return this.$input.val();
+            },
+            setInputValue: function setInputValue(value) {
+                this.$input.val(value);
+                this.clearHintIfInvalid();
+                this._checkLanguageDirection();
+            },
+            resetInputValue: function resetInputValue() {
+                this.setInputValue(this.query);
+            },
+            getHint: function getHint() {
+                return this.$hint.val();
+            },
+            setHint: function setHint(value) {
+                this.$hint.val(value);
+            },
+            clearHint: function clearHint() {
+                this.setHint("");
+            },
+            clearHintIfInvalid: function clearHintIfInvalid() {
+                var val, hint, valIsPrefixOfHint, isValid;
+                val =3D this.getInputValue();
+                hint =3D this.getHint();
+                valIsPrefixOfHint =3D val !=3D=3D hint &amp;&amp; hint.inde=
+xOf(val) =3D=3D=3D 0;
+                isValid =3D val !=3D=3D "" &amp;&amp; valIsPrefixOfHint &am=
+p;&amp; !this.hasOverflow();
+                !isValid &amp;&amp; this.clearHint();
+            },
+            hasFocus: function hasFocus() {
+                return this.$input.is(":focus");
+            },
+            hasOverflow: function hasOverflow() {
+                var constraint =3D this.$input.width() - 2;
+                this.$overflowHelper.text(this.getInputValue());
+                return this.$overflowHelper.width() &gt;=3D constraint;
+            },
+            isCursorAtEnd: function() {
+                var valueLength, selectionStart, range;
+                valueLength =3D this.$input.val().length;
+                selectionStart =3D this.$input[0].selectionStart;
+                if (_.isNumber(selectionStart)) {
+                    return selectionStart =3D=3D=3D valueLength;
+                } else if (document.selection) {
+                    range =3D document.selection.createRange();
+                    range.moveStart("character", -valueLength);
+                    return valueLength =3D=3D=3D range.text.length;
+                }
+                return true;
+            },
+            destroy: function destroy() {
+                this.$hint.off(".tt");
+                this.$input.off(".tt");
+                this.$overflowHelper.remove();
+                this.$hint =3D this.$input =3D this.$overflowHelper =3D $("=
+&lt;div&gt;");
+            }
+        });
+        return Input;
+        function buildOverflowHelper($input) {
+            return $('&lt;pre aria-hidden=3D"true"&gt;&lt;/pre&gt;').css({
+                position: "absolute",
+                visibility: "hidden",
+                whiteSpace: "pre",
+                fontFamily: $input.css("font-family"),
+                fontSize: $input.css("font-size"),
+                fontStyle: $input.css("font-style"),
+                fontVariant: $input.css("font-variant"),
+                fontWeight: $input.css("font-weight"),
+                wordSpacing: $input.css("word-spacing"),
+                letterSpacing: $input.css("letter-spacing"),
+                textIndent: $input.css("text-indent"),
+                textRendering: $input.css("text-rendering"),
+                textTransform: $input.css("text-transform")
+            }).insertAfter($input);
+        }
+        function areQueriesEquivalent(a, b) {
+            return Input.normalizeQuery(a) =3D=3D=3D Input.normalizeQuery(b=
+);
+        }
+        function withModifier($e) {
+            return $e.altKey || $e.ctrlKey || $e.metaKey || $e.shiftKey;
+        }
+    }();
+    var Dataset =3D function() {
+        "use strict";
+        var keys, nameGenerator;
+        keys =3D {
+            val: "tt-selectable-display",
+            obj: "tt-selectable-object"
+        };
+        nameGenerator =3D _.getIdGenerator();
+        function Dataset(o, www) {
+            o =3D o || {};
+            o.templates =3D o.templates || {};
+            o.templates.notFound =3D o.templates.notFound || o.templates.em=
+pty;
+            if (!o.source) {
+                $.error("missing source");
+            }
+            if (!o.node) {
+                $.error("missing node");
+            }
+            if (o.name &amp;&amp; !isValidName(o.name)) {
+                $.error("invalid dataset name: " + o.name);
+            }
+            www.mixin(this);
+            this.highlight =3D !!o.highlight;
+            this.name =3D o.name || nameGenerator();
+            this.limit =3D o.limit || 5;
+            this.displayFn =3D getDisplayFn(o.display || o.displayKey);
+            this.templates =3D getTemplates(o.templates, this.displayFn);
+            this.source =3D o.source.__ttAdapter ? o.source.__ttAdapter() :=
+ o.source;
+            this.async =3D _.isUndefined(o.async) ? this.source.length &gt;=
+ 2 : !!o.async;
+            this._resetLastSuggestion();
+            this.$el =3D $(o.node).addClass(this.classes.dataset).addClass(=
+this.classes.dataset + "-" + this.name);
+        }
+        Dataset.extractData =3D function extractData(el) {
+            var $el =3D $(el);
+            if ($el.data(keys.obj)) {
+                return {
+                    val: $el.data(keys.val) || "",
+                    obj: $el.data(keys.obj) || null
+                };
+            }
+            return null;
+        };
+        _.mixin(Dataset.prototype, EventEmitter, {
+            _overwrite: function overwrite(query, suggestions) {
+                suggestions =3D suggestions || [];
+                if (suggestions.length) {
+                    this._renderSuggestions(query, suggestions);
+                } else if (this.async &amp;&amp; this.templates.pending) {
+                    this._renderPending(query);
+                } else if (!this.async &amp;&amp; this.templates.notFound) =
+{
+                    this._renderNotFound(query);
+                } else {
+                    this._empty();
+                }
+                this.trigger("rendered", this.name, suggestions, false);
+            },
+            _append: function append(query, suggestions) {
+                suggestions =3D suggestions || [];
+                if (suggestions.length &amp;&amp; this.$lastSuggestion.leng=
+th) {
+                    this._appendSuggestions(query, suggestions);
+                } else if (suggestions.length) {
+                    this._renderSuggestions(query, suggestions);
+                } else if (!this.$lastSuggestion.length &amp;&amp; this.tem=
+plates.notFound) {
+                    this._renderNotFound(query);
+                }
+                this.trigger("rendered", this.name, suggestions, true);
+            },
+            _renderSuggestions: function renderSuggestions(query, suggestio=
+ns) {
+                var $fragment;
+                $fragment =3D this._getSuggestionsFragment(query, suggestio=
+ns);
+                this.$lastSuggestion =3D $fragment.children().last();
+                this.$el.html($fragment).prepend(this._getHeader(query, sug=
+gestions)).append(this._getFooter(query, suggestions));
+            },
+            _appendSuggestions: function appendSuggestions(query, suggestio=
+ns) {
+                var $fragment, $lastSuggestion;
+                $fragment =3D this._getSuggestionsFragment(query, suggestio=
+ns);
+                $lastSuggestion =3D $fragment.children().last();
+                this.$lastSuggestion.after($fragment);
+                this.$lastSuggestion =3D $lastSuggestion;
+            },
+            _renderPending: function renderPending(query) {
+                var template =3D this.templates.pending;
+                this._resetLastSuggestion();
+                template &amp;&amp; this.$el.html(template({
+                    query: query,
+                    dataset: this.name
+                }));
+            },
+            _renderNotFound: function renderNotFound(query) {
+                var template =3D this.templates.notFound;
+                this._resetLastSuggestion();
+                template &amp;&amp; this.$el.html(template({
+                    query: query,
+                    dataset: this.name
+                }));
+            },
+            _empty: function empty() {
+                this.$el.empty();
+                this._resetLastSuggestion();
+            },
+            _getSuggestionsFragment: function getSuggestionsFragment(query,=
+ suggestions) {
+                var that =3D this, fragment;
+                fragment =3D document.createDocumentFragment();
+                _.each(suggestions, function getSuggestionNode(suggestion) =
+{
+                    var $el, context;
+                    context =3D that._injectQuery(query, suggestion);
+                    $el =3D $(that.templates.suggestion(context)).data(keys=
+.obj, suggestion).data(keys.val, that.displayFn(suggestion)).addClass(that.=
+classes.suggestion + " " + that.classes.selectable);
+                    fragment.appendChild($el[0]);
+                });
+                this.highlight &amp;&amp; highlight({
+                    className: this.classes.highlight,
+                    node: fragment,
+                    pattern: query
+                });
+                return $(fragment);
+            },
+            _getFooter: function getFooter(query, suggestions) {
+                return this.templates.footer ? this.templates.footer({
+                    query: query,
+                    suggestions: suggestions,
+                    dataset: this.name
+                }) : null;
+            },
+            _getHeader: function getHeader(query, suggestions) {
+                return this.templates.header ? this.templates.header({
+                    query: query,
+                    suggestions: suggestions,
+                    dataset: this.name
+                }) : null;
+            },
+            _resetLastSuggestion: function resetLastSuggestion() {
+                this.$lastSuggestion =3D $();
+            },
+            _injectQuery: function injectQuery(query, obj) {
+                return _.isObject(obj) ? _.mixin({
+                    _query: query
+                }, obj) : obj;
+            },
+            update: function update(query) {
+                var that =3D this, canceled =3D false, syncCalled =3D false=
+, rendered =3D 0;
+                this.cancel();
+                this.cancel =3D function cancel() {
+                    canceled =3D true;
+                    that.cancel =3D $.noop;
+                    that.async &amp;&amp; that.trigger("asyncCanceled", que=
+ry);
+                };
+                this.source(query, sync, async);
+                !syncCalled &amp;&amp; sync([]);
+                function sync(suggestions) {
+                    if (syncCalled) {
+                        return;
+                    }
+                    syncCalled =3D true;
+                    suggestions =3D (suggestions || []).slice(0, that.limit=
+);
+                    rendered =3D suggestions.length;
+                    that._overwrite(query, suggestions);
+                    if (rendered &lt; that.limit &amp;&amp; that.async) {
+                        that.trigger("asyncRequested", query);
+                    }
+                }
+                function async(suggestions) {
+                    suggestions =3D suggestions || [];
+                    if (!canceled &amp;&amp; rendered &lt; that.limit) {
+                        that.cancel =3D $.noop;
+                        rendered +=3D suggestions.length;
+                        that._append(query, suggestions.slice(0, that.limit=
+ - rendered));
+                        that.async &amp;&amp; that.trigger("asyncReceived",=
+ query);
+                    }
+                }
+            },
+            cancel: $.noop,
+            clear: function clear() {
+                this._empty();
+                this.cancel();
+                this.trigger("cleared");
+            },
+            isEmpty: function isEmpty() {
+                return this.$el.is(":empty");
+            },
+            destroy: function destroy() {
+                this.$el =3D $("&lt;div&gt;");
+            }
+        });
+        return Dataset;
+        function getDisplayFn(display) {
+            display =3D display || _.stringify;
+            return _.isFunction(display) ? display : displayFn;
+            function displayFn(obj) {
+                return obj[display];
+            }
+        }
+        function getTemplates(templates, displayFn) {
+            return {
+                notFound: templates.notFound &amp;&amp; _.templatify(templa=
+tes.notFound),
+                pending: templates.pending &amp;&amp; _.templatify(template=
+s.pending),
+                header: templates.header &amp;&amp; _.templatify(templates.=
+header),
+                footer: templates.footer &amp;&amp; _.templatify(templates.=
+footer),
+                suggestion: templates.suggestion || suggestionTemplate
+            };
+            function suggestionTemplate(context) {
+                return $("&lt;div&gt;").text(displayFn(context));
+            }
+        }
+        function isValidName(str) {
+            return /^[_a-zA-Z0-9-]+$/.test(str);
+        }
+    }();
+    var Menu =3D function() {
+        "use strict";
+        function Menu(o, www) {
+            var that =3D this;
+            o =3D o || {};
+            if (!o.node) {
+                $.error("node is required");
+            }
+            www.mixin(this);
+            this.$node =3D $(o.node);
+            this.query =3D null;
+            this.datasets =3D _.map(o.datasets, initializeDataset);
+            function initializeDataset(oDataset) {
+                var node =3D that.$node.find(oDataset.node).first();
+                oDataset.node =3D node.length ? node : $("&lt;div&gt;").app=
+endTo(that.$node);
+                return new Dataset(oDataset, www);
+            }
+        }
+        _.mixin(Menu.prototype, EventEmitter, {
+            _onSelectableClick: function onSelectableClick($e) {
+                this.trigger("selectableClicked", $($e.currentTarget));
+            },
+            _onRendered: function onRendered(type, dataset, suggestions, as=
+ync) {
+                this.$node.toggleClass(this.classes.empty, this._allDataset=
+sEmpty());
+                this.trigger("datasetRendered", dataset, suggestions, async=
+);
+            },
+            _onCleared: function onCleared() {
+                this.$node.toggleClass(this.classes.empty, this._allDataset=
+sEmpty());
+                this.trigger("datasetCleared");
+            },
+            _propagate: function propagate() {
+                this.trigger.apply(this, arguments);
+            },
+            _allDatasetsEmpty: function allDatasetsEmpty() {
+                return _.every(this.datasets, isDatasetEmpty);
+                function isDatasetEmpty(dataset) {
+                    return dataset.isEmpty();
+                }
+            },
+            _getSelectables: function getSelectables() {
+                return this.$node.find(this.selectors.selectable);
+            },
+            _removeCursor: function _removeCursor() {
+                var $selectable =3D this.getActiveSelectable();
+                $selectable &amp;&amp; $selectable.removeClass(this.classes=
+.cursor);
+            },
+            _ensureVisible: function ensureVisible($el) {
+                var elTop, elBottom, nodeScrollTop, nodeHeight;
+                elTop =3D $el.position().top;
+                elBottom =3D elTop + $el.outerHeight(true);
+                nodeScrollTop =3D this.$node.scrollTop();
+                nodeHeight =3D this.$node.height() + parseInt(this.$node.cs=
+s("paddingTop"), 10) + parseInt(this.$node.css("paddingBottom"), 10);
+                if (elTop &lt; 0) {
+                    this.$node.scrollTop(nodeScrollTop + elTop);
+                } else if (nodeHeight &lt; elBottom) {
+                    this.$node.scrollTop(nodeScrollTop + (elBottom - nodeHe=
+ight));
+                }
+            },
+            bind: function() {
+                var that =3D this, onSelectableClick;
+                onSelectableClick =3D _.bind(this._onSelectableClick, this)=
+;
+                this.$node.on("click.tt", this.selectors.selectable, onSele=
+ctableClick);
+                _.each(this.datasets, function(dataset) {
+                    dataset.onSync("asyncRequested", that._propagate, that)=
+.onSync("asyncCanceled", that._propagate, that).onSync("asyncReceived", tha=
+t._propagate, that).onSync("rendered", that._onRendered, that).onSync("clea=
+red", that._onCleared, that);
+                });
+                return this;
+            },
+            isOpen: function isOpen() {
+                return this.$node.hasClass(this.classes.open);
+            },
+            open: function open() {
+                this.$node.addClass(this.classes.open);
+            },
+            close: function close() {
+                this.$node.removeClass(this.classes.open);
+                this._removeCursor();
+            },
+            setLanguageDirection: function setLanguageDirection(dir) {
+                this.$node.attr("dir", dir);
+            },
+            selectableRelativeToCursor: function selectableRelativeToCursor=
+(delta) {
+                var $selectables, $oldCursor, oldIndex, newIndex;
+                $oldCursor =3D this.getActiveSelectable();
+                $selectables =3D this._getSelectables();
+                oldIndex =3D $oldCursor ? $selectables.index($oldCursor) : =
+-1;
+                newIndex =3D oldIndex + delta;
+                newIndex =3D (newIndex + 1) % ($selectables.length + 1) - 1=
+;
+                newIndex =3D newIndex &lt; -1 ? $selectables.length - 1 : n=
+ewIndex;
+                return newIndex =3D=3D=3D -1 ? null : $selectables.eq(newIn=
+dex);
+            },
+            setCursor: function setCursor($selectable) {
+                this._removeCursor();
+                if ($selectable =3D $selectable &amp;&amp; $selectable.firs=
+t()) {
+                    $selectable.addClass(this.classes.cursor);
+                    this._ensureVisible($selectable);
+                }
+            },
+            getSelectableData: function getSelectableData($el) {
+                return $el &amp;&amp; $el.length ? Dataset.extractData($el)=
+ : null;
+            },
+            getActiveSelectable: function getActiveSelectable() {
+                var $selectable =3D this._getSelectables().filter(this.sele=
+ctors.cursor).first();
+                return $selectable.length ? $selectable : null;
+            },
+            getTopSelectable: function getTopSelectable() {
+                var $selectable =3D this._getSelectables().first();
+                return $selectable.length ? $selectable : null;
+            },
+            update: function update(query) {
+                var isValidUpdate =3D query !=3D=3D this.query;
+                if (isValidUpdate) {
+                    this.query =3D query;
+                    _.each(this.datasets, updateDataset);
+                }
+                return isValidUpdate;
+                function updateDataset(dataset) {
+                    dataset.update(query);
+                }
+            },
+            empty: function empty() {
+                _.each(this.datasets, clearDataset);
+                this.query =3D null;
+                this.$node.addClass(this.classes.empty);
+                function clearDataset(dataset) {
+                    dataset.clear();
+                }
+            },
+            destroy: function destroy() {
+                this.$node.off(".tt");
+                this.$node =3D $("&lt;div&gt;");
+                _.each(this.datasets, destroyDataset);
+                function destroyDataset(dataset) {
+                    dataset.destroy();
+                }
+            }
+        });
+        return Menu;
+    }();
+    var DefaultMenu =3D function() {
+        "use strict";
+        var s =3D Menu.prototype;
+        function DefaultMenu() {
+            Menu.apply(this, [].slice.call(arguments, 0));
+        }
+        _.mixin(DefaultMenu.prototype, Menu.prototype, {
+            open: function open() {
+                !this._allDatasetsEmpty() &amp;&amp; this._show();
+                return s.open.apply(this, [].slice.call(arguments, 0));
+            },
+            close: function close() {
+                this._hide();
+                return s.close.apply(this, [].slice.call(arguments, 0));
+            },
+            _onRendered: function onRendered() {
+                if (this._allDatasetsEmpty()) {
+                    this._hide();
+                } else {
+                    this.isOpen() &amp;&amp; this._show();
+                }
+                return s._onRendered.apply(this, [].slice.call(arguments, 0=
+));
+            },
+            _onCleared: function onCleared() {
+                if (this._allDatasetsEmpty()) {
+                    this._hide();
+                } else {
+                    this.isOpen() &amp;&amp; this._show();
+                }
+                return s._onCleared.apply(this, [].slice.call(arguments, 0)=
+);
+            },
+            setLanguageDirection: function setLanguageDirection(dir) {
+                this.$node.css(dir =3D=3D=3D "ltr" ? this.css.ltr : this.cs=
+s.rtl);
+                return s.setLanguageDirection.apply(this, [].slice.call(arg=
+uments, 0));
+            },
+            _hide: function hide() {
+                this.$node.hide();
+            },
+            _show: function show() {
+                this.$node.css("display", "block");
+            }
+        });
+        return DefaultMenu;
+    }();
+    var Typeahead =3D function() {
+        "use strict";
+        function Typeahead(o, www) {
+            var onFocused, onBlurred, onEnterKeyed, onTabKeyed, onEscKeyed,=
+ onUpKeyed, onDownKeyed, onLeftKeyed, onRightKeyed, onQueryChanged, onWhite=
+spaceChanged;
+            o =3D o || {};
+            if (!o.input) {
+                $.error("missing input");
+            }
+            if (!o.menu) {
+                $.error("missing menu");
+            }
+            if (!o.eventBus) {
+                $.error("missing event bus");
+            }
+            www.mixin(this);
+            this.eventBus =3D o.eventBus;
+            this.minLength =3D _.isNumber(o.minLength) ? o.minLength : 1;
+            this.input =3D o.input;
+            this.menu =3D o.menu;
+            this.enabled =3D true;
+            this.active =3D false;
+            this.input.hasFocus() &amp;&amp; this.activate();
+            this.dir =3D this.input.getLangDir();
+            this._hacks();
+            this.menu.bind().onSync("selectableClicked", this._onSelectable=
+Clicked, this).onSync("asyncRequested", this._onAsyncRequested, this).onSyn=
+c("asyncCanceled", this._onAsyncCanceled, this).onSync("asyncReceived", thi=
+s._onAsyncReceived, this).onSync("datasetRendered", this._onDatasetRendered=
+, this).onSync("datasetCleared", this._onDatasetCleared, this);
+            onFocused =3D c(this, "activate", "open", "_onFocused");
+            onBlurred =3D c(this, "deactivate", "_onBlurred");
+            onEnterKeyed =3D c(this, "isActive", "isOpen", "_onEnterKeyed")=
+;
+            onTabKeyed =3D c(this, "isActive", "isOpen", "_onTabKeyed");
+            onEscKeyed =3D c(this, "isActive", "_onEscKeyed");
+            onUpKeyed =3D c(this, "isActive", "open", "_onUpKeyed");
+            onDownKeyed =3D c(this, "isActive", "open", "_onDownKeyed");
+            onLeftKeyed =3D c(this, "isActive", "isOpen", "_onLeftKeyed");
+            onRightKeyed =3D c(this, "isActive", "isOpen", "_onRightKeyed")=
+;
+            onQueryChanged =3D c(this, "_openIfActive", "_onQueryChanged");
+            onWhitespaceChanged =3D c(this, "_openIfActive", "_onWhitespace=
+Changed");
+            this.input.bind().onSync("focused", onFocused, this).onSync("bl=
+urred", onBlurred, this).onSync("enterKeyed", onEnterKeyed, this).onSync("t=
+abKeyed", onTabKeyed, this).onSync("escKeyed", onEscKeyed, this).onSync("up=
+Keyed", onUpKeyed, this).onSync("downKeyed", onDownKeyed, this).onSync("lef=
+tKeyed", onLeftKeyed, this).onSync("rightKeyed", onRightKeyed, this).onSync=
+("queryChanged", onQueryChanged, this).onSync("whitespaceChanged", onWhites=
+paceChanged, this).onSync("langDirChanged", this._onLangDirChanged, this);
+        }
+        _.mixin(Typeahead.prototype, {
+            _hacks: function hacks() {
+                var $input, $menu;
+                $input =3D this.input.$input || $("&lt;div&gt;");
+                $menu =3D this.menu.$node || $("&lt;div&gt;");
+                $input.on("blur.tt", function($e) {
+                    var active, isActive, hasActive;
+                    active =3D document.activeElement;
+                    isActive =3D $menu.is(active);
+                    hasActive =3D $menu.has(active).length &gt; 0;
+                    if (_.isMsie() &amp;&amp; (isActive || hasActive)) {
+                        $e.preventDefault();
+                        $e.stopImmediatePropagation();
+                        _.defer(function() {
+                            $input.focus();
+                        });
+                    }
+                });
+                $menu.on("mousedown.tt", function($e) {
+                    $e.preventDefault();
+                });
+            },
+            _onSelectableClicked: function onSelectableClicked(type, $el) {
+                this.select($el);
+            },
+            _onDatasetCleared: function onDatasetCleared() {
+                this._updateHint();
+            },
+            _onDatasetRendered: function onDatasetRendered(type, dataset, s=
+uggestions, async) {
+                this._updateHint();
+                this.eventBus.trigger("render", suggestions, async, dataset=
+);
+            },
+            _onAsyncRequested: function onAsyncRequested(type, dataset, que=
+ry) {
+                this.eventBus.trigger("asyncrequest", query, dataset);
+            },
+            _onAsyncCanceled: function onAsyncCanceled(type, dataset, query=
+) {
+                this.eventBus.trigger("asynccancel", query, dataset);
+            },
+            _onAsyncReceived: function onAsyncReceived(type, dataset, query=
+) {
+                this.eventBus.trigger("asyncreceive", query, dataset);
+            },
+            _onFocused: function onFocused() {
+                this._minLengthMet() &amp;&amp; this.menu.update(this.input=
+.getQuery());
+            },
+            _onBlurred: function onBlurred() {
+                if (this.input.hasQueryChangedSinceLastFocus()) {
+                    this.eventBus.trigger("change", this.input.getQuery());
+                }
+            },
+            _onEnterKeyed: function onEnterKeyed(type, $e) {
+                var $selectable;
+                if ($selectable =3D this.menu.getActiveSelectable()) {
+                    this.select($selectable) &amp;&amp; $e.preventDefault()=
+;
+                }
+            },
+            _onTabKeyed: function onTabKeyed(type, $e) {
+                var $selectable;
+                if ($selectable =3D this.menu.getActiveSelectable()) {
+                    this.select($selectable) &amp;&amp; $e.preventDefault()=
+;
+                } else if ($selectable =3D this.menu.getTopSelectable()) {
+                    this.autocomplete($selectable) &amp;&amp; $e.preventDef=
+ault();
+                }
+            },
+            _onEscKeyed: function onEscKeyed() {
+                this.close();
+            },
+            _onUpKeyed: function onUpKeyed() {
+                this.moveCursor(-1);
+            },
+            _onDownKeyed: function onDownKeyed() {
+                this.moveCursor(+1);
+            },
+            _onLeftKeyed: function onLeftKeyed() {
+                if (this.dir =3D=3D=3D "rtl" &amp;&amp; this.input.isCursor=
+AtEnd()) {
+                    this.autocomplete(this.menu.getTopSelectable());
+                }
+            },
+            _onRightKeyed: function onRightKeyed() {
+                if (this.dir =3D=3D=3D "ltr" &amp;&amp; this.input.isCursor=
+AtEnd()) {
+                    this.autocomplete(this.menu.getTopSelectable());
+                }
+            },
+            _onQueryChanged: function onQueryChanged(e, query) {
+                this._minLengthMet(query) ? this.menu.update(query) : this.=
+menu.empty();
+            },
+            _onWhitespaceChanged: function onWhitespaceChanged() {
+                this._updateHint();
+            },
+            _onLangDirChanged: function onLangDirChanged(e, dir) {
+                if (this.dir !=3D=3D dir) {
+                    this.dir =3D dir;
+                    this.menu.setLanguageDirection(dir);
+                }
+            },
+            _openIfActive: function openIfActive() {
+                this.isActive() &amp;&amp; this.open();
+            },
+            _minLengthMet: function minLengthMet(query) {
+                query =3D _.isString(query) ? query : this.input.getQuery()=
+ || "";
+                return query.length &gt;=3D this.minLength;
+            },
+            _updateHint: function updateHint() {
+                var $selectable, data, val, query, escapedQuery, frontMatch=
+RegEx, match;
+                $selectable =3D this.menu.getTopSelectable();
+                data =3D this.menu.getSelectableData($selectable);
+                val =3D this.input.getInputValue();
+                if (data &amp;&amp; !_.isBlankString(val) &amp;&amp; !this.=
+input.hasOverflow()) {
+                    query =3D Input.normalizeQuery(val);
+                    escapedQuery =3D _.escapeRegExChars(query);
+                    frontMatchRegEx =3D new RegExp("^(?:" + escapedQuery + =
+")(.+$)", "i");
+                    match =3D frontMatchRegEx.exec(data.val);
+                    match &amp;&amp; this.input.setHint(val + match[1]);
+                } else {
+                    this.input.clearHint();
+                }
+            },
+            isEnabled: function isEnabled() {
+                return this.enabled;
+            },
+            enable: function enable() {
+                this.enabled =3D true;
+            },
+            disable: function disable() {
+                this.enabled =3D false;
+            },
+            isActive: function isActive() {
+                return this.active;
+            },
+            activate: function activate() {
+                if (this.isActive()) {
+                    return true;
+                } else if (!this.isEnabled() || this.eventBus.before("activ=
+e")) {
+                    return false;
+                } else {
+                    this.active =3D true;
+                    this.eventBus.trigger("active");
+                    return true;
+                }
+            },
+            deactivate: function deactivate() {
+                if (!this.isActive()) {
+                    return true;
+                } else if (this.eventBus.before("idle")) {
+                    return false;
+                } else {
+                    this.active =3D false;
+                    this.close();
+                    this.eventBus.trigger("idle");
+                    return true;
+                }
+            },
+            isOpen: function isOpen() {
+                return this.menu.isOpen();
+            },
+            open: function open() {
+                if (!this.isOpen() &amp;&amp; !this.eventBus.before("open")=
+) {
+                    this.menu.open();
+                    this._updateHint();
+                    this.eventBus.trigger("open");
+                }
+                return this.isOpen();
+            },
+            close: function close() {
+                if (this.isOpen() &amp;&amp; !this.eventBus.before("close")=
+) {
+                    this.menu.close();
+                    this.input.clearHint();
+                    this.input.resetInputValue();
+                    this.eventBus.trigger("close");
+                }
+                return !this.isOpen();
+            },
+            setVal: function setVal(val) {
+                this.input.setQuery(_.toStr(val));
+            },
+            getVal: function getVal() {
+                return this.input.getQuery();
+            },
+            select: function select($selectable) {
+                var data =3D this.menu.getSelectableData($selectable);
+                if (data &amp;&amp; !this.eventBus.before("select", data.ob=
+j)) {
+                    this.input.setQuery(data.val, true);
+                    this.eventBus.trigger("select", data.obj);
+                    this.close();
+                    return true;
+                }
+                return false;
+            },
+            autocomplete: function autocomplete($selectable) {
+                var query, data, isValid;
+                query =3D this.input.getQuery();
+                data =3D this.menu.getSelectableData($selectable);
+                isValid =3D data &amp;&amp; query !=3D=3D data.val;
+                if (isValid &amp;&amp; !this.eventBus.before("autocomplete"=
+, data.obj)) {
+                    this.input.setQuery(data.val);
+                    this.eventBus.trigger("autocomplete", data.obj);
+                    return true;
+                }
+                return false;
+            },
+            moveCursor: function moveCursor(delta) {
+                var query, $candidate, data, payload, cancelMove;
+                query =3D this.input.getQuery();
+                $candidate =3D this.menu.selectableRelativeToCursor(delta);
+                data =3D this.menu.getSelectableData($candidate);
+                payload =3D data ? data.obj : null;
+                cancelMove =3D this._minLengthMet() &amp;&amp; this.menu.up=
+date(query);
+                if (!cancelMove &amp;&amp; !this.eventBus.before("cursorcha=
+nge", payload)) {
+                    this.menu.setCursor($candidate);
+                    if (data) {
+                        this.input.setInputValue(data.val);
+                    } else {
+                        this.input.resetInputValue();
+                        this._updateHint();
+                    }
+                    this.eventBus.trigger("cursorchange", payload);
+                    return true;
+                }
+                return false;
+            },
+            destroy: function destroy() {
+                this.input.destroy();
+                this.menu.destroy();
+            }
+        });
+        return Typeahead;
+        function c(ctx) {
+            var methods =3D [].slice.call(arguments, 1);
+            return function() {
+                var args =3D [].slice.call(arguments);
+                _.each(methods, function(method) {
+                    return ctx[method].apply(ctx, args);
+                });
+            };
+        }
+    }();
+    (function() {
+        "use strict";
+        var old, keys, methods;
+        old =3D $.fn.typeahead;
+        keys =3D {
+            www: "tt-www",
+            attrs: "tt-attrs",
+            typeahead: "tt-typeahead"
+        };
+        methods =3D {
+            initialize: function initialize(o, datasets) {
+                var www;
+                datasets =3D _.isArray(datasets) ? datasets : [].slice.call=
+(arguments, 1);
+                o =3D o || {};
+                www =3D WWW(o.classNames);
+                return this.each(attach);
+                function attach() {
+                    var $input, $wrapper, $hint, $menu, defaultHint, defaul=
+tMenu, eventBus, input, menu, typeahead, MenuConstructor;
+                    _.each(datasets, function(d) {
+                        d.highlight =3D !!o.highlight;
+                    });
+                    $input =3D $(this);
+                    $wrapper =3D $(www.html.wrapper);
+                    $hint =3D $elOrNull(o.hint);
+                    $menu =3D $elOrNull(o.menu);
+                    defaultHint =3D o.hint !=3D=3D false &amp;&amp; !$hint;
+                    defaultMenu =3D o.menu !=3D=3D false &amp;&amp; !$menu;
+                    defaultHint &amp;&amp; ($hint =3D buildHintFromInput($i=
+nput, www));
+                    defaultMenu &amp;&amp; ($menu =3D $(www.html.menu).css(=
+www.css.menu));
+                    $hint &amp;&amp; $hint.val("");
+                    $input =3D prepInput($input, www);
+                    if (defaultHint || defaultMenu) {
+                        $wrapper.css(www.css.wrapper);
+                        $input.css(defaultHint ? www.css.input : www.css.in=
+putWithNoHint);
+                        $input.wrap($wrapper).parent().prepend(defaultHint =
+? $hint : null).append(defaultMenu ? $menu : null);
+                    }
+                    MenuConstructor =3D defaultMenu ? DefaultMenu : Menu;
+                    eventBus =3D new EventBus({
+                        el: $input
+                    });
+                    input =3D new Input({
+                        hint: $hint,
+                        input: $input
+                    }, www);
+                    menu =3D new MenuConstructor({
+                        node: $menu,
+                        datasets: datasets
+                    }, www);
+                    typeahead =3D new Typeahead({
+                        input: input,
+                        menu: menu,
+                        eventBus: eventBus,
+                        minLength: o.minLength
+                    }, www);
+                    $input.data(keys.www, www);
+                    $input.data(keys.typeahead, typeahead);
+                }
+            },
+            isEnabled: function isEnabled() {
+                var enabled;
+                ttEach(this.first(), function(t) {
+                    enabled =3D t.isEnabled();
+                });
+                return enabled;
+            },
+            enable: function enable() {
+                ttEach(this, function(t) {
+                    t.enable();
+                });
+                return this;
+            },
+            disable: function disable() {
+                ttEach(this, function(t) {
+                    t.disable();
+                });
+                return this;
+            },
+            isActive: function isActive() {
+                var active;
+                ttEach(this.first(), function(t) {
+                    active =3D t.isActive();
+                });
+                return active;
+            },
+            activate: function activate() {
+                ttEach(this, function(t) {
+                    t.activate();
+                });
+                return this;
+            },
+            deactivate: function deactivate() {
+                ttEach(this, function(t) {
+                    t.deactivate();
+                });
+                return this;
+            },
+            isOpen: function isOpen() {
+                var open;
+                ttEach(this.first(), function(t) {
+                    open =3D t.isOpen();
+                });
+                return open;
+            },
+            open: function open() {
+                ttEach(this, function(t) {
+                    t.open();
+                });
+                return this;
+            },
+            close: function close() {
+                ttEach(this, function(t) {
+                    t.close();
+                });
+                return this;
+            },
+            select: function select(el) {
+                var success =3D false, $el =3D $(el);
+                ttEach(this.first(), function(t) {
+                    success =3D t.select($el);
+                });
+                return success;
+            },
+            autocomplete: function autocomplete(el) {
+                var success =3D false, $el =3D $(el);
+                ttEach(this.first(), function(t) {
+                    success =3D t.autocomplete($el);
+                });
+                return success;
+            },
+            moveCursor: function moveCursoe(delta) {
+                var success =3D false;
+                ttEach(this.first(), function(t) {
+                    success =3D t.moveCursor(delta);
+                });
+                return success;
+            },
+            val: function val(newVal) {
+                var query;
+                if (!arguments.length) {
+                    ttEach(this.first(), function(t) {
+                        query =3D t.getVal();
+                    });
+                    return query;
+                } else {
+                    ttEach(this, function(t) {
+                        t.setVal(newVal);
+                    });
+                    return this;
+                }
+            },
+            destroy: function destroy() {
+                ttEach(this, function(typeahead, $input) {
+                    revert($input);
+                    typeahead.destroy();
+                });
+                return this;
+            }
+        };
+        $.fn.typeahead =3D function(method) {
+            if (methods[method]) {
+                return methods[method].apply(this, [].slice.call(arguments,=
+ 1));
+            } else {
+                return methods.initialize.apply(this, arguments);
+            }
+        };
+        $.fn.typeahead.noConflict =3D function noConflict() {
+            $.fn.typeahead =3D old;
+            return this;
+        };
+        function ttEach($els, fn) {
+            $els.each(function() {
+                var $input =3D $(this), typeahead;
+                (typeahead =3D $input.data(keys.typeahead)) &amp;&amp; fn(t=
+ypeahead, $input);
+            });
+        }
+        function buildHintFromInput($input, www) {
+            return $input.clone().addClass(www.classes.hint).removeData().c=
+ss(www.css.hint).css(getBackgroundStyles($input)).prop("readonly", true).re=
+moveAttr("id name placeholder required").attr({
+                autocomplete: "off",
+                spellcheck: "false",
+                tabindex: -1
+            });
+        }
+        function prepInput($input, www) {
+            $input.data(keys.attrs, {
+                dir: $input.attr("dir"),
+                autocomplete: $input.attr("autocomplete"),
+                spellcheck: $input.attr("spellcheck"),
+                style: $input.attr("style")
+            });
+            $input.addClass(www.classes.input).attr({
+                autocomplete: "off",
+                spellcheck: false
+            });
+            try {
+                !$input.attr("dir") &amp;&amp; $input.attr("dir", "auto");
+            } catch (e) {}
+            return $input;
+        }
+        function getBackgroundStyles($el) {
+            return {
+                backgroundAttachment: $el.css("background-attachment"),
+                backgroundClip: $el.css("background-clip"),
+                backgroundColor: $el.css("background-color"),
+                backgroundImage: $el.css("background-image"),
+                backgroundOrigin: $el.css("background-origin"),
+                backgroundPosition: $el.css("background-position"),
+                backgroundRepeat: $el.css("background-repeat"),
+                backgroundSize: $el.css("background-size")
+            };
+        }
+        function revert($input) {
+            var www, $wrapper;
+            www =3D $input.data(keys.www);
+            $wrapper =3D $input.parent().filter(www.selectors.wrapper);
+            _.each($input.data(keys.attrs), function(val, key) {
+                _.isUndefined(val) ? $input.removeAttr(key) : $input.attr(k=
+ey, val);
+            });
+            $input.removeData(keys.typeahead).removeData(keys.www).removeDa=
+ta(keys.attr).removeClass(www.classes.input);
+            if ($wrapper.length) {
+                $input.detach().insertAfter($wrapper);
+                $wrapper.remove();
+            }
+        }
+        function $elOrNull(obj) {
+            var isValid, $el;
+            isValid =3D _.isJQuery(obj) || _.isElement(obj);
+            $el =3D isValid ? $(obj).first() : [];
+            return $el.length ? $el : null;
+        }
+    })();
+});</pre></body><style type=3D"text/css" id=3D"103552077208"></style></html>
+------=_NextPart_000_6BB4_34D0CF98.2C39C352--

@@ -1,0 +1,70 @@
+body {
+	/* background-color: #DBEAF9;*/
+	background-color: #F8F8F8;
+	margin: 0;
+	padding: 0;
+	padding-top: 70px; 
+}
+
+form .ng-invalid.ng-dirty {
+	background-color: lightpink;
+}
+
+form .ng-valid.ng-dirty {
+	background-color: lightgreen;
+}
+
+span.ng-invalid {
+	color: red;
+	font-weight: bold;
+}
+
+span.ng-valid {
+	color: green;
+}
+
+div.error {
+	color: red;
+	font-weight: bold;
+}
+
+/*自定义的confirm信息*/
+.jconfirm.jconfirm-my-light .jconfirm-box {
+  font-weight: bold;
+  text-shadow: none;
+}
+.jconfirm.jconfirm-my-light .jconfirm-box div.jconfirm-content {
+  font-size: 14px;
+}
+.jconfirm.jconfirm-my-light .jconfirm-bg {
+  background-color: #444;
+  opacity: .5;
+}
+.jconfirm.jconfirm-my-light .jconfirm-box {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  background-color: #F5F5F5
+}
+.jconfirm.jconfirm-my-light .jconfirm-box .jconfirm-buttons {
+  width:100%;
+  margin:0;
+  text-align: center;
+}
+.jconfirm.jconfirm-my-light .jconfirm-box .jconfirm-buttons button {
+  border: none;
+  background-image: none;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: bold;
+  text-shadow: none;
+  -webkit-transition: background .1s;
+          transition: background .1s;
+  color: white;
+}
+.jconfirm.jconfirm-my-light .jconfirm-box .jconfirm-buttons button.btn-default {
+  box-shadow: none;
+  color: #333;
+}
+.jconfirm.jconfirm-my-light .jconfirm-box .jconfirm-buttons button.btn-default:hover {
+  background: #ddd;
+}

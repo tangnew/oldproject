@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exam.dao.RelRoleResourcesMapper" >
+  <resultMap id="BaseResultMap" type="com.exam.entity.RelRoleResources" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="fk_role_id" property="fkRoleId" jdbcType="VARCHAR" />
+    <result column="fk_resources_id" property="fkResourcesId" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from rel_role_resources
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.exam.entity.RelRoleResources" >
+    insert into rel_role_resources (id, fk_role_id, fk_resources_id, 
+      status, created_time, updated_time
+      )
+    values (#{id,jdbcType=VARCHAR}, #{fkRoleId,jdbcType=VARCHAR}, #{fkResourcesId,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.exam.entity.RelRoleResources" >
+    update rel_role_resources
+    set fk_role_id = #{fkRoleId,jdbcType=VARCHAR},
+      fk_resources_id = #{fkResourcesId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select id, fk_role_id, fk_resources_id, status, created_time, updated_time
+    from rel_role_resources
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, fk_role_id, fk_resources_id, status, created_time, updated_time
+    from rel_role_resources
+  </select>
+</mapper>

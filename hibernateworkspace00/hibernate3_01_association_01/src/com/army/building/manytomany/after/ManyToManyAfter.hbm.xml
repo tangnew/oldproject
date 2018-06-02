@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.army.building.manytomany.after">
+	<!-- 好的多对多双向关联 -->
+	<class name="Teacher" table="teacher">
+		<id name="id">
+			<generator class="increment" />
+		</id>
+		<property name="name" />
+		<set name="teacherStudents" cascade="all" inverse="true">
+			<key column="teacherId"></key>
+			<one-to-many class="TeacherStudent" />
+		</set>
+	</class>
+
+	<class name="Student" table="student">
+		<id name="id">
+			<generator class="increment" />
+		</id>
+		<property name="name" />
+		<set name="teacherStudents" cascade="all" inverse="true">
+			<key column="studentId"></key>
+			<one-to-many class="TeacherStudent" />
+		</set>
+	</class>
+	
+	<class name="TeacherStudent" table="teacher_student">
+		<id name="id">
+			<generator class="increment" />
+		</id>
+		<property name="date" />
+		<many-to-one name="student" cascade="all" column="studentId"/>
+		<many-to-one name="teacher" cascade="all" column="teacherId"/>
+	</class>
+</hibernate-mapping>

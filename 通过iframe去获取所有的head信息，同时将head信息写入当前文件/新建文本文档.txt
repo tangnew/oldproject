@@ -1,0 +1,11 @@
+<iframe src="foot.html" width="980px" frameborder="0" height="80px"></iframe>
+
+在iframe子页面获取父页面元素
+代码如下:
+$.('#objld', parent.document); 
+在父页面获取iframe子页面的元素
+代码如下:
+$("#objid", document.iframes('iframe').document) 
+或
+代码如下:
+$(document.getElementById('iframeId').contentWindow.document.body).html() $(document.getElementById('iframeId').contentWindow.document.body).html()

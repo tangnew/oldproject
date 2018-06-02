@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<bean id="userService" class="com.army.building.aop.UserServiceImpl" />
+
+	<bean id="aspects" class="com.army.building.aop.UserAop" />
+	<aop:config>
+		<aop:pointcut
+			expression="execution(* com.army.building.aop.UserService.add (..))"
+			id="beforePointCut" />
+		<aop:aspect ref="aspects">
+			<aop:before pointcut-ref="beforePointCut" method="before" />
+			<aop:after pointcut="execution(* com.army.building.aop.UserService.add (..))"
+				method="after" />
+		</aop:aspect>
+		<aop:aspect ref="aspects">
+			<aop:around
+				pointcut="execution(* com.army.building.aop.UserService.around (..))"
+				method="around" />
+			<aop:after-returning arg-names="user" returning="user"
+				method="returns" pointcut="execution(* com.army.building.aop.UserService.returns (..))" />
+			<aop:after-throwing method="exceptions"
+				pointcut="execution(* com.army.building.aop.UserService.exceptions (..))"
+				arg-names="exception" throwing="exception" />
+		</aop:aspect>
+	</aop:config>
+	<aop:config>
+		<aop:aspect ref="aspects">
+			<aop:before
+				pointcut="execution(* com.army.building.aop.UserService.addUser (com.army.building.aop.User)) and args(user)"
+				method="beforeAddUser(com.army.building.aop.User)" arg-names="user" />
+
+			<aop:after
+				pointcut="execution(* com.army.building.aop.UserService.addUser (com.army.building.aop.User)) and args(user)"
+				method="afterAddUser(com.army.building.aop.User)" arg-names="user" />
+		</aop:aspect>
+	</aop:config>
+	<aop:config>
+		<aop:aspect ref="aspects">
+			<aop:declare-parents types-matching="com.army.building.aop.UserService+"
+				implement-interface="com.army.building.aop.UI" default-impl="com.army.building.aop.UIImpl" />
+		</aop:aspect>
+	</aop:config>
+</beans>

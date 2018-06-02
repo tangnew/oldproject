@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	 http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+	<!-- 配置目标类 -->
+	<bean id="helloService" class="com.service.impl.HelloServiceImpl" />
+
+	<!-- 配置切面 -->
+	<bean id="aspect" class="com.aop.HelloServiceAspect" />
+
+	<aop:config>
+		<aop:pointcut expression="execution(* com.service.HelloService.*(..))"
+			id="pointcut" />
+		<aop:aspect ref="aspect">
+			<aop:before pointcut-ref="pointcut" method="beforeAdvice" />
+			<aop:after pointcut="execution(* com.service.HelloService.*(..))"
+				method="afterFinallyAdvice" />
+		</aop:aspect>
+	</aop:config>
+
+
+	<bean id="payService" class="com.service.impl.PayServiceImpl" />
+	<bean id="payServiceAspect" class="com.aop.PayServiceAspect" />
+	<aop:config>
+		<aop:pointcut expression="execution(* com.service.PayService.pay())"
+			id="beforePointCut" />
+		<aop:aspect ref="payServiceAspect">
+			<aop:before method="before" pointcut-ref="beforePointCut" />
+			<aop:after method="after"
+				pointcut="execution(* com.service.PayService.pay())" />
+		</aop:aspect>
+		<aop:aspect ref="payServiceAspect">
+			<aop:before method="sayMoney(java.lang.String, java.lang.String)"
+				pointcut="execution(* com.service.PayService.sayMoney(..)) and args(money,money1)"
+				arg-names="money,money1" />
+		</aop:aspect>
+		<aop:aspect ref="payServiceAspect">
+			<aop:around pointcut="execution(* com.service.PayService.getMoney(..))"
+				method="around" />
+		</aop:aspect>
+	</aop:config>
+
+
+	<aop:aspectj-autoproxy />
+	<bean id="annotationLogAspect" class="com.annotation.aop.LogAspect" />
+	<bean id="annotationPayService" class="com.annotation.service.impl.PayServiceImpl" />
+</beans>

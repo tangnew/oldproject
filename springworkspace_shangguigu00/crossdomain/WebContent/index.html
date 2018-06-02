@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>login</title>
+</head>
+<body>
+	login
+	<br />
+	<form action="login" method="post">
+	 <input type="password" name="pw"/>
+	 <input type="submit" value="test"/>
+	</form>
+	<select name="loginName" id="loginName">
+		<option value="lisi1">lisi1</option>
+		<option value="lisi2">lisi2</option>
+	</select>
+	<button id="loginBtn" onclick="login();">Login</button>
+	<button id="exitBtn" onclick="exit();">Exit</button>
+	<div id="loginDiv"></div>
+	<hr/>
+	<button id="fileUDBtn" onclick="fileUD();">fileUD</button>
+	<div id="fileUDDiv"></div>
+	<script type="text/javascript" src="jquery-1.11.1.js"></script>
+	<script type="text/javascript">
+	    var URL = "http://127.0.0.1:8080/crossdomain/";
+	    var jessionid = null;
+	    function login(){
+	    	$("#loginDiv").empty();
+		    var loginName = $("#loginName").val();
+		    $.ajax({
+				  url:URL+"login",
+				  data:{'loginName':loginName},
+				  type:'POST',
+				  dataType:'html',
+				  success:function(result){
+					  alert($(result).html());
+					  jessionid = $(result).html();
+					  $("#loginDiv").html(result);
+				  }
+			});
+		}
+	    
+	    function exit(){
+	    	$("#fileUDDiv").empty();
+	    	$("#loginDiv").empty();
+		    $.ajax({
+				  url:URL+"login",
+				  type:'GET'
+			});
+		}
+	    
+	    function fileUD(){
+	    	alert(jessionid);
+	    	$("#fileUDDiv").empty();
+		    $.ajax({
+				  url:URL+"fileUD;jsessionid="+jessionid,
+				  type:'POST',
+				  dataType:'html',
+				  success:function(result){
+						$("#fileUDDiv").html(result);
+				  }
+			});	    	
+	    }
+ 	</script>
+</body>
+</html>

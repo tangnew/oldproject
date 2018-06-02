@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> New Document </title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7" />
+   <link rel="stylesheet" href="jquery-ui.css" type="text/css" />
+   <script type="text/javascript" src="jquery-1.8.0.min.js"></script>
+   <script type="text/javascript" src="jquery-ui.min.js"></script>
+   <style>
+     table{
+		border-collapse:collapse; 
+	 }
+
+	 table th td{
+	   border:1px solid #FAFAFA;
+	 }
+
+     .mask{
+		height: 100%;
+		width: 100%;
+		position: fixed;
+		_position: absolute;
+		top: 0;
+		z-index: 1000;
+	}
+
+	.opacity{
+		opacity: 0.3;
+		filter:alpha(Opacity=50);-moz-opacity:0.5;opacity: 0.5;
+		background-color: #000;
+	}
+
+	.popup{
+		width: 500px;
+		height: 380px;
+		overflow: hidde;
+		border: none;
+		position: absolute;
+		z-index: 1001;
+		word-wrap: break-word;
+		padding: 3px;
+		display: none;
+		/*filter:alpha(Opacity=5);-moz-opacity:0.5;opacity: 0.5;z-index:1001;*/
+	}
+
+	.pop1{
+		background-color:#FFFFFF;
+		background-repeat:no-repeat;
+		width: 500px;
+		height: 380px;
+	}
+   </style>
+
+   <script type="text/javascript">
+     $(function(){
+		$(window).resize(function(){
+		  setDragglePosition();
+		});
+      // $("#popupdiv").draggable({refreshPositions: true });
+	   setDragglePosition();
+	   $("#saveBtn").click(function(){
+		  displayDialog();
+	   });
+	 
+	 });
+
+    function displayDialog(){
+		 $("#maskopacity").show();
+		 $("#popupdiv").show();
+		 setDragglePosition();
+		 generateTr(20);
+	 }
+
+	function setDragglePosition(){
+    	  var windowWidth = 0,windowHeight = 0;
+    	  windowHeight= document.documentElement.clientHeight;
+    	  windowWidth = document.documentElement.clientWidth;
+  
+    	  var topV = (windowHeight  - 380)/2;
+    	  var leftV = (windowWidth - 500)/2;
+    	  $("#popupdiv").offset({left:leftV,top:topV});
+		  //$("#popupdiv").draggable( "option", "refreshPositions", true );
+    }
+
+	function generateTr(numbers){
+	  var htmlTr = "";
+	  for(var i =0 ; i < numbers; i++){
+	     var tr ="<tr>"
+		        +"<td>"
+				+  "<select style='width:100%'>"
+			    +    "<option value='1'>111</option>"
+				+	 "<option value='1'>111</option>"
+				+	 "<option value='1'>111</option>"
+				+	"</select>"
+				+"</td>"
+		        +"<td><input type='text'/></td>"
+			    +"<td><input type='text'/></td>"
+				+"</tr>";
+				htmlTr+=tr;
+	  }
+	  $("#firstTr").after(htmlTr);
+	}
+   </script>
+ </head>
+ <body>
+    <div id="allScreen" style="width:100%;height:100%">
+    <button id="saveBtn">Save</button>
+    <div id="maskopacity" class="mask opacity" style="display:none"></div> 
+    <div id="popupdiv" class="pop1 popup">
+	     <table style="width:100%;" border="1">
+		    <caption align="center">
+			 PM Contract manhour allocation for
+		     </caption>
+		  <tr>		    
+			  <td style="width: 170px;">Contract Name</td>
+			 <td style="width: 153px;">Percentage</td>
+			  <td>Man hours</td>
+			 
+		  </tr>
+		  <tr>
+		    <td colspan="3">
+			    <div style="width:100%; height:200px; overflow:auto;"> 
+				   	<table style="width:100%;" border="1" style="border-top:none">
+					    <tr id="firstTr">
+							 <td style="width:169px;border-top:none">
+							  <select style="width:100%">
+								 <option value="1">111</option>
+								 <option value="1">111</option>
+								 <option value="1">111</option>
+							  </select>
+							  </td>
+							  <td style="width:152px;border-top:none">
+								<input type="text"/>
+							  </td>
+							   <td colspan="1" style="border-top:none">
+								<input type="text"/>
+							  </td>
+							
+					    </tr> 
+			        </table>
+				</div>
+			</td>
+		  </tr>
+		</table>
+
+	    <!--<table style="width:100%;">
+		  <tr>
+		    <td>
+			  <table style="width:100%;" border="1">
+			       <caption align="center">
+					 PM Contract manhour allocation for
+				   </caption>
+				   <tr>
+					 <th>Contract Name</th>
+					 <th>Percentage</th>
+					 <th>Man hours</th>
+					 <th style="width:13px">&nbsp;</th>
+				   </tr> 
+			  </table>
+			</td>
+		  </tr>
+		  <tr>
+		    <td>
+			    <div style="width:100%; height:200px; overflow:auto;"> 
+				   	<table style="width:100%;" border="1">
+					    <tr id="firstTr">
+						  <td>Contract Name</td>
+					      <td>Percentage</td>
+					      <td>Man hours</td>
+					    </tr> 
+			        </table>
+				</div>
+			</td>
+		  </tr>
+		</table>-->
+		    <!--<div style="width:100%;">
+			   <table style="width:100%;" border="1">
+				   <caption align="center">
+					 PM Contract manhour allocation for
+				   </caption>
+				   <tr>
+					 <th>Contract Name</th>
+					 <th>Percentage</th>
+					 <th>Man hours</th>
+					 <th style="width:13px">&nbsp;</th>
+				   </tr>
+			   </table>
+			 </div>
+			 <div style="width:100%;height:80%; overflow-y:auto;overflow-x:hidden;border-bottom:1px solid black;">
+				 <table style="width:100%;height:80%;" border="1">
+				   <tr id="firstTr">
+					 <td style="width:179px;">
+					  <select style="width:100%">
+						 <option value="1">111</option>
+						 <option value="1">111</option>
+						 <option value="1">111</option>
+					  </select>
+					  </td>
+					  <td style="width:153px;">
+						<input type="text"/>
+					  </td>
+					   <td style="width:138px;">
+						<input type="text"/>
+					  </td>
+					 </tr>
+				 </table>
+		    </div>-->
+	</div>
+ </body>
+</html>

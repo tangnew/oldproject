@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.army.building.onetomany">
+	<class name="Teacher" table="teacher">
+		<id name="id">
+			<generator class="increment" />
+		</id>
+		<property name="name" not-null="true" />
+		<property name="age" />
+		<set name="students" cascade="all" inverse="false">
+			<key column="teacher_id" />
+			<one-to-many class="Student" />
+		</set>
+	</class>
+
+	<class name="Student" table="student">
+		<id name="id">
+			<generator class="increment" />
+		</id>
+		<property name="name" />
+		<property name="age" />
+		<property name="address" />
+	</class>
+</hibernate-mapping>

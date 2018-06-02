@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="userService0" class="com.service.impl.UserServiceImpl0">
+		<constructor-arg ref="user0" />
+	</bean>
+	<bean id="userService1" class="com.service.impl.UserServiceImpl1"
+		init-method="addDefault" lazy-init="true">
+	</bean>
+	<bean id="user0" class="com.modual.User">
+		<constructor-arg index="0" value="0" />
+		<constructor-arg index="1" value="user0" />
+	</bean>
+
+	<!-- 静态工厂方法 -->
+	<bean id="staticFactory" class="com.factory.StaticFactory"
+		factory-method="getUser"></bean>
+
+	<!-- 创建实例工厂bean -->
+	<bean id="staticInstanceFactory" class="com.factory.StaticInstanceFactory" />
+	<!-- 用实例工厂bean创建User Bean -->
+	<bean id="staticInstanceFactoryBean" factory-bean="staticInstanceFactory"
+		factory-method="getUser">
+		<constructor-arg index="0" value="3" />
+		<constructor-arg index="1" value="Static Instance Factory" />
+	</bean>
+
+</beans>

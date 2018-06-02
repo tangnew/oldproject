@@ -1,0 +1,12 @@
+<nav>
+    <ul class="nav nav-pills nav-stacked" ng-controller="leftNavMenuController">
+        <li role="presentation" ng-repeat="menu in menus|orderBy:'seq'" ng-class="menu.isNotModule?'disabled':''">
+           	<a ng-if="!menu.isNotModule && states[menu.moduleName].home.stateName" ui-sref="{{states[menu.moduleName].home.stateName}}" ui-sref-active="btn btn-primary">
+               	<i class="{{menu.styleClass}}"></i>&nbsp;&nbsp;<strong>{{menu.menuName}}</strong>
+          	</a>
+           	<a ng-if="menu.isNotModule" ui-sref-active="btn btn-primary">
+               	<i class="{{menu.styleClass}}"></i>&nbsp;&nbsp;<strong>{{menu.menuName}}</strong>
+          	</a>
+        </li>
+    </ul>
+</nav>

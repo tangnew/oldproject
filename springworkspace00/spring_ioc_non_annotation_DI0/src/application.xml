@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- 指定初始化方法，在构造器注入和setter注入完毕后执行 -->
+	<!-- 指定销毁方法，只有“singleton”作用域能销毁，“prototype”作用域的一定不能，其他作用域不一定能 -->
+	<bean id="uService0" class="com.service.impl.UserServiceImpl0"
+		init-method="init" destroy-method="destroy">
+	</bean>
+	<bean id="uService1" class="com.service.impl.UserServiceImpl1"
+		lazy-init="true" depends-on="user0" />
+	<bean id="user0" class="com.model.User" />
+
+
+	<!-- look up 一、查找方法注入：又称为Lookup方法注入，用于注入方法返回结果，也就是说能通过配置方式替换方法返回结果。使用<lookup-method 
+		name="方法名" bean="bean名字"/>配置；其中name属性指定方法名，bean属性指定方法需返回的Bean。 方法定义格式：访问级别必须是public或protected，保证能被子类重载，可以是抽象方法，必须有返回值，必须是无参数方法，查找方法的类和被重载的方法必须为非final： 
+		<public|protected> [abstract] <return-type> theMethodName(no-arguments); 
+		因为“singleton”Bean在容器中只有一个实例，而“prototype”Bean是每次获取容器都返回一个全新的实例，所以如果“singleton”Bean在使用“prototype” 
+		Bean情况时，那么“prototype”Bean由于是“singleton”Bean的一个字段属性，所以获取的这个“prototype”Bean就和它所在的“singleton”Bean具有同样的生命周期，所以不是我们所期待的结果。因此查找方法注入就是用于解决这个问题 -->
+	<bean id="prototypePrinter" class="com.method.inject.Printer"
+		scope="prototype" />
+	<bean id="singletonPrinter" class="com.method.inject.Printer"
+		scope="singleton" />
+	<bean id="helloApi1" class="com.method.inject.Lookup" scope="singleton">
+		<property name="printer" ref="prototypePrinter" />
+		<lookup-method name="createPrototypePrinter" bean="prototypePrinter" />
+		<lookup-method name="createSingletonPrinter" bean="singletonPrinter" />
+	</bean>
+	<bean id="helloApi2" class="com.method.inject.Lookup" scope="prototype">
+		<property name="printer" ref="prototypePrinter" />
+		<lookup-method name="createPrototypePrinter" bean="prototypePrinter" />
+		<lookup-method name="createSingletonPrinter" bean="singletonPrinter" />
+	</bean>
+
+
+	<bean id="replacer" class="com.method.inject.PrinterReplacer" />
+	<bean id="printer" class="com.method.inject.Printer">
+		<replaced-method name="print" replacer="replacer">
+			<arg-type>java.lang.String</arg-type>
+		</replaced-method>
+	</bean>
+
+	<!-- 通过CustomScopeConfigurer的scopes属性注册自定义作用域实现，在此需要指定使用作用域的关键字“thread”，并指定自定义作用域实现 -->
+	<bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+		<property name="scopes">
+			<map>
+				<entry>
+					<!-- 指定scope关键字 -->
+					<key>
+						<value>thread</value>
+					</key>
+					<!-- scope实现 -->
+					<bean class="com.scope.ThreadScope" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="hello0" class="com.scope.Hello" scope="thread">
+		<constructor-arg index="0" value="zhangsan"></constructor-arg>
+	</bean>
+</beans>

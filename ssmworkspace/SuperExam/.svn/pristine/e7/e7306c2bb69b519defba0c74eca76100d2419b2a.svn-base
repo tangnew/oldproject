@@ -1,0 +1,55 @@
+<div class="container-fluid" ng-controller="loginController">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default panel-body">
+                <form name="loginForm" novalidate>
+                    <legend>
+                        <strong>登录</strong>
+                    </legend>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="userNameIcon">
+                          <span class="glyphicon glyphicon-user"></span>
+                        </span>
+                        <input type="text" ng-model="loginData.loginName" class="form-control" placeholder="请输入登录名" aria-describedby="userNameIcon " name="loginName" required>
+                    </div>
+                    <div class="error" ng-show="loginForm.loginName.$invalid && loginForm.loginName.$dirty">
+                        <span ng-show="loginForm.loginName.$error.required">
+                        请输入登录名
+                        </span>
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon " id="passwordIcon ">
+                          <span class="glyphicon glyphicon-lock "></span>
+                        </span>
+                        <input type="password " ng-model="loginData.password" class="form-control" placeholder="请输入密码" aria-describedby="passwordIcon" name="password" required>
+                    </div>
+                    <div class="error" ng-show="loginForm.password.$invalid && loginForm.password.$dirty">
+                        <span ng-show="loginForm.password.$error.required">
+                            请输入密码
+                        </span>
+                    </div>
+                    <br>
+                    <div class="input-group ">
+                        <button class="btn btn-primary" aria-label="Left Align " ng-disabled="loginForm.$invalid" ng-click="login(loginData)">
+                            <span class="glyphicon glyphicon-hand-up" aria-hidden="true "></span>&nbsp;登录
+                        </button>
+                        &nbsp;&nbsp;
+                        <button class="btn btn-primary" aria-label="Left Align " ui-sref="{{states.register.home.stateName}}">
+                            <span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>&nbsp;注册
+                        </button>
+                    </div>
+                    <div style="margin-top:1rem;font-weight:bold; ">
+                        <i class="icon-question-sign"></i>
+                        <span>
+                            忘记密码，请点击
+                            <a href="#">
+                                <span class="glyphicon glyphicon-arrow-right"></span>这里
+                            </a>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

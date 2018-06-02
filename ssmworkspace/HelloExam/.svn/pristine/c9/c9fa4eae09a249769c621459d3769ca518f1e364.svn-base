@@ -1,0 +1,14 @@
+<!--
+  Created by JW
+  User: JW
+  Date: 2016-11-09
+  Time: 17:42
+  Description:
+-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-offset-4 col-md-4">
+            <div ui-view>无法找到服务</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+<!--
+  Created by JW
+  User: JW
+  Date: Nov 23, 2016
+  Time: 11:15:13 AM
+  Description:
+-->
+<nav class="nav navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <span class="navbar-brand">
+            	 <i class='icon-book icon-large'></i>
+                <span>Super Exam</span>
+            </span>
+        </div>
+        <div class="navbar-brand">
+            <span class="header-welcome">
+            	<i class="icon-key"></i>开启新的征程
+            </span>
+        </div>
+  		<ul class="nav navbar-nav navbar-right" ng-controller="headerController">
+	        <li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" 
+	          	role="button" aria-expanded="false" style="color:white"><span ng-bind="userInfo.loginName"></span><span class="caret"></span></a>
+	          <ul class="dropdown-menu" role="menu">
+	            <li class="text-center"><a href="#"><i class="icon-user"></i>&nbsp;个人信息</a></li>
+	            <li class="divider"></li>
+	            <li class="text-center"><a href="#" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span>&nbsp;注销</a></li>
+	          </ul>
+	        </li>
+    	</ul>
+    </div>
+</nav>

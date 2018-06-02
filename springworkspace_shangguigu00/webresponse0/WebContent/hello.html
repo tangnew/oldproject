@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="jquery-1.11.1.js"></script>
+<script type="text/javascript">
+	function hello() {
+		//alert("hello");
+		var request = $.ajax({
+			url : 'http://127.0.0.1:8080/webresponse0/hello',
+			type : 'GET',
+			/*success:function(data){
+				alert(data);
+			},
+			error:function(jqXHR,textStatus,errorThrown){
+				alert(jqXHR.readyState+" "+textStatus +"  " + errorThrown);
+				jqXHR.done(function(data, textStatus, jqXHR) {
+					alert(data);
+				}); 
+			},*/
+			timeout : 3000
+		});
+		request.abort=function(statusText){
+			alert("cancel" +statusText+";"+ request.readyState +" " +request.status);
+		};
+		request.statusCode= function (map){    
+			for(var i in map){
+				alert(map[i])
+			}
+	    };
+		request.done(function(data){
+			alert("msg " + data);
+		});
+		
+        request.fail(function(jqXHR, textStatus){
+        	alert( "Request failed: " + textStatus +";"+request.readyState+";"+request.status+";"+request.statusText);
+        });
+   
+        request.complete(function(jqXHR, textStatus){
+        	alert( "Request complete: " + textStatus +";"+jqXHR.readyState+";"+jqXHR.status+";"+jqXHR.statusText+";"+
+        	jqXHR.responseText);
+
+        })
+	}
+</script>
+</head>
+<body>
+	<button onclick="hello();">hello</button>
+</body>
+</html>

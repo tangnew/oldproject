@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Simple WebSocket Test</title>
+</head>
+<body>
+<input type="text" id="fileName" name="fileName"/>
+<button onclick="upFile()">
+    UpFile
+</button>
+<a href="/login">exit</a>
+<hr>
+<br/><br/><br/>
+Simple WebSocket Test
+<button onclick="startWS()">Start WebSocket</button>
+<button onclick="closeWS()">Close WebSocket</button>
+<hr/>
+Context:<input type="text" id="msg"/>
+<button onclick="sendMessage()">Say</button><button
+        onclick="clearDiv()">
+    Clear</button>
+<br/>
+Response:
+<div id="respDiv"
+     style="border: solid 1px gray;width: 650px;height: 220px;
+    overflow-y:scroll"></div>
+<script type="text/javascript" src="js/jquery-1.11.1.js"></script>
+<script type="text/javascript">
+    var ws = null;
+    var url = "ws://127.0.0.1:8080/fileWS";
+    var sessionId = document.cookie;
+    url = url + "?" + sessionId;
+    function startWS() {
+        if(ws){
+            ws.close();
+        }
+        ws = new WebSocket(url);
+        ws.onmessage = function (e) {
+            $("#respDiv").append("<br/>" + e.data);
+        }
+    }
+
+    function sendMessage() {
+        ws.send($("#msg").val());
+        $("#msg").val(null);
+    }
+
+    function closeWS() {
+        ws.close();
+    }
+    function upFile() {
+        var fileName = $("#fileName").val();
+        $.ajax({
+            url: '/fileUD',
+            type: "POST",
+            dataType: 'text',
+            data: {'fileName': fileName},
+            success: function (e) {
+            }
+        });
+    }
+
+    function clearDiv(){
+        $('#respDiv').empty();
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+/**
+ *  Created by JW
+ *  User: JW
+ *  Date: 2016-11-17
+ *  Time: 16:50
+ *  Description:
+ */
+EXAM.mainModuleApp.menuApp.controller("menuController", 
+    ["$scope", "$window", "$state", "menuService", 
+        function ($scope, $window, $state, menuService) {
+    	
+            $scope.createMenu = function (menuData) {
+            	menuData.styleClass = menuData.styleClass + " "+ menuData.styleClassSize; 
+                var promise = menuService.createMenu(menuData);
+                promise.success(function (response) {
+                    if(response.status){
+                    	$window.location = EXAM.constant.mainPage;
+                    }else{
+                    	response.isNotModule = true;
+    	            	menuService.menusCreated(response);                    
+                        $state.go(EXAM.modules.states.menu.list.stateName);
+                    }
+                }).error(function (response) {
+                });
+            };
+
+            $scope.edit = function(menuData, currentPage){
+            	menuData.currentPage = currentPage;
+            	var styleClassArr = menuData.styleClass.split(" ");
+            	menuData.styleClass = styleClassArr[0];
+            	if(styleClassArr.length > 1){
+            		menuData.styleClassSize = styleClassArr[1];
+            	}
+            	
+                $state.go(EXAM.modules.states.menu.edit.stateName, {menu:menuData});
+            }
+
+            $scope.updateMenu = function(menuData){
+            	var menu = {};
+            	menu.id = menuData.id;
+            	menu.moduleName = menuData.moduleName;
+            	menu.menuName = menuData.menuName;
+            	menu.seq = menuData.seq;
+            	menu.status = menuData.status;
+            	menu.styleClass = menuData.styleClass + " "+ menuData.styleClassSize;
+            	var currentPage = menuData.currentPage;
+                var promise = menuService.updateMenu(menu);
+                promise.success(function (response) {
+	            	menuService.menusUpdated(response);                    
+                    $state.go(EXAM.modules.states.menu.list.stateName,{page:{currentPage:currentPage}});
+                }).error(function (response) {
+                    console.log("error:"+response);
+                });
+            }
+            
+            $scope.cancelCreateOrUpdate = function(menuData){
+            	var currentPage = menuData.currentPage;
+            	$state.go(EXAM.modules.states.menu.list.stateName,{page:{currentPage:currentPage}});
+            }
+            
+            $scope.deleteMenu = function(menuId){
+            	$.confirm({
+            		icon: "icon-question-sign",
+            	    title: "确认",
+            	    content: "是否删除该记录？",
+            	    autoClose: "cancel|10000",
+            	    theme: "my-light",
+            	    buttons: {
+            	    	ok:{
+            	    		text: "&nbsp;删除",
+            	            btnClass: 'btn-danger icon-trash icon-large icon-large',
+            	            action: function(){
+            	            	 var promise = menuService.deleteMenu({menuId:menuId});
+	   	        	             promise.success(function (response) {
+	   	        	            	menuService.menusDeleted({menuId:menuId});
+	   	        	                $state.reload(EXAM.modules.states.menu.list.stateName);
+	   	        	             }).error(function (response) {
+	   	        	             });
+            	            }
+            	    	},
+            	        cancel:{
+            	        	text: "&nbsp;取消",
+            	        	btnClass: "btn-info icon-reply icon-large icon-large",
+            	        	action: function(){
+            	        		$state.reload(EXAM.modules.states.menu.list.stateName);
+            	        	}
+            	        }
+            	    }
+            	});
+           }
+        }
+    ]
+);

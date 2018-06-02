@@ -1,0 +1,5 @@
+1.user:spring_java@126.com/spring123456;
+2.spring_java_accept@126.com/spring123456
+3.126免费邮客户端设置POP3和SMTP地址
+smtp.126.com 465/994 25;
+pop.126.com 995 110

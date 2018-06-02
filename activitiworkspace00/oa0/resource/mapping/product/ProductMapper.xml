@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.product.ProductMapper">
+	<resultMap id="BaseResultMap" type="com.model.product.Product">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+		<result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+		<result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+		<result column="status" property="status" jdbcType="BIGINT" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, name, description, created_time, updated_time, status, user_name
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from product
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="listByUserAndStatus" resultMap="BaseResultMap">
+	   select
+		<include refid="Base_Column_List" />
+		from product
+		where  user_name=#{userName,jdbcType=VARCHAR}
+		    and status in
+		    <foreach collection="statusList" index="index" item="item" open="(" separator="," close=")">
+              #{item}
+           </foreach> 
+	</select>
+	<select id="selectAllByUserNameAndStatus" resultMap="BaseResultMap" parameterType="string">
+		select
+		<include refid="Base_Column_List" />
+		from product
+		where user_name=#{userName,jdbcType=VARCHAR}
+		     and status=#{status,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from product
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.model.product.Product">
+		insert into product (name, description,
+		created_time, updated_time, status,user_name
+		)
+		values ( #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
+		#{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP},
+		#{status,jdbcType=BIGINT},#{userName, jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="updateByPrimaryKey" parameterType="com.model.product.Product">
+		update product
+		set name = #{name,jdbcType=VARCHAR},
+		description = #{description,jdbcType=VARCHAR},
+		created_time = #{createdTime,jdbcType=TIMESTAMP},
+		updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+		status = #{status,jdbcType=BIGINT}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateStatusByProductIdAndStatus">
+	  	update product
+	  	   set status = #{status,jdbcType=BIGINT},updated_time=now()
+		 where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

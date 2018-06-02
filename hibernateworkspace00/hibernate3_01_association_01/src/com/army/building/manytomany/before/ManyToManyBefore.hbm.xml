@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.army.building.manytomany.before">
+	<!-- 不好的多对多双向关联 -->
+	<class name="Teacher" table="teacher">
+		<id name="id">
+			<generator class="increment" />
+		</id>
+		<property name="name" />
+		<set name="students" table="t_teacher_student" cascade="all"
+			inverse="true">
+			<key column="teacherId" />
+			<many-to-many class="Student" column="studentId"  />
+		</set><!-- 去掉set就不是单向关联了 -->
+	</class>
+
+	<class name="Student" table="student">
+		<id name="id">
+			<generator class="increment" />
+		</id>
+		<property name="name" />
+		<set name="teachers" table="t_teacher_student" cascade="all">
+			<key column="studentId" />
+			<many-to-many class="Teacher" column="teacherId"></many-to-many>
+		</set>
+
+	</class>
+</hibernate-mapping>

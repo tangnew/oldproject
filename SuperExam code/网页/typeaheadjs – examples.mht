@@ -1,0 +1,3420 @@
+From: <Saved by Blink>
+Subject: typeahead.js ? examples
+Date: Thu, 24 Aug 2016 23:37:48 -0000
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----=_NextPart_000_9CF8_A37549AA.84C210E3"
+
+------=_NextPart_000_9CF8_A37549AA.84C210E3
+Content-Type: text/html
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://twitter.github.io/typeahead.js/examples/
+
+<!DOCTYPE html><html lang=3D"en"><head><meta http-equiv=3D"Content-Type" co=
+ntent=3D"text/html; charset=3DUTF-8">
+   =20
+    <meta http-equiv=3D"X-UA-Compatible" content=3D"IE=3Dedge,chrome=3D1">
+    <title>typeahead.js =E2=80=93 examples</title>
+    <meta name=3D"viewport" content=3D"width=3Ddevice-width, initial-scale=
+=3D1">
+    <link rel=3D"shortcut icon" type=3D"image/x-icon" href=3D"http://twitte=
+r.com/favicons/favicon.ico">
+
+    <link rel=3D"stylesheet" href=3D"http://twitter.github.io/typeahead.js/=
+css/examples.css">
+  </head>
+  <body>
+    <div class=3D"container">
+      <h1 class=3D"title">examples</h1>
+
+      <ol class=3D"table-of-contents">
+        <li><a href=3D"http://twitter.github.io/typeahead.js/examples/#the-=
+basics">The Basics</a></li><span> =C2=B7 </span>
+        <li><a href=3D"http://twitter.github.io/typeahead.js/examples/#bloo=
+dhound">Bloodhound</a></li><span> =C2=B7 </span>
+        <li><a href=3D"http://twitter.github.io/typeahead.js/examples/#pref=
+etch">Prefetch</a></li><span> =C2=B7 </span>
+        <li><a href=3D"http://twitter.github.io/typeahead.js/examples/#remo=
+te">Remote</a></li><span> =C2=B7 </span>
+        <li><a href=3D"http://twitter.github.io/typeahead.js/examples/#cust=
+om-templates">Custom Templates</a></li><span> =C2=B7 </span>
+        <li><a href=3D"http://twitter.github.io/typeahead.js/examples/#defa=
+ult-suggestions">Default Suggestions</a></li><span> =C2=B7 </span>
+        <li><a href=3D"http://twitter.github.io/typeahead.js/examples/#mult=
+iple-datasets">Multiple Datasets</a></li><span> =C2=B7 </span>
+        <li><a href=3D"http://twitter.github.io/typeahead.js/examples/#scro=
+llable-dropdown-menu">Scrollable Dropdown Menu</a></li><span> =C2=B7 </span=
+>
+        <li><a href=3D"http://twitter.github.io/typeahead.js/examples/#rtl-=
+support">RTL Support</a></li>
+      </ol>
+
+      <div class=3D"example" id=3D"the-basics">
+        <h2 class=3D"example-name">The Basics</h2>
+        <p class=3D"example-description">
+          When initializing a typeahead using the <a href=3D"https://github=
+.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md">typeahead.js=
+ jQuery plugin</a>,
+          you pass the plugin method one or more <a href=3D"https://github.=
+com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#datasets">data=
+sets</a>.=20
+          The source of a dataset is responsible for computing a set of=20
+          suggestions for a given query.
+        </p>
+
+        <div class=3D"demo">
+          <span class=3D"twitter-typeahead" style=3D"position: relative; di=
+splay: inline-block;"><input class=3D"typeahead tt-hint" type=3D"text" read=
+only=3D"" autocomplete=3D"off" spellcheck=3D"false" tabindex=3D"-1" dir=3D"=
+ltr" style=3D"position: absolute; top: 0px; left: 0px; border-color: transp=
+arent; box-shadow: none; opacity: 1; background: none 0% 0% / auto repeat s=
+croll padding-box border-box rgb(255, 255, 255);"><input class=3D"typeahead=
+ tt-input" type=3D"text" placeholder=3D"States of USA" autocomplete=3D"off"=
+ spellcheck=3D"false" dir=3D"auto" style=3D"position: relative; vertical-al=
+ign: top; background-color: transparent;"><pre aria-hidden=3D"true" style=
+=3D"position: absolute; visibility: hidden; white-space: pre; font-family: =
+Arial; font-size: 24px; font-style: normal; font-variant: normal; font-weig=
+ht: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-ren=
+dering: auto; text-transform: none;"></pre><div class=3D"tt-menu" style=3D"=
+position: absolute; top: 100%; left: 0px; z-index: 100; display: none;"><di=
+v class=3D"tt-dataset tt-dataset-states"></div></div></span>
+        </div>
+
+        <div class=3D"gist">
+          <link rel=3D"stylesheet" href=3D"https://assets-cdn.github.com/as=
+sets/gist-embed-b03925b9c18fa42b22f168e7d17a7ca70ca50a4126cbfca9f91a1a8bc79=
+b5905.css"><div id=3D"gist9458744" class=3D"gist">
+    <div class=3D"gist-file">
+      <div class=3D"gist-data">
+        <div class=3D"js-gist-file-update-container js-task-list-container =
+file-box">
+  <div id=3D"file-the-basics-html" class=3D"file">
+   =20
+
+  <div itemprop=3D"text" class=3D"blob-wrapper data type-html">
+      <table class=3D"highlight tab-size js-file-line-container" data-tab-s=
+ize=3D"8">
+      <tbody><tr>
+        <td id=3D"file-the-basics-html-L1" class=3D"blob-num js-line-number=
+" data-line-number=3D"1"></td>
+        <td id=3D"file-the-basics-html-LC1" class=3D"blob-code blob-code-in=
+ner js-file-line">&lt;<span class=3D"pl-ent">div</span> <span class=3D"pl-e=
+">id</span>=3D<span class=3D"pl-s"><span class=3D"pl-pds">"</span>the-basic=
+s<span class=3D"pl-pds">"</span></span>&gt;</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-html-L2" class=3D"blob-num js-line-number=
+" data-line-number=3D"2"></td>
+        <td id=3D"file-the-basics-html-LC2" class=3D"blob-code blob-code-in=
+ner js-file-line">  &lt;<span class=3D"pl-ent">input</span> <span class=3D"=
+pl-e">class</span>=3D<span class=3D"pl-s"><span class=3D"pl-pds">"</span>ty=
+peahead<span class=3D"pl-pds">"</span></span> <span class=3D"pl-e">type</sp=
+an>=3D<span class=3D"pl-s"><span class=3D"pl-pds">"</span>text<span class=
+=3D"pl-pds">"</span></span> <span class=3D"pl-e">placeholder</span>=3D<span=
+ class=3D"pl-s"><span class=3D"pl-pds">"</span>States of USA<span class=3D"=
+pl-pds">"</span></span>&gt;</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-html-L3" class=3D"blob-num js-line-number=
+" data-line-number=3D"3"></td>
+        <td id=3D"file-the-basics-html-LC3" class=3D"blob-code blob-code-in=
+ner js-file-line">&lt;/<span class=3D"pl-ent">div</span>&gt;</td>
+      </tr>
+</tbody></table>
+
+  </div>
+
+  </div>
+ =20
+</div>
+
+      </div>
+      <div class=3D"gist-meta">
+        <a href=3D"https://gist.github.com/jharding/9458744/raw/94c98ffbb74=
+96ce16ac8067dd5b2867182ea4c04/the-basics.html" style=3D"float:right">view r=
+aw</a>
+        <a href=3D"https://gist.github.com/jharding/9458744#file-the-basics=
+-html">the-basics.html</a>
+        hosted with =E2=9D=A4 by <a href=3D"https://github.com/">GitHub</a>
+      </div>
+    </div>
+    <div class=3D"gist-file">
+      <div class=3D"gist-data">
+        <div class=3D"js-gist-file-update-container js-task-list-container =
+file-box">
+  <div id=3D"file-the-basics-js" class=3D"file">
+   =20
+
+  <div itemprop=3D"text" class=3D"blob-wrapper data type-javascript">
+      <table class=3D"highlight tab-size js-file-line-container" data-tab-s=
+ize=3D"8">
+      <tbody><tr>
+        <td id=3D"file-the-basics-js-L1" class=3D"blob-num js-line-number" =
+data-line-number=3D"1"></td>
+        <td id=3D"file-the-basics-js-LC1" class=3D"blob-code blob-code-inne=
+r js-file-line"><span class=3D"pl-k">var</span> <span class=3D"pl-en">subst=
+ringMatcher</span> <span class=3D"pl-k">=3D</span> <span class=3D"pl-k">fun=
+ction</span>(<span class=3D"pl-smi">strs</span>) {</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L2" class=3D"blob-num js-line-number" =
+data-line-number=3D"2"></td>
+        <td id=3D"file-the-basics-js-LC2" class=3D"blob-code blob-code-inne=
+r js-file-line">  <span class=3D"pl-k">return</span> <span class=3D"pl-k">f=
+unction</span> <span class=3D"pl-en">findMatches</span>(<span class=3D"pl-s=
+mi">q</span>, <span class=3D"pl-smi">cb</span>) {</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L3" class=3D"blob-num js-line-number" =
+data-line-number=3D"3"></td>
+        <td id=3D"file-the-basics-js-LC3" class=3D"blob-code blob-code-inne=
+r js-file-line">    <span class=3D"pl-k">var</span> matches, substringRegex=
+;</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L4" class=3D"blob-num js-line-number" =
+data-line-number=3D"4"></td>
+        <td id=3D"file-the-basics-js-LC4" class=3D"blob-code blob-code-inne=
+r js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L5" class=3D"blob-num js-line-number" =
+data-line-number=3D"5"></td>
+        <td id=3D"file-the-basics-js-LC5" class=3D"blob-code blob-code-inne=
+r js-file-line">    <span class=3D"pl-c">// an array that will be populated=
+ with substring matches</span></td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L6" class=3D"blob-num js-line-number" =
+data-line-number=3D"6"></td>
+        <td id=3D"file-the-basics-js-LC6" class=3D"blob-code blob-code-inne=
+r js-file-line">    matches <span class=3D"pl-k">=3D</span> [];</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L7" class=3D"blob-num js-line-number" =
+data-line-number=3D"7"></td>
+        <td id=3D"file-the-basics-js-LC7" class=3D"blob-code blob-code-inne=
+r js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L8" class=3D"blob-num js-line-number" =
+data-line-number=3D"8"></td>
+        <td id=3D"file-the-basics-js-LC8" class=3D"blob-code blob-code-inne=
+r js-file-line">    <span class=3D"pl-c">// regex used to determine if a st=
+ring contains the substring `q`</span></td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L9" class=3D"blob-num js-line-number" =
+data-line-number=3D"9"></td>
+        <td id=3D"file-the-basics-js-LC9" class=3D"blob-code blob-code-inne=
+r js-file-line">    substrRegex <span class=3D"pl-k">=3D</span> <span class=
+=3D"pl-k">new</span> <span class=3D"pl-en">RegExp</span>(q, <span class=3D"=
+pl-s"><span class=3D"pl-pds">'</span>i<span class=3D"pl-pds">'</span></span=
+>);</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L10" class=3D"blob-num js-line-number"=
+ data-line-number=3D"10"></td>
+        <td id=3D"file-the-basics-js-LC10" class=3D"blob-code blob-code-inn=
+er js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L11" class=3D"blob-num js-line-number"=
+ data-line-number=3D"11"></td>
+        <td id=3D"file-the-basics-js-LC11" class=3D"blob-code blob-code-inn=
+er js-file-line">    <span class=3D"pl-c">// iterate through the pool of st=
+rings and for any string that</span></td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L12" class=3D"blob-num js-line-number"=
+ data-line-number=3D"12"></td>
+        <td id=3D"file-the-basics-js-LC12" class=3D"blob-code blob-code-inn=
+er js-file-line">    <span class=3D"pl-c">// contains the substring `q`, ad=
+d it to the `matches` array</span></td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L13" class=3D"blob-num js-line-number"=
+ data-line-number=3D"13"></td>
+        <td id=3D"file-the-basics-js-LC13" class=3D"blob-code blob-code-inn=
+er js-file-line">    <span class=3D"pl-smi">$</span>.<span class=3D"pl-en">=
+each</span>(strs, <span class=3D"pl-k">function</span>(<span class=3D"pl-sm=
+i">i</span>, <span class=3D"pl-smi">str</span>) {</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L14" class=3D"blob-num js-line-number"=
+ data-line-number=3D"14"></td>
+        <td id=3D"file-the-basics-js-LC14" class=3D"blob-code blob-code-inn=
+er js-file-line">      <span class=3D"pl-k">if</span> (<span class=3D"pl-sm=
+i">substrRegex</span>.<span class=3D"pl-c1">test</span>(str)) {</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L15" class=3D"blob-num js-line-number"=
+ data-line-number=3D"15"></td>
+        <td id=3D"file-the-basics-js-LC15" class=3D"blob-code blob-code-inn=
+er js-file-line">        <span class=3D"pl-smi">matches</span>.<span class=
+=3D"pl-c1">push</span>(str);</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L16" class=3D"blob-num js-line-number"=
+ data-line-number=3D"16"></td>
+        <td id=3D"file-the-basics-js-LC16" class=3D"blob-code blob-code-inn=
+er js-file-line">      }</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L17" class=3D"blob-num js-line-number"=
+ data-line-number=3D"17"></td>
+        <td id=3D"file-the-basics-js-LC17" class=3D"blob-code blob-code-inn=
+er js-file-line">    });</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L18" class=3D"blob-num js-line-number"=
+ data-line-number=3D"18"></td>
+        <td id=3D"file-the-basics-js-LC18" class=3D"blob-code blob-code-inn=
+er js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L19" class=3D"blob-num js-line-number"=
+ data-line-number=3D"19"></td>
+        <td id=3D"file-the-basics-js-LC19" class=3D"blob-code blob-code-inn=
+er js-file-line">    <span class=3D"pl-en">cb</span>(matches);</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L20" class=3D"blob-num js-line-number"=
+ data-line-number=3D"20"></td>
+        <td id=3D"file-the-basics-js-LC20" class=3D"blob-code blob-code-inn=
+er js-file-line">  };</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L21" class=3D"blob-num js-line-number"=
+ data-line-number=3D"21"></td>
+        <td id=3D"file-the-basics-js-LC21" class=3D"blob-code blob-code-inn=
+er js-file-line">};</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L22" class=3D"blob-num js-line-number"=
+ data-line-number=3D"22"></td>
+        <td id=3D"file-the-basics-js-LC22" class=3D"blob-code blob-code-inn=
+er js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L23" class=3D"blob-num js-line-number"=
+ data-line-number=3D"23"></td>
+        <td id=3D"file-the-basics-js-LC23" class=3D"blob-code blob-code-inn=
+er js-file-line"><span class=3D"pl-k">var</span> states <span class=3D"pl-k=
+">=3D</span> [<span class=3D"pl-s"><span class=3D"pl-pds">'</span>Alabama<s=
+pan class=3D"pl-pds">'</span></span>, <span class=3D"pl-s"><span class=3D"p=
+l-pds">'</span>Alaska<span class=3D"pl-pds">'</span></span>, <span class=3D=
+"pl-s"><span class=3D"pl-pds">'</span>Arizona<span class=3D"pl-pds">'</span=
+></span>, <span class=3D"pl-s"><span class=3D"pl-pds">'</span>Arkansas<span=
+ class=3D"pl-pds">'</span></span>, <span class=3D"pl-s"><span class=3D"pl-p=
+ds">'</span>California<span class=3D"pl-pds">'</span></span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L24" class=3D"blob-num js-line-number"=
+ data-line-number=3D"24"></td>
+        <td id=3D"file-the-basics-js-LC24" class=3D"blob-code blob-code-inn=
+er js-file-line">  <span class=3D"pl-s"><span class=3D"pl-pds">'</span>Colo=
+rado<span class=3D"pl-pds">'</span></span>, <span class=3D"pl-s"><span clas=
+s=3D"pl-pds">'</span>Connecticut<span class=3D"pl-pds">'</span></span>, <sp=
+an class=3D"pl-s"><span class=3D"pl-pds">'</span>Delaware<span class=3D"pl-=
+pds">'</span></span>, <span class=3D"pl-s"><span class=3D"pl-pds">'</span>F=
+lorida<span class=3D"pl-pds">'</span></span>, <span class=3D"pl-s"><span cl=
+ass=3D"pl-pds">'</span>Georgia<span class=3D"pl-pds">'</span></span>, <span=
+ class=3D"pl-s"><span class=3D"pl-pds">'</span>Hawaii<span class=3D"pl-pds"=
+>'</span></span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L25" class=3D"blob-num js-line-number"=
+ data-line-number=3D"25"></td>
+        <td id=3D"file-the-basics-js-LC25" class=3D"blob-code blob-code-inn=
+er js-file-line">  <span class=3D"pl-s"><span class=3D"pl-pds">'</span>Idah=
+o<span class=3D"pl-pds">'</span></span>, <span class=3D"pl-s"><span class=
+=3D"pl-pds">'</span>Illinois<span class=3D"pl-pds">'</span></span>, <span c=
+lass=3D"pl-s"><span class=3D"pl-pds">'</span>Indiana<span class=3D"pl-pds">=
+'</span></span>, <span class=3D"pl-s"><span class=3D"pl-pds">'</span>Iowa<s=
+pan class=3D"pl-pds">'</span></span>, <span class=3D"pl-s"><span class=3D"p=
+l-pds">'</span>Kansas<span class=3D"pl-pds">'</span></span>, <span class=3D=
+"pl-s"><span class=3D"pl-pds">'</span>Kentucky<span class=3D"pl-pds">'</spa=
+n></span>, <span class=3D"pl-s"><span class=3D"pl-pds">'</span>Louisiana<sp=
+an class=3D"pl-pds">'</span></span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L26" class=3D"blob-num js-line-number"=
+ data-line-number=3D"26"></td>
+        <td id=3D"file-the-basics-js-LC26" class=3D"blob-code blob-code-inn=
+er js-file-line">  <span class=3D"pl-s"><span class=3D"pl-pds">'</span>Main=
+e<span class=3D"pl-pds">'</span></span>, <span class=3D"pl-s"><span class=
+=3D"pl-pds">'</span>Maryland<span class=3D"pl-pds">'</span></span>, <span c=
+lass=3D"pl-s"><span class=3D"pl-pds">'</span>Massachusetts<span class=3D"pl=
+-pds">'</span></span>, <span class=3D"pl-s"><span class=3D"pl-pds">'</span>=
+Michigan<span class=3D"pl-pds">'</span></span>, <span class=3D"pl-s"><span =
+class=3D"pl-pds">'</span>Minnesota<span class=3D"pl-pds">'</span></span>,</=
+td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L27" class=3D"blob-num js-line-number"=
+ data-line-number=3D"27"></td>
+        <td id=3D"file-the-basics-js-LC27" class=3D"blob-code blob-code-inn=
+er js-file-line">  <span class=3D"pl-s"><span class=3D"pl-pds">'</span>Miss=
+issippi<span class=3D"pl-pds">'</span></span>, <span class=3D"pl-s"><span c=
+lass=3D"pl-pds">'</span>Missouri<span class=3D"pl-pds">'</span></span>, <sp=
+an class=3D"pl-s"><span class=3D"pl-pds">'</span>Montana<span class=3D"pl-p=
+ds">'</span></span>, <span class=3D"pl-s"><span class=3D"pl-pds">'</span>Ne=
+braska<span class=3D"pl-pds">'</span></span>, <span class=3D"pl-s"><span cl=
+ass=3D"pl-pds">'</span>Nevada<span class=3D"pl-pds">'</span></span>, <span =
+class=3D"pl-s"><span class=3D"pl-pds">'</span>New Hampshire<span class=3D"p=
+l-pds">'</span></span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L28" class=3D"blob-num js-line-number"=
+ data-line-number=3D"28"></td>
+        <td id=3D"file-the-basics-js-LC28" class=3D"blob-code blob-code-inn=
+er js-file-line">  <span class=3D"pl-s"><span class=3D"pl-pds">'</span>New =
+Jersey<span class=3D"pl-pds">'</span></span>, <span class=3D"pl-s"><span cl=
+ass=3D"pl-pds">'</span>New Mexico<span class=3D"pl-pds">'</span></span>, <s=
+pan class=3D"pl-s"><span class=3D"pl-pds">'</span>New York<span class=3D"pl=
+-pds">'</span></span>, <span class=3D"pl-s"><span class=3D"pl-pds">'</span>=
+North Carolina<span class=3D"pl-pds">'</span></span>, <span class=3D"pl-s">=
+<span class=3D"pl-pds">'</span>North Dakota<span class=3D"pl-pds">'</span><=
+/span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L29" class=3D"blob-num js-line-number"=
+ data-line-number=3D"29"></td>
+        <td id=3D"file-the-basics-js-LC29" class=3D"blob-code blob-code-inn=
+er js-file-line">  <span class=3D"pl-s"><span class=3D"pl-pds">'</span>Ohio=
+<span class=3D"pl-pds">'</span></span>, <span class=3D"pl-s"><span class=3D=
+"pl-pds">'</span>Oklahoma<span class=3D"pl-pds">'</span></span>, <span clas=
+s=3D"pl-s"><span class=3D"pl-pds">'</span>Oregon<span class=3D"pl-pds">'</s=
+pan></span>, <span class=3D"pl-s"><span class=3D"pl-pds">'</span>Pennsylvan=
+ia<span class=3D"pl-pds">'</span></span>, <span class=3D"pl-s"><span class=
+=3D"pl-pds">'</span>Rhode Island<span class=3D"pl-pds">'</span></span>,</td=
+>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L30" class=3D"blob-num js-line-number"=
+ data-line-number=3D"30"></td>
+        <td id=3D"file-the-basics-js-LC30" class=3D"blob-code blob-code-inn=
+er js-file-line">  <span class=3D"pl-s"><span class=3D"pl-pds">'</span>Sout=
+h Carolina<span class=3D"pl-pds">'</span></span>, <span class=3D"pl-s"><spa=
+n class=3D"pl-pds">'</span>South Dakota<span class=3D"pl-pds">'</span></spa=
+n>, <span class=3D"pl-s"><span class=3D"pl-pds">'</span>Tennessee<span clas=
+s=3D"pl-pds">'</span></span>, <span class=3D"pl-s"><span class=3D"pl-pds">'=
+</span>Texas<span class=3D"pl-pds">'</span></span>, <span class=3D"pl-s"><s=
+pan class=3D"pl-pds">'</span>Utah<span class=3D"pl-pds">'</span></span>, <s=
+pan class=3D"pl-s"><span class=3D"pl-pds">'</span>Vermont<span class=3D"pl-=
+pds">'</span></span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L31" class=3D"blob-num js-line-number"=
+ data-line-number=3D"31"></td>
+        <td id=3D"file-the-basics-js-LC31" class=3D"blob-code blob-code-inn=
+er js-file-line">  <span class=3D"pl-s"><span class=3D"pl-pds">'</span>Virg=
+inia<span class=3D"pl-pds">'</span></span>, <span class=3D"pl-s"><span clas=
+s=3D"pl-pds">'</span>Washington<span class=3D"pl-pds">'</span></span>, <spa=
+n class=3D"pl-s"><span class=3D"pl-pds">'</span>West Virginia<span class=3D=
+"pl-pds">'</span></span>, <span class=3D"pl-s"><span class=3D"pl-pds">'</sp=
+an>Wisconsin<span class=3D"pl-pds">'</span></span>, <span class=3D"pl-s"><s=
+pan class=3D"pl-pds">'</span>Wyoming<span class=3D"pl-pds">'</span></span><=
+/td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L32" class=3D"blob-num js-line-number"=
+ data-line-number=3D"32"></td>
+        <td id=3D"file-the-basics-js-LC32" class=3D"blob-code blob-code-inn=
+er js-file-line">];</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L33" class=3D"blob-num js-line-number"=
+ data-line-number=3D"33"></td>
+        <td id=3D"file-the-basics-js-LC33" class=3D"blob-code blob-code-inn=
+er js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L34" class=3D"blob-num js-line-number"=
+ data-line-number=3D"34"></td>
+        <td id=3D"file-the-basics-js-LC34" class=3D"blob-code blob-code-inn=
+er js-file-line"><span class=3D"pl-en">$</span>(<span class=3D"pl-s"><span =
+class=3D"pl-pds">'</span>#the-basics .typeahead<span class=3D"pl-pds">'</sp=
+an></span>).<span class=3D"pl-en">typeahead</span>({</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L35" class=3D"blob-num js-line-number"=
+ data-line-number=3D"35"></td>
+        <td id=3D"file-the-basics-js-LC35" class=3D"blob-code blob-code-inn=
+er js-file-line">  hint<span class=3D"pl-k">:</span> <span class=3D"pl-c1">=
+true</span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L36" class=3D"blob-num js-line-number"=
+ data-line-number=3D"36"></td>
+        <td id=3D"file-the-basics-js-LC36" class=3D"blob-code blob-code-inn=
+er js-file-line">  highlight<span class=3D"pl-k">:</span> <span class=3D"pl=
+-c1">true</span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L37" class=3D"blob-num js-line-number"=
+ data-line-number=3D"37"></td>
+        <td id=3D"file-the-basics-js-LC37" class=3D"blob-code blob-code-inn=
+er js-file-line">  minLength<span class=3D"pl-k">:</span> <span class=3D"pl=
+-c1">1</span></td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L38" class=3D"blob-num js-line-number"=
+ data-line-number=3D"38"></td>
+        <td id=3D"file-the-basics-js-LC38" class=3D"blob-code blob-code-inn=
+er js-file-line">},</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L39" class=3D"blob-num js-line-number"=
+ data-line-number=3D"39"></td>
+        <td id=3D"file-the-basics-js-LC39" class=3D"blob-code blob-code-inn=
+er js-file-line">{</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L40" class=3D"blob-num js-line-number"=
+ data-line-number=3D"40"></td>
+        <td id=3D"file-the-basics-js-LC40" class=3D"blob-code blob-code-inn=
+er js-file-line">  name<span class=3D"pl-k">:</span> <span class=3D"pl-s"><=
+span class=3D"pl-pds">'</span>states<span class=3D"pl-pds">'</span></span>,=
+</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L41" class=3D"blob-num js-line-number"=
+ data-line-number=3D"41"></td>
+        <td id=3D"file-the-basics-js-LC41" class=3D"blob-code blob-code-inn=
+er js-file-line">  source<span class=3D"pl-k">:</span> <span class=3D"pl-en=
+">substringMatcher</span>(states)</td>
+      </tr>
+      <tr>
+        <td id=3D"file-the-basics-js-L42" class=3D"blob-num js-line-number"=
+ data-line-number=3D"42"></td>
+        <td id=3D"file-the-basics-js-LC42" class=3D"blob-code blob-code-inn=
+er js-file-line">});</td>
+      </tr>
+</tbody></table>
+
+  </div>
+
+  </div>
+ =20
+</div>
+
+      </div>
+      <div class=3D"gist-meta">
+        <a href=3D"https://gist.github.com/jharding/9458744/raw/94c98ffbb74=
+96ce16ac8067dd5b2867182ea4c04/the-basics.js" style=3D"float:right">view raw=
+</a>
+        <a href=3D"https://gist.github.com/jharding/9458744#file-the-basics=
+-js">the-basics.js</a>
+        hosted with =E2=9D=A4 by <a href=3D"https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+
+        </div>
+      </div>
+
+      <div class=3D"example" id=3D"bloodhound">
+        <h2 class=3D"example-name">Bloodhound (Suggestion Engine)</h2>
+        <p class=3D"example-description">
+          For more advanced use cases, rather than implementing the source =
+for
+          your dataset yourself, you can take advantage of <a href=3D"https=
+://github.com/twitter/typeahead.js/blob/master/doc/bloodhound.md">Bloodhoun=
+d</a>,=20
+          the typeahead.js suggestion engine.
+        </p>
+
+        <p class=3D"example-description">
+          Bloodhound is robust, flexible, and offers advanced functionaliti=
+es=20
+          such as prefetching, intelligent caching, fast lookups, and=20
+          backfilling with remote data. =20
+        </p>
+
+        <div class=3D"demo">
+          <span class=3D"twitter-typeahead" style=3D"position: relative; di=
+splay: inline-block;"><input class=3D"typeahead tt-hint" type=3D"text" read=
+only=3D"" autocomplete=3D"off" spellcheck=3D"false" tabindex=3D"-1" dir=3D"=
+ltr" style=3D"position: absolute; top: 0px; left: 0px; border-color: transp=
+arent; box-shadow: none; opacity: 1; background: none 0% 0% / auto repeat s=
+croll padding-box border-box rgb(255, 255, 255);"><input class=3D"typeahead=
+ tt-input" type=3D"text" placeholder=3D"States of USA" autocomplete=3D"off"=
+ spellcheck=3D"false" dir=3D"auto" style=3D"position: relative; vertical-al=
+ign: top; background-color: transparent;"><pre aria-hidden=3D"true" style=
+=3D"position: absolute; visibility: hidden; white-space: pre; font-family: =
+Arial; font-size: 24px; font-style: normal; font-variant: normal; font-weig=
+ht: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-ren=
+dering: auto; text-transform: none;"></pre><div class=3D"tt-menu" style=3D"=
+position: absolute; top: 100%; left: 0px; z-index: 100; display: none;"><di=
+v class=3D"tt-dataset tt-dataset-states"></div></div></span>
+        </div>
+
+        <div class=3D"gist">
+          <link rel=3D"stylesheet" href=3D"https://assets-cdn.github.com/as=
+sets/gist-embed-b03925b9c18fa42b22f168e7d17a7ca70ca50a4126cbfca9f91a1a8bc79=
+b5905.css"><div id=3D"gist9458749" class=3D"gist">
+    <div class=3D"gist-file">
+      <div class=3D"gist-data">
+        <div class=3D"js-gist-file-update-container js-task-list-container =
+file-box">
+  <div id=3D"file-bloodhound-html" class=3D"file">
+   =20
+
+  <div itemprop=3D"text" class=3D"blob-wrapper data type-html">
+      <table class=3D"highlight tab-size js-file-line-container" data-tab-s=
+ize=3D"8">
+      <tbody><tr>
+        <td id=3D"file-bloodhound-html-L1" class=3D"blob-num js-line-number=
+" data-line-number=3D"1"></td>
+        <td id=3D"file-bloodhound-html-LC1" class=3D"blob-code blob-code-in=
+ner js-file-line">&lt;<span class=3D"pl-ent">div</span> <span class=3D"pl-e=
+">id</span>=3D<span class=3D"pl-s"><span class=3D"pl-pds">"</span>bloodhoun=
+d<span class=3D"pl-pds">"</span></span>&gt;</td>
+      </tr>
+      <tr>
+        <td id=3D"file-bloodhound-html-L2" class=3D"blob-num js-line-number=
+" data-line-number=3D"2"></td>
+        <td id=3D"file-bloodhound-html-LC2" class=3D"blob-code blob-code-in=
+ner js-file-line">  &lt;<span class=3D"pl-ent">input</span> <span class=3D"=
+pl-e">class</span>=3D<span class=3D"pl-s"><span class=3D"pl-pds">"</span>ty=
+peahead<span class=3D"pl-pds">"</span></span> <span class=3D"pl-e">type</sp=
+an>=3D<span class=3D"pl-s"><span class=3D"pl-pds">"</span>text<span class=
+=3D"pl-pds">"</span></span> <span class=3D"pl-e">placeholder</span>=3D<span=
+ class=3D"pl-s"><span class=3D"pl-pds">"</span>States of USA<span class=3D"=
+pl-pds">"</span></span>&gt;</td>
+      </tr>
+      <tr>
+        <td id=3D"file-bloodhound-html-L3" class=3D"blob-num js-line-number=
+" data-line-number=3D"3"></td>
+        <td id=3D"file-bloodhound-html-LC3" class=3D"blob-code blob-code-in=
+ner js-file-line">&lt;/<span class=3D"pl-ent">div</span>&gt;</td>
+      </tr>
+</tbody></table>
+
+  </div>
+
+  </div>
+ =20
+</div>
+
+      </div>
+      <div class=3D"gist-meta">
+        <a href=3D"https://gist.github.com/jharding/9458749/raw/250a91ce8af=
+08e3c2431a9ddbacc2704c9b5e463/bloodhound.html" style=3D"float:right">view r=
+aw</a>
+        <a href=3D"https://gist.github.com/jharding/9458749#file-bloodhound=
+-html">bloodhound.html</a>
+        hosted with =E2=9D=A4 by <a href=3D"https://github.com/">GitHub</a>
+      </div>
+    </div>
+    <div class=3D"gist-file">
+      <div class=3D"gist-data">
+        <div class=3D"js-gist-file-update-container js-task-list-container =
+file-box">
+  <div id=3D"file-bloodhound-js" class=3D"file">
+   =20
+
+  <div itemprop=3D"text" class=3D"blob-wrapper data type-javascript">
+      <table class=3D"highlight tab-size js-file-line-container" data-tab-s=
+ize=3D"8">
+      <tbody><tr>
+        <td id=3D"file-bloodhound-js-L1" class=3D"blob-num js-line-number" =
+data-line-number=3D"1"></td>
+        <td id=3D"file-bloodhound-js-LC1" class=3D"blob-code blob-code-inne=
+r js-file-line"><span class=3D"pl-c">// constructs the suggestion engine</s=
+pan></td>
+      </tr>
+      <tr>
+        <td id=3D"file-bloodhound-js-L2" class=3D"blob-num js-line-number" =
+data-line-number=3D"2"></td>
+        <td id=3D"file-bloodhound-js-LC2" class=3D"blob-code blob-code-inne=
+r js-file-line"><span class=3D"pl-k">var</span> states <span class=3D"pl-k"=
+>=3D</span> <span class=3D"pl-k">new</span> <span class=3D"pl-en">Bloodhoun=
+d</span>({</td>
+      </tr>
+      <tr>
+        <td id=3D"file-bloodhound-js-L3" class=3D"blob-num js-line-number" =
+data-line-number=3D"3"></td>
+        <td id=3D"file-bloodhound-js-LC3" class=3D"blob-code blob-code-inne=
+r js-file-line">  datumTokenizer<span class=3D"pl-k">:</span> <span class=
+=3D"pl-smi">Bloodhound</span>.<span class=3D"pl-smi">tokenizers</span>.<spa=
+n class=3D"pl-smi">whitespace</span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-bloodhound-js-L4" class=3D"blob-num js-line-number" =
+data-line-number=3D"4"></td>
+        <td id=3D"file-bloodhound-js-LC4" class=3D"blob-code blob-code-inne=
+r js-file-line">  queryTokenizer<span class=3D"pl-k">:</span> <span class=
+=3D"pl-smi">Bloodhound</span>.<span class=3D"pl-smi">tokenizers</span>.<spa=
+n class=3D"pl-smi">whitespace</span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-bloodhound-js-L5" class=3D"blob-num js-line-number" =
+data-line-number=3D"5"></td>
+        <td id=3D"file-bloodhound-js-LC5" class=3D"blob-code blob-code-inne=
+r js-file-line">  <span class=3D"pl-c">// `states` is an array of state nam=
+es defined in "The Basics"</span></td>
+      </tr>
+      <tr>
+        <td id=3D"file-bloodhound-js-L6" class=3D"blob-num js-line-number" =
+data-line-number=3D"6"></td>
+        <td id=3D"file-bloodhound-js-LC6" class=3D"blob-code blob-code-inne=
+r js-file-line">  local<span class=3D"pl-k">:</span> states</td>
+      </tr>
+      <tr>
+        <td id=3D"file-bloodhound-js-L7" class=3D"blob-num js-line-number" =
+data-line-number=3D"7"></td>
+        <td id=3D"file-bloodhound-js-LC7" class=3D"blob-code blob-code-inne=
+r js-file-line">});</td>
+      </tr>
+      <tr>
+        <td id=3D"file-bloodhound-js-L8" class=3D"blob-num js-line-number" =
+data-line-number=3D"8"></td>
+        <td id=3D"file-bloodhound-js-LC8" class=3D"blob-code blob-code-inne=
+r js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id=3D"file-bloodhound-js-L9" class=3D"blob-num js-line-number" =
+data-line-number=3D"9"></td>
+        <td id=3D"file-bloodhound-js-LC9" class=3D"blob-code blob-code-inne=
+r js-file-line"><span class=3D"pl-en">$</span>(<span class=3D"pl-s"><span c=
+lass=3D"pl-pds">'</span>#bloodhound .typeahead<span class=3D"pl-pds">'</spa=
+n></span>).<span class=3D"pl-en">typeahead</span>({</td>
+      </tr>
+      <tr>
+        <td id=3D"file-bloodhound-js-L10" class=3D"blob-num js-line-number"=
+ data-line-number=3D"10"></td>
+        <td id=3D"file-bloodhound-js-LC10" class=3D"blob-code blob-code-inn=
+er js-file-line">  hint<span class=3D"pl-k">:</span> <span class=3D"pl-c1">=
+true</span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-bloodhound-js-L11" class=3D"blob-num js-line-number"=
+ data-line-number=3D"11"></td>
+        <td id=3D"file-bloodhound-js-LC11" class=3D"blob-code blob-code-inn=
+er js-file-line">  highlight<span class=3D"pl-k">:</span> <span class=3D"pl=
+-c1">true</span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-bloodhound-js-L12" class=3D"blob-num js-line-number"=
+ data-line-number=3D"12"></td>
+        <td id=3D"file-bloodhound-js-LC12" class=3D"blob-code blob-code-inn=
+er js-file-line">  minLength<span class=3D"pl-k">:</span> <span class=3D"pl=
+-c1">1</span></td>
+      </tr>
+      <tr>
+        <td id=3D"file-bloodhound-js-L13" class=3D"blob-num js-line-number"=
+ data-line-number=3D"13"></td>
+        <td id=3D"file-bloodhound-js-LC13" class=3D"blob-code blob-code-inn=
+er js-file-line">},</td>
+      </tr>
+      <tr>
+        <td id=3D"file-bloodhound-js-L14" class=3D"blob-num js-line-number"=
+ data-line-number=3D"14"></td>
+        <td id=3D"file-bloodhound-js-LC14" class=3D"blob-code blob-code-inn=
+er js-file-line">{</td>
+      </tr>
+      <tr>
+        <td id=3D"file-bloodhound-js-L15" class=3D"blob-num js-line-number"=
+ data-line-number=3D"15"></td>
+        <td id=3D"file-bloodhound-js-LC15" class=3D"blob-code blob-code-inn=
+er js-file-line">  name<span class=3D"pl-k">:</span> <span class=3D"pl-s"><=
+span class=3D"pl-pds">'</span>states<span class=3D"pl-pds">'</span></span>,=
+</td>
+      </tr>
+      <tr>
+        <td id=3D"file-bloodhound-js-L16" class=3D"blob-num js-line-number"=
+ data-line-number=3D"16"></td>
+        <td id=3D"file-bloodhound-js-LC16" class=3D"blob-code blob-code-inn=
+er js-file-line">  source<span class=3D"pl-k">:</span> states</td>
+      </tr>
+      <tr>
+        <td id=3D"file-bloodhound-js-L17" class=3D"blob-num js-line-number"=
+ data-line-number=3D"17"></td>
+        <td id=3D"file-bloodhound-js-LC17" class=3D"blob-code blob-code-inn=
+er js-file-line">});</td>
+      </tr>
+</tbody></table>
+
+  </div>
+
+  </div>
+ =20
+</div>
+
+      </div>
+      <div class=3D"gist-meta">
+        <a href=3D"https://gist.github.com/jharding/9458749/raw/250a91ce8af=
+08e3c2431a9ddbacc2704c9b5e463/bloodhound.js" style=3D"float:right">view raw=
+</a>
+        <a href=3D"https://gist.github.com/jharding/9458749#file-bloodhound=
+-js">bloodhound.js</a>
+        hosted with =E2=9D=A4 by <a href=3D"https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+
+        </div>
+      </div>
+
+      <div class=3D"example" id=3D"prefetch">
+        <h2 class=3D"example-name">Prefetch</h2>
+        <p class=3D"example-description">
+          Prefetched data is fetched and processed on initialization. If th=
+e=20
+          browser supports local storage, the processed data will be cached=
+=20
+          there to prevent additional network requests on subsequent page l=
+oads.
+        </p>
+
+        <div class=3D"demo">
+          <span class=3D"twitter-typeahead" style=3D"position: relative; di=
+splay: inline-block;"><input class=3D"typeahead tt-hint" type=3D"text" read=
+only=3D"" autocomplete=3D"off" spellcheck=3D"false" tabindex=3D"-1" dir=3D"=
+ltr" style=3D"position: absolute; top: 0px; left: 0px; border-color: transp=
+arent; box-shadow: none; opacity: 1; background: none 0% 0% / auto repeat s=
+croll padding-box border-box rgb(255, 255, 255);"><input class=3D"typeahead=
+ tt-input" type=3D"text" placeholder=3D"Countries" autocomplete=3D"off" spe=
+llcheck=3D"false" dir=3D"auto" style=3D"position: relative; vertical-align:=
+ top; background-color: transparent;"><pre aria-hidden=3D"true" style=3D"po=
+sition: absolute; visibility: hidden; white-space: pre; font-family: Arial;=
+ font-size: 24px; font-style: normal; font-variant: normal; font-weight: 40=
+0; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering=
+: auto; text-transform: none;"></pre><div class=3D"tt-menu" style=3D"positi=
+on: absolute; top: 100%; left: 0px; z-index: 100; display: none;"><div clas=
+s=3D"tt-dataset tt-dataset-countries"></div></div></span>
+        </div>
+
+        <div class=3D"gist">
+          <link rel=3D"stylesheet" href=3D"https://assets-cdn.github.com/as=
+sets/gist-embed-b03925b9c18fa42b22f168e7d17a7ca70ca50a4126cbfca9f91a1a8bc79=
+b5905.css"><div id=3D"gist9458762" class=3D"gist">
+    <div class=3D"gist-file">
+      <div class=3D"gist-data">
+        <div class=3D"js-gist-file-update-container js-task-list-container =
+file-box">
+  <div id=3D"file-prefetch-html" class=3D"file">
+   =20
+
+  <div itemprop=3D"text" class=3D"blob-wrapper data type-html">
+      <table class=3D"highlight tab-size js-file-line-container" data-tab-s=
+ize=3D"8">
+      <tbody><tr>
+        <td id=3D"file-prefetch-html-L1" class=3D"blob-num js-line-number" =
+data-line-number=3D"1"></td>
+        <td id=3D"file-prefetch-html-LC1" class=3D"blob-code blob-code-inne=
+r js-file-line">&lt;<span class=3D"pl-ent">div</span> <span class=3D"pl-e">=
+id</span>=3D<span class=3D"pl-s"><span class=3D"pl-pds">"</span>prefetch<sp=
+an class=3D"pl-pds">"</span></span>&gt;</td>
+      </tr>
+      <tr>
+        <td id=3D"file-prefetch-html-L2" class=3D"blob-num js-line-number" =
+data-line-number=3D"2"></td>
+        <td id=3D"file-prefetch-html-LC2" class=3D"blob-code blob-code-inne=
+r js-file-line">  &lt;<span class=3D"pl-ent">input</span> <span class=3D"pl=
+-e">class</span>=3D<span class=3D"pl-s"><span class=3D"pl-pds">"</span>type=
+ahead<span class=3D"pl-pds">"</span></span> <span class=3D"pl-e">type</span=
+>=3D<span class=3D"pl-s"><span class=3D"pl-pds">"</span>text<span class=3D"=
+pl-pds">"</span></span> <span class=3D"pl-e">placeholder</span>=3D<span cla=
+ss=3D"pl-s"><span class=3D"pl-pds">"</span>Countries<span class=3D"pl-pds">=
+"</span></span>&gt;</td>
+      </tr>
+      <tr>
+        <td id=3D"file-prefetch-html-L3" class=3D"blob-num js-line-number" =
+data-line-number=3D"3"></td>
+        <td id=3D"file-prefetch-html-LC3" class=3D"blob-code blob-code-inne=
+r js-file-line">&lt;/<span class=3D"pl-ent">div</span>&gt;</td>
+      </tr>
+</tbody></table>
+
+  </div>
+
+  </div>
+ =20
+</div>
+
+      </div>
+      <div class=3D"gist-meta">
+        <a href=3D"https://gist.github.com/jharding/9458762/raw/08932f28996=
+b8ed023c7adc8dbd4614969fcde7f/prefetch.html" style=3D"float:right">view raw=
+</a>
+        <a href=3D"https://gist.github.com/jharding/9458762#file-prefetch-h=
+tml">prefetch.html</a>
+        hosted with =E2=9D=A4 by <a href=3D"https://github.com/">GitHub</a>
+      </div>
+    </div>
+    <div class=3D"gist-file">
+      <div class=3D"gist-data">
+        <div class=3D"js-gist-file-update-container js-task-list-container =
+file-box">
+  <div id=3D"file-prefetch-js" class=3D"file">
+   =20
+
+  <div itemprop=3D"text" class=3D"blob-wrapper data type-javascript">
+      <table class=3D"highlight tab-size js-file-line-container" data-tab-s=
+ize=3D"8">
+      <tbody><tr>
+        <td id=3D"file-prefetch-js-L1" class=3D"blob-num js-line-number" da=
+ta-line-number=3D"1"></td>
+        <td id=3D"file-prefetch-js-LC1" class=3D"blob-code blob-code-inner =
+js-file-line"><span class=3D"pl-k">var</span> countries <span class=3D"pl-k=
+">=3D</span> <span class=3D"pl-k">new</span> <span class=3D"pl-en">Bloodhou=
+nd</span>({</td>
+      </tr>
+      <tr>
+        <td id=3D"file-prefetch-js-L2" class=3D"blob-num js-line-number" da=
+ta-line-number=3D"2"></td>
+        <td id=3D"file-prefetch-js-LC2" class=3D"blob-code blob-code-inner =
+js-file-line">  datumTokenizer<span class=3D"pl-k">:</span> <span class=3D"=
+pl-smi">Bloodhound</span>.<span class=3D"pl-smi">tokenizers</span>.<span cl=
+ass=3D"pl-smi">whitespace</span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-prefetch-js-L3" class=3D"blob-num js-line-number" da=
+ta-line-number=3D"3"></td>
+        <td id=3D"file-prefetch-js-LC3" class=3D"blob-code blob-code-inner =
+js-file-line">  queryTokenizer<span class=3D"pl-k">:</span> <span class=3D"=
+pl-smi">Bloodhound</span>.<span class=3D"pl-smi">tokenizers</span>.<span cl=
+ass=3D"pl-smi">whitespace</span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-prefetch-js-L4" class=3D"blob-num js-line-number" da=
+ta-line-number=3D"4"></td>
+        <td id=3D"file-prefetch-js-LC4" class=3D"blob-code blob-code-inner =
+js-file-line">  <span class=3D"pl-c">// url points to a json file that cont=
+ains an array of country names, see</span></td>
+      </tr>
+      <tr>
+        <td id=3D"file-prefetch-js-L5" class=3D"blob-num js-line-number" da=
+ta-line-number=3D"5"></td>
+        <td id=3D"file-prefetch-js-LC5" class=3D"blob-code blob-code-inner =
+js-file-line">  <span class=3D"pl-c">// https://github.com/twitter/typeahea=
+d.js/blob/gh-pages/data/countries.json</span></td>
+      </tr>
+      <tr>
+        <td id=3D"file-prefetch-js-L6" class=3D"blob-num js-line-number" da=
+ta-line-number=3D"6"></td>
+        <td id=3D"file-prefetch-js-LC6" class=3D"blob-code blob-code-inner =
+js-file-line">  prefetch<span class=3D"pl-k">:</span> <span class=3D"pl-s">=
+<span class=3D"pl-pds">'</span>../data/countries.json<span class=3D"pl-pds"=
+>'</span></span></td>
+      </tr>
+      <tr>
+        <td id=3D"file-prefetch-js-L7" class=3D"blob-num js-line-number" da=
+ta-line-number=3D"7"></td>
+        <td id=3D"file-prefetch-js-LC7" class=3D"blob-code blob-code-inner =
+js-file-line">});</td>
+      </tr>
+      <tr>
+        <td id=3D"file-prefetch-js-L8" class=3D"blob-num js-line-number" da=
+ta-line-number=3D"8"></td>
+        <td id=3D"file-prefetch-js-LC8" class=3D"blob-code blob-code-inner =
+js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id=3D"file-prefetch-js-L9" class=3D"blob-num js-line-number" da=
+ta-line-number=3D"9"></td>
+        <td id=3D"file-prefetch-js-LC9" class=3D"blob-code blob-code-inner =
+js-file-line"><span class=3D"pl-c">// passing in `null` for the `options` a=
+rguments will result in the default</span></td>
+      </tr>
+      <tr>
+        <td id=3D"file-prefetch-js-L10" class=3D"blob-num js-line-number" d=
+ata-line-number=3D"10"></td>
+        <td id=3D"file-prefetch-js-LC10" class=3D"blob-code blob-code-inner=
+ js-file-line"><span class=3D"pl-c">// options being used</span></td>
+      </tr>
+      <tr>
+        <td id=3D"file-prefetch-js-L11" class=3D"blob-num js-line-number" d=
+ata-line-number=3D"11"></td>
+        <td id=3D"file-prefetch-js-LC11" class=3D"blob-code blob-code-inner=
+ js-file-line"><span class=3D"pl-en">$</span>(<span class=3D"pl-s"><span cl=
+ass=3D"pl-pds">'</span>#prefetch .typeahead<span class=3D"pl-pds">'</span><=
+/span>).<span class=3D"pl-en">typeahead</span>(<span class=3D"pl-c1">null</=
+span>, {</td>
+      </tr>
+      <tr>
+        <td id=3D"file-prefetch-js-L12" class=3D"blob-num js-line-number" d=
+ata-line-number=3D"12"></td>
+        <td id=3D"file-prefetch-js-LC12" class=3D"blob-code blob-code-inner=
+ js-file-line">  name<span class=3D"pl-k">:</span> <span class=3D"pl-s"><sp=
+an class=3D"pl-pds">'</span>countries<span class=3D"pl-pds">'</span></span>=
+,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-prefetch-js-L13" class=3D"blob-num js-line-number" d=
+ata-line-number=3D"13"></td>
+        <td id=3D"file-prefetch-js-LC13" class=3D"blob-code blob-code-inner=
+ js-file-line">  source<span class=3D"pl-k">:</span> countries</td>
+      </tr>
+      <tr>
+        <td id=3D"file-prefetch-js-L14" class=3D"blob-num js-line-number" d=
+ata-line-number=3D"14"></td>
+        <td id=3D"file-prefetch-js-LC14" class=3D"blob-code blob-code-inner=
+ js-file-line">});</td>
+      </tr>
+</tbody></table>
+
+  </div>
+
+  </div>
+ =20
+</div>
+
+      </div>
+      <div class=3D"gist-meta">
+        <a href=3D"https://gist.github.com/jharding/9458762/raw/08932f28996=
+b8ed023c7adc8dbd4614969fcde7f/prefetch.js" style=3D"float:right">view raw</=
+a>
+        <a href=3D"https://gist.github.com/jharding/9458762#file-prefetch-j=
+s">prefetch.js</a>
+        hosted with =E2=9D=A4 by <a href=3D"https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+
+        </div>
+      </div>
+
+      <div class=3D"example" id=3D"remote">
+        <h2 class=3D"example-name">Remote</h2>
+        <p class=3D"example-description">
+          Remote data is only used when the data provided by local and pref=
+etch=20
+          is insufficient. In order to prevent an obscene number of request=
+s=20
+          being made to the remote endpoint, requests are rate-limited.
+        </p>
+
+        <div class=3D"demo">
+          <span class=3D"twitter-typeahead" style=3D"position: relative; di=
+splay: inline-block;"><input class=3D"typeahead tt-hint" type=3D"text" read=
+only=3D"" autocomplete=3D"off" spellcheck=3D"false" tabindex=3D"-1" dir=3D"=
+ltr" style=3D"position: absolute; top: 0px; left: 0px; border-color: transp=
+arent; box-shadow: none; opacity: 1; background: none 0% 0% / auto repeat s=
+croll padding-box border-box rgb(255, 255, 255);"><input class=3D"typeahead=
+ tt-input" type=3D"text" placeholder=3D"Oscar winners for Best Picture" aut=
+ocomplete=3D"off" spellcheck=3D"false" dir=3D"auto" style=3D"position: rela=
+tive; vertical-align: top; background-color: transparent;"><pre aria-hidden=
+=3D"true" style=3D"position: absolute; visibility: hidden; white-space: pre=
+; font-family: Arial; font-size: 24px; font-style: normal; font-variant: no=
+rmal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent=
+: 0px; text-rendering: auto; text-transform: none;"></pre><div class=3D"tt-=
+menu" style=3D"position: absolute; top: 100%; left: 0px; z-index: 100; disp=
+lay: none;"><div class=3D"tt-dataset tt-dataset-best-pictures"></div></div>=
+</span>
+        </div>
+
+        <div class=3D"gist">
+          <link rel=3D"stylesheet" href=3D"https://assets-cdn.github.com/as=
+sets/gist-embed-b03925b9c18fa42b22f168e7d17a7ca70ca50a4126cbfca9f91a1a8bc79=
+b5905.css"><div id=3D"gist9458772" class=3D"gist">
+    <div class=3D"gist-file">
+      <div class=3D"gist-data">
+        <div class=3D"js-gist-file-update-container js-task-list-container =
+file-box">
+  <div id=3D"file-remote-html" class=3D"file">
+   =20
+
+  <div itemprop=3D"text" class=3D"blob-wrapper data type-html">
+      <table class=3D"highlight tab-size js-file-line-container" data-tab-s=
+ize=3D"8">
+      <tbody><tr>
+        <td id=3D"file-remote-html-L1" class=3D"blob-num js-line-number" da=
+ta-line-number=3D"1"></td>
+        <td id=3D"file-remote-html-LC1" class=3D"blob-code blob-code-inner =
+js-file-line">&lt;<span class=3D"pl-ent">div</span> <span class=3D"pl-e">id=
+</span>=3D<span class=3D"pl-s"><span class=3D"pl-pds">"</span>remote<span c=
+lass=3D"pl-pds">"</span></span>&gt;</td>
+      </tr>
+      <tr>
+        <td id=3D"file-remote-html-L2" class=3D"blob-num js-line-number" da=
+ta-line-number=3D"2"></td>
+        <td id=3D"file-remote-html-LC2" class=3D"blob-code blob-code-inner =
+js-file-line">  &lt;<span class=3D"pl-ent">input</span> <span class=3D"pl-e=
+">class</span>=3D<span class=3D"pl-s"><span class=3D"pl-pds">"</span>typeah=
+ead<span class=3D"pl-pds">"</span></span> <span class=3D"pl-e">type</span>=
+=3D<span class=3D"pl-s"><span class=3D"pl-pds">"</span>text<span class=3D"p=
+l-pds">"</span></span> <span class=3D"pl-e">placeholder</span>=3D<span clas=
+s=3D"pl-s"><span class=3D"pl-pds">"</span>Oscar winners for Best Picture<sp=
+an class=3D"pl-pds">"</span></span>&gt;</td>
+      </tr>
+      <tr>
+        <td id=3D"file-remote-html-L3" class=3D"blob-num js-line-number" da=
+ta-line-number=3D"3"></td>
+        <td id=3D"file-remote-html-LC3" class=3D"blob-code blob-code-inner =
+js-file-line">&lt;/<span class=3D"pl-ent">div</span>&gt;</td>
+      </tr>
+</tbody></table>
+
+  </div>
+
+  </div>
+ =20
+</div>
+
+      </div>
+      <div class=3D"gist-meta">
+        <a href=3D"https://gist.github.com/jharding/9458772/raw/f0edb1c61e3=
+c3805fd15c77e6e268482db7d2c84/remote.html" style=3D"float:right">view raw</=
+a>
+        <a href=3D"https://gist.github.com/jharding/9458772#file-remote-htm=
+l">remote.html</a>
+        hosted with =E2=9D=A4 by <a href=3D"https://github.com/">GitHub</a>
+      </div>
+    </div>
+    <div class=3D"gist-file">
+      <div class=3D"gist-data">
+        <div class=3D"js-gist-file-update-container js-task-list-container =
+file-box">
+  <div id=3D"file-remote-js" class=3D"file">
+   =20
+
+  <div itemprop=3D"text" class=3D"blob-wrapper data type-javascript">
+      <table class=3D"highlight tab-size js-file-line-container" data-tab-s=
+ize=3D"8">
+      <tbody><tr>
+        <td id=3D"file-remote-js-L1" class=3D"blob-num js-line-number" data=
+-line-number=3D"1"></td>
+        <td id=3D"file-remote-js-LC1" class=3D"blob-code blob-code-inner js=
+-file-line"><span class=3D"pl-k">var</span> bestPictures <span class=3D"pl-=
+k">=3D</span> <span class=3D"pl-k">new</span> <span class=3D"pl-en">Bloodho=
+und</span>({</td>
+      </tr>
+      <tr>
+        <td id=3D"file-remote-js-L2" class=3D"blob-num js-line-number" data=
+-line-number=3D"2"></td>
+        <td id=3D"file-remote-js-LC2" class=3D"blob-code blob-code-inner js=
+-file-line">  datumTokenizer<span class=3D"pl-k">:</span> <span class=3D"pl=
+-smi">Bloodhound</span>.<span class=3D"pl-smi">tokenizers</span>.<span clas=
+s=3D"pl-smi">obj</span>.<span class=3D"pl-en">whitespace</span>(<span class=
+=3D"pl-s"><span class=3D"pl-pds">'</span>value<span class=3D"pl-pds">'</spa=
+n></span>),</td>
+      </tr>
+      <tr>
+        <td id=3D"file-remote-js-L3" class=3D"blob-num js-line-number" data=
+-line-number=3D"3"></td>
+        <td id=3D"file-remote-js-LC3" class=3D"blob-code blob-code-inner js=
+-file-line">  queryTokenizer<span class=3D"pl-k">:</span> <span class=3D"pl=
+-smi">Bloodhound</span>.<span class=3D"pl-smi">tokenizers</span>.<span clas=
+s=3D"pl-smi">whitespace</span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-remote-js-L4" class=3D"blob-num js-line-number" data=
+-line-number=3D"4"></td>
+        <td id=3D"file-remote-js-LC4" class=3D"blob-code blob-code-inner js=
+-file-line">  prefetch<span class=3D"pl-k">:</span> <span class=3D"pl-s"><s=
+pan class=3D"pl-pds">'</span>../data/films/post_1960.json<span class=3D"pl-=
+pds">'</span></span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-remote-js-L5" class=3D"blob-num js-line-number" data=
+-line-number=3D"5"></td>
+        <td id=3D"file-remote-js-LC5" class=3D"blob-code blob-code-inner js=
+-file-line">  remote<span class=3D"pl-k">:</span> {</td>
+      </tr>
+      <tr>
+        <td id=3D"file-remote-js-L6" class=3D"blob-num js-line-number" data=
+-line-number=3D"6"></td>
+        <td id=3D"file-remote-js-LC6" class=3D"blob-code blob-code-inner js=
+-file-line">    url<span class=3D"pl-k">:</span> <span class=3D"pl-s"><span=
+ class=3D"pl-pds">'</span>../data/films/queries/%QUERY.json<span class=3D"p=
+l-pds">'</span></span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-remote-js-L7" class=3D"blob-num js-line-number" data=
+-line-number=3D"7"></td>
+        <td id=3D"file-remote-js-LC7" class=3D"blob-code blob-code-inner js=
+-file-line">    wildcard<span class=3D"pl-k">:</span> <span class=3D"pl-s">=
+<span class=3D"pl-pds">'</span>%QUERY<span class=3D"pl-pds">'</span></span>=
+</td>
+      </tr>
+      <tr>
+        <td id=3D"file-remote-js-L8" class=3D"blob-num js-line-number" data=
+-line-number=3D"8"></td>
+        <td id=3D"file-remote-js-LC8" class=3D"blob-code blob-code-inner js=
+-file-line">  }</td>
+      </tr>
+      <tr>
+        <td id=3D"file-remote-js-L9" class=3D"blob-num js-line-number" data=
+-line-number=3D"9"></td>
+        <td id=3D"file-remote-js-LC9" class=3D"blob-code blob-code-inner js=
+-file-line">});</td>
+      </tr>
+      <tr>
+        <td id=3D"file-remote-js-L10" class=3D"blob-num js-line-number" dat=
+a-line-number=3D"10"></td>
+        <td id=3D"file-remote-js-LC10" class=3D"blob-code blob-code-inner j=
+s-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id=3D"file-remote-js-L11" class=3D"blob-num js-line-number" dat=
+a-line-number=3D"11"></td>
+        <td id=3D"file-remote-js-LC11" class=3D"blob-code blob-code-inner j=
+s-file-line"><span class=3D"pl-en">$</span>(<span class=3D"pl-s"><span clas=
+s=3D"pl-pds">'</span>#remote .typeahead<span class=3D"pl-pds">'</span></spa=
+n>).<span class=3D"pl-en">typeahead</span>(<span class=3D"pl-c1">null</span=
+>, {</td>
+      </tr>
+      <tr>
+        <td id=3D"file-remote-js-L12" class=3D"blob-num js-line-number" dat=
+a-line-number=3D"12"></td>
+        <td id=3D"file-remote-js-LC12" class=3D"blob-code blob-code-inner j=
+s-file-line">  name<span class=3D"pl-k">:</span> <span class=3D"pl-s"><span=
+ class=3D"pl-pds">'</span>best-pictures<span class=3D"pl-pds">'</span></spa=
+n>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-remote-js-L13" class=3D"blob-num js-line-number" dat=
+a-line-number=3D"13"></td>
+        <td id=3D"file-remote-js-LC13" class=3D"blob-code blob-code-inner j=
+s-file-line">  display<span class=3D"pl-k">:</span> <span class=3D"pl-s"><s=
+pan class=3D"pl-pds">'</span>value<span class=3D"pl-pds">'</span></span>,</=
+td>
+      </tr>
+      <tr>
+        <td id=3D"file-remote-js-L14" class=3D"blob-num js-line-number" dat=
+a-line-number=3D"14"></td>
+        <td id=3D"file-remote-js-LC14" class=3D"blob-code blob-code-inner j=
+s-file-line">  source<span class=3D"pl-k">:</span> bestPictures</td>
+      </tr>
+      <tr>
+        <td id=3D"file-remote-js-L15" class=3D"blob-num js-line-number" dat=
+a-line-number=3D"15"></td>
+        <td id=3D"file-remote-js-LC15" class=3D"blob-code blob-code-inner j=
+s-file-line">});</td>
+      </tr>
+</tbody></table>
+
+  </div>
+
+  </div>
+ =20
+</div>
+
+      </div>
+      <div class=3D"gist-meta">
+        <a href=3D"https://gist.github.com/jharding/9458772/raw/f0edb1c61e3=
+c3805fd15c77e6e268482db7d2c84/remote.js" style=3D"float:right">view raw</a>
+        <a href=3D"https://gist.github.com/jharding/9458772#file-remote-js"=
+>remote.js</a>
+        hosted with =E2=9D=A4 by <a href=3D"https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+
+        </div>
+      </div>
+     =20
+      <div class=3D"example" id=3D"custom-templates">
+        <h2 class=3D"example-name">Custom Templates</h2>
+        <p class=3D"example-description">
+          Custom templates give you full control over how suggestions get=
+=20
+          rendered making it easy to customize the look and feel of your=20
+          typeahead.
+        </p>
+
+        <div class=3D"demo">
+          <span class=3D"twitter-typeahead" style=3D"position: relative; di=
+splay: inline-block;"><input class=3D"typeahead tt-hint" type=3D"text" read=
+only=3D"" autocomplete=3D"off" spellcheck=3D"false" tabindex=3D"-1" dir=3D"=
+ltr" style=3D"position: absolute; top: 0px; left: 0px; border-color: transp=
+arent; box-shadow: none; opacity: 1; background: none 0% 0% / auto repeat s=
+croll padding-box border-box rgb(255, 255, 255);"><input class=3D"typeahead=
+ tt-input" type=3D"text" placeholder=3D"Oscar winners for Best Picture" aut=
+ocomplete=3D"off" spellcheck=3D"false" dir=3D"auto" style=3D"position: rela=
+tive; vertical-align: top; background-color: transparent;"><pre aria-hidden=
+=3D"true" style=3D"position: absolute; visibility: hidden; white-space: pre=
+; font-family: Arial; font-size: 24px; font-style: normal; font-variant: no=
+rmal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent=
+: 0px; text-rendering: auto; text-transform: none;"></pre><div class=3D"tt-=
+menu" style=3D"position: absolute; top: 100%; left: 0px; z-index: 100; disp=
+lay: none;"><div class=3D"tt-dataset tt-dataset-best-pictures"></div></div>=
+</span>
+        </div>
+
+        <div class=3D"gist">
+          <link rel=3D"stylesheet" href=3D"https://assets-cdn.github.com/as=
+sets/gist-embed-b03925b9c18fa42b22f168e7d17a7ca70ca50a4126cbfca9f91a1a8bc79=
+b5905.css"><div id=3D"gist9458780" class=3D"gist">
+    <div class=3D"gist-file">
+      <div class=3D"gist-data">
+        <div class=3D"js-gist-file-update-container js-task-list-container =
+file-box">
+  <div id=3D"file-custom-templates-css" class=3D"file">
+   =20
+
+  <div itemprop=3D"text" class=3D"blob-wrapper data type-css">
+      <table class=3D"highlight tab-size js-file-line-container" data-tab-s=
+ize=3D"8">
+      <tbody><tr>
+        <td id=3D"file-custom-templates-css-L1" class=3D"blob-num js-line-n=
+umber" data-line-number=3D"1"></td>
+        <td id=3D"file-custom-templates-css-LC1" class=3D"blob-code blob-co=
+de-inner js-file-line"><span class=3D"pl-e">#custom-templates</span> <span =
+class=3D"pl-e">.empty-message</span> {</td>
+      </tr>
+      <tr>
+        <td id=3D"file-custom-templates-css-L2" class=3D"blob-num js-line-n=
+umber" data-line-number=3D"2"></td>
+        <td id=3D"file-custom-templates-css-LC2" class=3D"blob-code blob-co=
+de-inner js-file-line">  <span class=3D"pl-c1"><span class=3D"pl-c1">paddin=
+g</span></span>: <span class=3D"pl-c1">5<span class=3D"pl-k">px</span></spa=
+n> <span class=3D"pl-c1">10<span class=3D"pl-k">px</span></span>;</td>
+      </tr>
+      <tr>
+        <td id=3D"file-custom-templates-css-L3" class=3D"blob-num js-line-n=
+umber" data-line-number=3D"3"></td>
+        <td id=3D"file-custom-templates-css-LC3" class=3D"blob-code blob-co=
+de-inner js-file-line"> <span class=3D"pl-c1"><span class=3D"pl-c1">text-al=
+ign</span></span>: <span class=3D"pl-c1">center</span>;</td>
+      </tr>
+      <tr>
+        <td id=3D"file-custom-templates-css-L4" class=3D"blob-num js-line-n=
+umber" data-line-number=3D"4"></td>
+        <td id=3D"file-custom-templates-css-LC4" class=3D"blob-code blob-co=
+de-inner js-file-line">}</td>
+      </tr>
+</tbody></table>
+
+  </div>
+
+  </div>
+ =20
+</div>
+
+      </div>
+      <div class=3D"gist-meta">
+        <a href=3D"https://gist.github.com/jharding/9458780/raw/69572177436=
+dd77df5cf3a8450963935f84c1b58/custom-templates.css" style=3D"float:right">v=
+iew raw</a>
+        <a href=3D"https://gist.github.com/jharding/9458780#file-custom-tem=
+plates-css">custom-templates.css</a>
+        hosted with =E2=9D=A4 by <a href=3D"https://github.com/">GitHub</a>
+      </div>
+    </div>
+    <div class=3D"gist-file">
+      <div class=3D"gist-data">
+        <div class=3D"js-gist-file-update-container js-task-list-container =
+file-box">
+  <div id=3D"file-custom-templates-html" class=3D"file">
+   =20
+
+  <div itemprop=3D"text" class=3D"blob-wrapper data type-html">
+      <table class=3D"highlight tab-size js-file-line-container" data-tab-s=
+ize=3D"8">
+      <tbody><tr>
+        <td id=3D"file-custom-templates-html-L1" class=3D"blob-num js-line-=
+number" data-line-number=3D"1"></td>
+        <td id=3D"file-custom-templates-html-LC1" class=3D"blob-code blob-c=
+ode-inner js-file-line">&lt;<span class=3D"pl-ent">div</span> <span class=
+=3D"pl-e">id</span>=3D<span class=3D"pl-s"><span class=3D"pl-pds">"</span>c=
+ustom-templates<span class=3D"pl-pds">"</span></span>&gt;</td>
+      </tr>
+      <tr>
+        <td id=3D"file-custom-templates-html-L2" class=3D"blob-num js-line-=
+number" data-line-number=3D"2"></td>
+        <td id=3D"file-custom-templates-html-LC2" class=3D"blob-code blob-c=
+ode-inner js-file-line">  &lt;<span class=3D"pl-ent">input</span> <span cla=
+ss=3D"pl-e">class</span>=3D<span class=3D"pl-s"><span class=3D"pl-pds">"</s=
+pan>typeahead<span class=3D"pl-pds">"</span></span> <span class=3D"pl-e">ty=
+pe</span>=3D<span class=3D"pl-s"><span class=3D"pl-pds">"</span>text<span c=
+lass=3D"pl-pds">"</span></span> <span class=3D"pl-e">placeholder</span>=3D<=
+span class=3D"pl-s"><span class=3D"pl-pds">"</span>Oscar winners for Best P=
+icture<span class=3D"pl-pds">"</span></span>&gt;</td>
+      </tr>
+      <tr>
+        <td id=3D"file-custom-templates-html-L3" class=3D"blob-num js-line-=
+number" data-line-number=3D"3"></td>
+        <td id=3D"file-custom-templates-html-LC3" class=3D"blob-code blob-c=
+ode-inner js-file-line">&lt;/<span class=3D"pl-ent">div</span>&gt;</td>
+      </tr>
+</tbody></table>
+
+  </div>
+
+  </div>
+ =20
+</div>
+
+      </div>
+      <div class=3D"gist-meta">
+        <a href=3D"https://gist.github.com/jharding/9458780/raw/69572177436=
+dd77df5cf3a8450963935f84c1b58/custom-templates.html" style=3D"float:right">=
+view raw</a>
+        <a href=3D"https://gist.github.com/jharding/9458780#file-custom-tem=
+plates-html">custom-templates.html</a>
+        hosted with =E2=9D=A4 by <a href=3D"https://github.com/">GitHub</a>
+      </div>
+    </div>
+    <div class=3D"gist-file">
+      <div class=3D"gist-data">
+        <div class=3D"js-gist-file-update-container js-task-list-container =
+file-box">
+  <div id=3D"file-custom-templates-js" class=3D"file">
+   =20
+
+  <div itemprop=3D"text" class=3D"blob-wrapper data type-javascript">
+      <table class=3D"highlight tab-size js-file-line-container" data-tab-s=
+ize=3D"8">
+      <tbody><tr>
+        <td id=3D"file-custom-templates-js-L1" class=3D"blob-num js-line-nu=
+mber" data-line-number=3D"1"></td>
+        <td id=3D"file-custom-templates-js-LC1" class=3D"blob-code blob-cod=
+e-inner js-file-line"><span class=3D"pl-en">$</span>(<span class=3D"pl-s"><=
+span class=3D"pl-pds">'</span>#custom-templates .typeahead<span class=3D"pl=
+-pds">'</span></span>).<span class=3D"pl-en">typeahead</span>(<span class=
+=3D"pl-c1">null</span>, {</td>
+      </tr>
+      <tr>
+        <td id=3D"file-custom-templates-js-L2" class=3D"blob-num js-line-nu=
+mber" data-line-number=3D"2"></td>
+        <td id=3D"file-custom-templates-js-LC2" class=3D"blob-code blob-cod=
+e-inner js-file-line">  name<span class=3D"pl-k">:</span> <span class=3D"pl=
+-s"><span class=3D"pl-pds">'</span>best-pictures<span class=3D"pl-pds">'</s=
+pan></span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-custom-templates-js-L3" class=3D"blob-num js-line-nu=
+mber" data-line-number=3D"3"></td>
+        <td id=3D"file-custom-templates-js-LC3" class=3D"blob-code blob-cod=
+e-inner js-file-line">  display<span class=3D"pl-k">:</span> <span class=3D=
+"pl-s"><span class=3D"pl-pds">'</span>value<span class=3D"pl-pds">'</span><=
+/span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-custom-templates-js-L4" class=3D"blob-num js-line-nu=
+mber" data-line-number=3D"4"></td>
+        <td id=3D"file-custom-templates-js-LC4" class=3D"blob-code blob-cod=
+e-inner js-file-line">  source<span class=3D"pl-k">:</span> bestPictures,</=
+td>
+      </tr>
+      <tr>
+        <td id=3D"file-custom-templates-js-L5" class=3D"blob-num js-line-nu=
+mber" data-line-number=3D"5"></td>
+        <td id=3D"file-custom-templates-js-LC5" class=3D"blob-code blob-cod=
+e-inner js-file-line">  templates<span class=3D"pl-k">:</span> {</td>
+      </tr>
+      <tr>
+        <td id=3D"file-custom-templates-js-L6" class=3D"blob-num js-line-nu=
+mber" data-line-number=3D"6"></td>
+        <td id=3D"file-custom-templates-js-LC6" class=3D"blob-code blob-cod=
+e-inner js-file-line">    empty<span class=3D"pl-k">:</span> [</td>
+      </tr>
+      <tr>
+        <td id=3D"file-custom-templates-js-L7" class=3D"blob-num js-line-nu=
+mber" data-line-number=3D"7"></td>
+        <td id=3D"file-custom-templates-js-LC7" class=3D"blob-code blob-cod=
+e-inner js-file-line">      <span class=3D"pl-s"><span class=3D"pl-pds">'</=
+span>&lt;div class=3D"empty-message"&gt;<span class=3D"pl-pds">'</span></sp=
+an>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-custom-templates-js-L8" class=3D"blob-num js-line-nu=
+mber" data-line-number=3D"8"></td>
+        <td id=3D"file-custom-templates-js-LC8" class=3D"blob-code blob-cod=
+e-inner js-file-line">        <span class=3D"pl-s"><span class=3D"pl-pds">'=
+</span>unable to find any Best Picture winners that match the current query=
+<span class=3D"pl-pds">'</span></span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-custom-templates-js-L9" class=3D"blob-num js-line-nu=
+mber" data-line-number=3D"9"></td>
+        <td id=3D"file-custom-templates-js-LC9" class=3D"blob-code blob-cod=
+e-inner js-file-line">      <span class=3D"pl-s"><span class=3D"pl-pds">'</=
+span>&lt;/div&gt;<span class=3D"pl-pds">'</span></span></td>
+      </tr>
+      <tr>
+        <td id=3D"file-custom-templates-js-L10" class=3D"blob-num js-line-n=
+umber" data-line-number=3D"10"></td>
+        <td id=3D"file-custom-templates-js-LC10" class=3D"blob-code blob-co=
+de-inner js-file-line">    ].<span class=3D"pl-c1">join</span>(<span class=
+=3D"pl-s"><span class=3D"pl-pds">'</span><span class=3D"pl-cce">\n</span><s=
+pan class=3D"pl-pds">'</span></span>),</td>
+      </tr>
+      <tr>
+        <td id=3D"file-custom-templates-js-L11" class=3D"blob-num js-line-n=
+umber" data-line-number=3D"11"></td>
+        <td id=3D"file-custom-templates-js-LC11" class=3D"blob-code blob-co=
+de-inner js-file-line">    suggestion<span class=3D"pl-k">:</span> <span cl=
+ass=3D"pl-smi">Handlebars</span>.<span class=3D"pl-c1">compile</span>(<span=
+ class=3D"pl-s"><span class=3D"pl-pds">'</span>&lt;div&gt;&lt;strong&gt;{{v=
+alue}}&lt;/strong&gt; =E2=80=93 {{year}}&lt;/div&gt;<span class=3D"pl-pds">=
+'</span></span>)</td>
+      </tr>
+      <tr>
+        <td id=3D"file-custom-templates-js-L12" class=3D"blob-num js-line-n=
+umber" data-line-number=3D"12"></td>
+        <td id=3D"file-custom-templates-js-LC12" class=3D"blob-code blob-co=
+de-inner js-file-line">  }</td>
+      </tr>
+      <tr>
+        <td id=3D"file-custom-templates-js-L13" class=3D"blob-num js-line-n=
+umber" data-line-number=3D"13"></td>
+        <td id=3D"file-custom-templates-js-LC13" class=3D"blob-code blob-co=
+de-inner js-file-line">});</td>
+      </tr>
+</tbody></table>
+
+  </div>
+
+  </div>
+ =20
+</div>
+
+      </div>
+      <div class=3D"gist-meta">
+        <a href=3D"https://gist.github.com/jharding/9458780/raw/69572177436=
+dd77df5cf3a8450963935f84c1b58/custom-templates.js" style=3D"float:right">vi=
+ew raw</a>
+        <a href=3D"https://gist.github.com/jharding/9458780#file-custom-tem=
+plates-js">custom-templates.js</a>
+        hosted with =E2=9D=A4 by <a href=3D"https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+
+        </div>
+      </div>
+
+      <div class=3D"example" id=3D"default-suggestions">
+        <h2 class=3D"example-name">Default Suggestions</h2>
+        <p class=3D"example-description">
+          Default suggestions can be shown for empty queries by setting the
+          minLength option to 0 and having the source return suggestions fo=
+r=20
+          empty queries.
+        </p>
+
+        <div class=3D"demo">
+          <span class=3D"twitter-typeahead" style=3D"position: relative; di=
+splay: inline-block;"><input class=3D"typeahead tt-hint" type=3D"text" read=
+only=3D"" autocomplete=3D"off" spellcheck=3D"false" tabindex=3D"-1" dir=3D"=
+ltr" style=3D"position: absolute; top: 0px; left: 0px; border-color: transp=
+arent; box-shadow: none; opacity: 1; background: none 0% 0% / auto repeat s=
+croll padding-box border-box rgb(255, 255, 255);"><input class=3D"typeahead=
+ tt-input" type=3D"text" placeholder=3D"NFL Teams" autocomplete=3D"off" spe=
+llcheck=3D"false" dir=3D"auto" style=3D"position: relative; vertical-align:=
+ top; background-color: transparent;"><pre aria-hidden=3D"true" style=3D"po=
+sition: absolute; visibility: hidden; white-space: pre; font-family: Arial;=
+ font-size: 24px; font-style: normal; font-variant: normal; font-weight: 40=
+0; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering=
+: auto; text-transform: none;"></pre><div class=3D"tt-menu" style=3D"positi=
+on: absolute; top: 100%; left: 0px; z-index: 100; display: none;"><div clas=
+s=3D"tt-dataset tt-dataset-nfl-teams"></div></div></span>
+        </div>
+
+        <div class=3D"gist">
+          <link rel=3D"stylesheet" href=3D"https://assets-cdn.github.com/as=
+sets/gist-embed-b03925b9c18fa42b22f168e7d17a7ca70ca50a4126cbfca9f91a1a8bc79=
+b5905.css"><div id=3D"gist21766305" class=3D"gist">
+    <div class=3D"gist-file">
+      <div class=3D"gist-data">
+        <div class=3D"js-gist-file-update-container js-task-list-container =
+file-box">
+  <div id=3D"file-default-suggestions-html" class=3D"file">
+   =20
+
+  <div itemprop=3D"text" class=3D"blob-wrapper data type-html">
+      <table class=3D"highlight tab-size js-file-line-container" data-tab-s=
+ize=3D"8">
+      <tbody><tr>
+        <td id=3D"file-default-suggestions-html-L1" class=3D"blob-num js-li=
+ne-number" data-line-number=3D"1"></td>
+        <td id=3D"file-default-suggestions-html-LC1" class=3D"blob-code blo=
+b-code-inner js-file-line">&lt;<span class=3D"pl-ent">div</span> <span clas=
+s=3D"pl-e">id</span>=3D<span class=3D"pl-s"><span class=3D"pl-pds">"</span>=
+default-suggestions<span class=3D"pl-pds">"</span></span>&gt;</td>
+      </tr>
+      <tr>
+        <td id=3D"file-default-suggestions-html-L2" class=3D"blob-num js-li=
+ne-number" data-line-number=3D"2"></td>
+        <td id=3D"file-default-suggestions-html-LC2" class=3D"blob-code blo=
+b-code-inner js-file-line">  &lt;<span class=3D"pl-ent">input</span> <span =
+class=3D"pl-e">class</span>=3D<span class=3D"pl-s"><span class=3D"pl-pds">"=
+</span>typeahead<span class=3D"pl-pds">"</span></span> <span class=3D"pl-e"=
+>type</span>=3D<span class=3D"pl-s"><span class=3D"pl-pds">"</span>text<spa=
+n class=3D"pl-pds">"</span></span> <span class=3D"pl-e">placeholder</span>=
+=3D<span class=3D"pl-s"><span class=3D"pl-pds">"</span>NFL Teams<span class=
+=3D"pl-pds">"</span></span>&gt;</td>
+      </tr>
+      <tr>
+        <td id=3D"file-default-suggestions-html-L3" class=3D"blob-num js-li=
+ne-number" data-line-number=3D"3"></td>
+        <td id=3D"file-default-suggestions-html-LC3" class=3D"blob-code blo=
+b-code-inner js-file-line">&lt;/<span class=3D"pl-ent">div</span>&gt;</td>
+      </tr>
+</tbody></table>
+
+  </div>
+
+  </div>
+ =20
+</div>
+
+      </div>
+      <div class=3D"gist-meta">
+        <a href=3D"https://gist.github.com/jharding/ee0e44e70097c211070d/ra=
+w/662c3ce39513c2439f781244305e8c7b73cee505/default-suggestions.html" style=
+=3D"float:right">view raw</a>
+        <a href=3D"https://gist.github.com/jharding/ee0e44e70097c211070d#fi=
+le-default-suggestions-html">default-suggestions.html</a>
+        hosted with =E2=9D=A4 by <a href=3D"https://github.com/">GitHub</a>
+      </div>
+    </div>
+    <div class=3D"gist-file">
+      <div class=3D"gist-data">
+        <div class=3D"js-gist-file-update-container js-task-list-container =
+file-box">
+  <div id=3D"file-default-suggestions-js" class=3D"file">
+   =20
+
+  <div itemprop=3D"text" class=3D"blob-wrapper data type-javascript">
+      <table class=3D"highlight tab-size js-file-line-container" data-tab-s=
+ize=3D"8">
+      <tbody><tr>
+        <td id=3D"file-default-suggestions-js-L1" class=3D"blob-num js-line=
+-number" data-line-number=3D"1"></td>
+        <td id=3D"file-default-suggestions-js-LC1" class=3D"blob-code blob-=
+code-inner js-file-line"><span class=3D"pl-k">var</span> nflTeams <span cla=
+ss=3D"pl-k">=3D</span> <span class=3D"pl-k">new</span> <span class=3D"pl-en=
+">Bloodhound</span>({</td>
+      </tr>
+      <tr>
+        <td id=3D"file-default-suggestions-js-L2" class=3D"blob-num js-line=
+-number" data-line-number=3D"2"></td>
+        <td id=3D"file-default-suggestions-js-LC2" class=3D"blob-code blob-=
+code-inner js-file-line">  datumTokenizer<span class=3D"pl-k">:</span> <spa=
+n class=3D"pl-smi">Bloodhound</span>.<span class=3D"pl-smi">tokenizers</spa=
+n>.<span class=3D"pl-smi">obj</span>.<span class=3D"pl-en">whitespace</span=
+>(<span class=3D"pl-s"><span class=3D"pl-pds">'</span>team<span class=3D"pl=
+-pds">'</span></span>),</td>
+      </tr>
+      <tr>
+        <td id=3D"file-default-suggestions-js-L3" class=3D"blob-num js-line=
+-number" data-line-number=3D"3"></td>
+        <td id=3D"file-default-suggestions-js-LC3" class=3D"blob-code blob-=
+code-inner js-file-line">  queryTokenizer<span class=3D"pl-k">:</span> <spa=
+n class=3D"pl-smi">Bloodhound</span>.<span class=3D"pl-smi">tokenizers</spa=
+n>.<span class=3D"pl-smi">whitespace</span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-default-suggestions-js-L4" class=3D"blob-num js-line=
+-number" data-line-number=3D"4"></td>
+        <td id=3D"file-default-suggestions-js-LC4" class=3D"blob-code blob-=
+code-inner js-file-line">  <span class=3D"pl-en">identify</span><span class=
+=3D"pl-k">:</span> <span class=3D"pl-k">function</span>(<span class=3D"pl-s=
+mi">obj</span>) { <span class=3D"pl-k">return</span> <span class=3D"pl-smi"=
+>obj</span>.<span class=3D"pl-smi">team</span>; },</td>
+      </tr>
+      <tr>
+        <td id=3D"file-default-suggestions-js-L5" class=3D"blob-num js-line=
+-number" data-line-number=3D"5"></td>
+        <td id=3D"file-default-suggestions-js-LC5" class=3D"blob-code blob-=
+code-inner js-file-line">  prefetch<span class=3D"pl-k">:</span> <span clas=
+s=3D"pl-s"><span class=3D"pl-pds">'</span>../data/nfl.json<span class=3D"pl=
+-pds">'</span></span></td>
+      </tr>
+      <tr>
+        <td id=3D"file-default-suggestions-js-L6" class=3D"blob-num js-line=
+-number" data-line-number=3D"6"></td>
+        <td id=3D"file-default-suggestions-js-LC6" class=3D"blob-code blob-=
+code-inner js-file-line">});</td>
+      </tr>
+      <tr>
+        <td id=3D"file-default-suggestions-js-L7" class=3D"blob-num js-line=
+-number" data-line-number=3D"7"></td>
+        <td id=3D"file-default-suggestions-js-LC7" class=3D"blob-code blob-=
+code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id=3D"file-default-suggestions-js-L8" class=3D"blob-num js-line=
+-number" data-line-number=3D"8"></td>
+        <td id=3D"file-default-suggestions-js-LC8" class=3D"blob-code blob-=
+code-inner js-file-line"><span class=3D"pl-k">function</span> <span class=
+=3D"pl-en">nflTeamsWithDefaults</span>(<span class=3D"pl-smi">q</span>, <sp=
+an class=3D"pl-smi">sync</span>) {</td>
+      </tr>
+      <tr>
+        <td id=3D"file-default-suggestions-js-L9" class=3D"blob-num js-line=
+-number" data-line-number=3D"9"></td>
+        <td id=3D"file-default-suggestions-js-LC9" class=3D"blob-code blob-=
+code-inner js-file-line">  <span class=3D"pl-k">if</span> (q <span class=3D=
+"pl-k">=3D=3D=3D</span> <span class=3D"pl-s"><span class=3D"pl-pds">'</span=
+><span class=3D"pl-pds">'</span></span>) {</td>
+      </tr>
+      <tr>
+        <td id=3D"file-default-suggestions-js-L10" class=3D"blob-num js-lin=
+e-number" data-line-number=3D"10"></td>
+        <td id=3D"file-default-suggestions-js-LC10" class=3D"blob-code blob=
+-code-inner js-file-line">    <span class=3D"pl-en">sync</span>(<span class=
+=3D"pl-smi">nflTeams</span>.<span class=3D"pl-en">get</span>(<span class=3D=
+"pl-s"><span class=3D"pl-pds">'</span>Detroit Lions<span class=3D"pl-pds">'=
+</span></span>, <span class=3D"pl-s"><span class=3D"pl-pds">'</span>Green B=
+ay Packers<span class=3D"pl-pds">'</span></span>, <span class=3D"pl-s"><spa=
+n class=3D"pl-pds">'</span>Chicago Bears<span class=3D"pl-pds">'</span></sp=
+an>));</td>
+      </tr>
+      <tr>
+        <td id=3D"file-default-suggestions-js-L11" class=3D"blob-num js-lin=
+e-number" data-line-number=3D"11"></td>
+        <td id=3D"file-default-suggestions-js-LC11" class=3D"blob-code blob=
+-code-inner js-file-line">  }</td>
+      </tr>
+      <tr>
+        <td id=3D"file-default-suggestions-js-L12" class=3D"blob-num js-lin=
+e-number" data-line-number=3D"12"></td>
+        <td id=3D"file-default-suggestions-js-LC12" class=3D"blob-code blob=
+-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id=3D"file-default-suggestions-js-L13" class=3D"blob-num js-lin=
+e-number" data-line-number=3D"13"></td>
+        <td id=3D"file-default-suggestions-js-LC13" class=3D"blob-code blob=
+-code-inner js-file-line">  <span class=3D"pl-k">else</span> {</td>
+      </tr>
+      <tr>
+        <td id=3D"file-default-suggestions-js-L14" class=3D"blob-num js-lin=
+e-number" data-line-number=3D"14"></td>
+        <td id=3D"file-default-suggestions-js-LC14" class=3D"blob-code blob=
+-code-inner js-file-line">    <span class=3D"pl-smi">nflTeams</span>.<span =
+class=3D"pl-c1">search</span>(q, sync);</td>
+      </tr>
+      <tr>
+        <td id=3D"file-default-suggestions-js-L15" class=3D"blob-num js-lin=
+e-number" data-line-number=3D"15"></td>
+        <td id=3D"file-default-suggestions-js-LC15" class=3D"blob-code blob=
+-code-inner js-file-line">  }</td>
+      </tr>
+      <tr>
+        <td id=3D"file-default-suggestions-js-L16" class=3D"blob-num js-lin=
+e-number" data-line-number=3D"16"></td>
+        <td id=3D"file-default-suggestions-js-LC16" class=3D"blob-code blob=
+-code-inner js-file-line">}</td>
+      </tr>
+      <tr>
+        <td id=3D"file-default-suggestions-js-L17" class=3D"blob-num js-lin=
+e-number" data-line-number=3D"17"></td>
+        <td id=3D"file-default-suggestions-js-LC17" class=3D"blob-code blob=
+-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id=3D"file-default-suggestions-js-L18" class=3D"blob-num js-lin=
+e-number" data-line-number=3D"18"></td>
+        <td id=3D"file-default-suggestions-js-LC18" class=3D"blob-code blob=
+-code-inner js-file-line"><span class=3D"pl-en">$</span>(<span class=3D"pl-=
+s"><span class=3D"pl-pds">'</span>#default-suggestions .typeahead<span clas=
+s=3D"pl-pds">'</span></span>).<span class=3D"pl-en">typeahead</span>({</td>
+      </tr>
+      <tr>
+        <td id=3D"file-default-suggestions-js-L19" class=3D"blob-num js-lin=
+e-number" data-line-number=3D"19"></td>
+        <td id=3D"file-default-suggestions-js-LC19" class=3D"blob-code blob=
+-code-inner js-file-line">  minLength<span class=3D"pl-k">:</span> <span cl=
+ass=3D"pl-c1">0</span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-default-suggestions-js-L20" class=3D"blob-num js-lin=
+e-number" data-line-number=3D"20"></td>
+        <td id=3D"file-default-suggestions-js-LC20" class=3D"blob-code blob=
+-code-inner js-file-line">  highlight<span class=3D"pl-k">:</span> <span cl=
+ass=3D"pl-c1">true</span></td>
+      </tr>
+      <tr>
+        <td id=3D"file-default-suggestions-js-L21" class=3D"blob-num js-lin=
+e-number" data-line-number=3D"21"></td>
+        <td id=3D"file-default-suggestions-js-LC21" class=3D"blob-code blob=
+-code-inner js-file-line">},</td>
+      </tr>
+      <tr>
+        <td id=3D"file-default-suggestions-js-L22" class=3D"blob-num js-lin=
+e-number" data-line-number=3D"22"></td>
+        <td id=3D"file-default-suggestions-js-LC22" class=3D"blob-code blob=
+-code-inner js-file-line">{</td>
+      </tr>
+      <tr>
+        <td id=3D"file-default-suggestions-js-L23" class=3D"blob-num js-lin=
+e-number" data-line-number=3D"23"></td>
+        <td id=3D"file-default-suggestions-js-LC23" class=3D"blob-code blob=
+-code-inner js-file-line">  name<span class=3D"pl-k">:</span> <span class=
+=3D"pl-s"><span class=3D"pl-pds">'</span>nfl-teams<span class=3D"pl-pds">'<=
+/span></span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-default-suggestions-js-L24" class=3D"blob-num js-lin=
+e-number" data-line-number=3D"24"></td>
+        <td id=3D"file-default-suggestions-js-LC24" class=3D"blob-code blob=
+-code-inner js-file-line">  display<span class=3D"pl-k">:</span> <span clas=
+s=3D"pl-s"><span class=3D"pl-pds">'</span>team<span class=3D"pl-pds">'</spa=
+n></span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-default-suggestions-js-L25" class=3D"blob-num js-lin=
+e-number" data-line-number=3D"25"></td>
+        <td id=3D"file-default-suggestions-js-LC25" class=3D"blob-code blob=
+-code-inner js-file-line">  source<span class=3D"pl-k">:</span> nflTeamsWit=
+hDefaults</td>
+      </tr>
+      <tr>
+        <td id=3D"file-default-suggestions-js-L26" class=3D"blob-num js-lin=
+e-number" data-line-number=3D"26"></td>
+        <td id=3D"file-default-suggestions-js-LC26" class=3D"blob-code blob=
+-code-inner js-file-line">});</td>
+      </tr>
+</tbody></table>
+
+  </div>
+
+  </div>
+ =20
+</div>
+
+      </div>
+      <div class=3D"gist-meta">
+        <a href=3D"https://gist.github.com/jharding/ee0e44e70097c211070d/ra=
+w/662c3ce39513c2439f781244305e8c7b73cee505/default-suggestions.js" style=3D=
+"float:right">view raw</a>
+        <a href=3D"https://gist.github.com/jharding/ee0e44e70097c211070d#fi=
+le-default-suggestions-js">default-suggestions.js</a>
+        hosted with =E2=9D=A4 by <a href=3D"https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+
+        </div>
+      </div>
+
+      <div class=3D"example" id=3D"multiple-datasets">
+        <h2 class=3D"example-name">Multiple Datasets</h2>
+
+        <div class=3D"demo">
+          <span class=3D"twitter-typeahead" style=3D"position: relative; di=
+splay: inline-block;"><input class=3D"typeahead tt-hint" type=3D"text" read=
+only=3D"" autocomplete=3D"off" spellcheck=3D"false" tabindex=3D"-1" dir=3D"=
+ltr" style=3D"position: absolute; top: 0px; left: 0px; border-color: transp=
+arent; box-shadow: none; opacity: 1; background: none 0% 0% / auto repeat s=
+croll padding-box border-box rgb(255, 255, 255);"><input class=3D"typeahead=
+ tt-input" type=3D"text" placeholder=3D"NBA and NHL teams" autocomplete=3D"=
+off" spellcheck=3D"false" dir=3D"auto" style=3D"position: relative; vertica=
+l-align: top; background-color: transparent;"><pre aria-hidden=3D"true" sty=
+le=3D"position: absolute; visibility: hidden; white-space: pre; font-family=
+: Arial; font-size: 24px; font-style: normal; font-variant: normal; font-we=
+ight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-r=
+endering: auto; text-transform: none;"></pre><div class=3D"tt-menu" style=
+=3D"position: absolute; top: 100%; left: 0px; z-index: 100; display: none;"=
+><div class=3D"tt-dataset tt-dataset-nba-teams"></div><div class=3D"tt-data=
+set tt-dataset-nhl-teams"></div></div></span>
+        </div>
+
+        <div class=3D"gist">
+          <link rel=3D"stylesheet" href=3D"https://assets-cdn.github.com/as=
+sets/gist-embed-b03925b9c18fa42b22f168e7d17a7ca70ca50a4126cbfca9f91a1a8bc79=
+b5905.css"><div id=3D"gist9458797" class=3D"gist">
+    <div class=3D"gist-file">
+      <div class=3D"gist-data">
+        <div class=3D"js-gist-file-update-container js-task-list-container =
+file-box">
+  <div id=3D"file-multiple-datasets-css" class=3D"file">
+   =20
+
+  <div itemprop=3D"text" class=3D"blob-wrapper data type-css">
+      <table class=3D"highlight tab-size js-file-line-container" data-tab-s=
+ize=3D"8">
+      <tbody><tr>
+        <td id=3D"file-multiple-datasets-css-L1" class=3D"blob-num js-line-=
+number" data-line-number=3D"1"></td>
+        <td id=3D"file-multiple-datasets-css-LC1" class=3D"blob-code blob-c=
+ode-inner js-file-line"><span class=3D"pl-e">#multiple-datasets</span> <spa=
+n class=3D"pl-e">.league-name</span> {</td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-css-L2" class=3D"blob-num js-line-=
+number" data-line-number=3D"2"></td>
+        <td id=3D"file-multiple-datasets-css-LC2" class=3D"blob-code blob-c=
+ode-inner js-file-line">  <span class=3D"pl-c1"><span class=3D"pl-c1">margi=
+n</span></span>: <span class=3D"pl-c1">0</span> <span class=3D"pl-c1">20<sp=
+an class=3D"pl-k">px</span></span> <span class=3D"pl-c1">5<span class=3D"pl=
+-k">px</span></span> <span class=3D"pl-c1">20<span class=3D"pl-k">px</span>=
+</span>;</td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-css-L3" class=3D"blob-num js-line-=
+number" data-line-number=3D"3"></td>
+        <td id=3D"file-multiple-datasets-css-LC3" class=3D"blob-code blob-c=
+ode-inner js-file-line">  <span class=3D"pl-c1"><span class=3D"pl-c1">paddi=
+ng</span></span>: <span class=3D"pl-c1">3<span class=3D"pl-k">px</span></sp=
+an> <span class=3D"pl-c1">0</span>;</td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-css-L4" class=3D"blob-num js-line-=
+number" data-line-number=3D"4"></td>
+        <td id=3D"file-multiple-datasets-css-LC4" class=3D"blob-code blob-c=
+ode-inner js-file-line">  <span class=3D"pl-c1"><span class=3D"pl-c1">borde=
+r-bottom</span></span>: <span class=3D"pl-c1">1<span class=3D"pl-k">px</spa=
+n></span> <span class=3D"pl-c1">solid</span> <span class=3D"pl-c1">#ccc</sp=
+an>;</td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-css-L5" class=3D"blob-num js-line-=
+number" data-line-number=3D"5"></td>
+        <td id=3D"file-multiple-datasets-css-LC5" class=3D"blob-code blob-c=
+ode-inner js-file-line">}</td>
+      </tr>
+</tbody></table>
+
+  </div>
+
+  </div>
+ =20
+</div>
+
+      </div>
+      <div class=3D"gist-meta">
+        <a href=3D"https://gist.github.com/jharding/9458797/raw/b80575cfad4=
+833259d68b4d8ed06cd842be49bab/multiple-datasets.css" style=3D"float:right">=
+view raw</a>
+        <a href=3D"https://gist.github.com/jharding/9458797#file-multiple-d=
+atasets-css">multiple-datasets.css</a>
+        hosted with =E2=9D=A4 by <a href=3D"https://github.com/">GitHub</a>
+      </div>
+    </div>
+    <div class=3D"gist-file">
+      <div class=3D"gist-data">
+        <div class=3D"js-gist-file-update-container js-task-list-container =
+file-box">
+  <div id=3D"file-multiple-datasets-html" class=3D"file">
+   =20
+
+  <div itemprop=3D"text" class=3D"blob-wrapper data type-html">
+      <table class=3D"highlight tab-size js-file-line-container" data-tab-s=
+ize=3D"8">
+      <tbody><tr>
+        <td id=3D"file-multiple-datasets-html-L1" class=3D"blob-num js-line=
+-number" data-line-number=3D"1"></td>
+        <td id=3D"file-multiple-datasets-html-LC1" class=3D"blob-code blob-=
+code-inner js-file-line">&lt;<span class=3D"pl-ent">div</span> <span class=
+=3D"pl-e">id</span>=3D<span class=3D"pl-s"><span class=3D"pl-pds">"</span>m=
+ultiple-datasets<span class=3D"pl-pds">"</span></span>&gt;</td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-html-L2" class=3D"blob-num js-line=
+-number" data-line-number=3D"2"></td>
+        <td id=3D"file-multiple-datasets-html-LC2" class=3D"blob-code blob-=
+code-inner js-file-line">  &lt;<span class=3D"pl-ent">input</span> <span cl=
+ass=3D"pl-e">class</span>=3D<span class=3D"pl-s"><span class=3D"pl-pds">"</=
+span>typeahead<span class=3D"pl-pds">"</span></span> <span class=3D"pl-e">t=
+ype</span>=3D<span class=3D"pl-s"><span class=3D"pl-pds">"</span>text<span =
+class=3D"pl-pds">"</span></span> <span class=3D"pl-e">placeholder</span>=3D=
+<span class=3D"pl-s"><span class=3D"pl-pds">"</span>NBA and NHL teams<span =
+class=3D"pl-pds">"</span></span>&gt;</td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-html-L3" class=3D"blob-num js-line=
+-number" data-line-number=3D"3"></td>
+        <td id=3D"file-multiple-datasets-html-LC3" class=3D"blob-code blob-=
+code-inner js-file-line">&lt;/<span class=3D"pl-ent">div</span>&gt;</td>
+      </tr>
+</tbody></table>
+
+  </div>
+
+  </div>
+ =20
+</div>
+
+      </div>
+      <div class=3D"gist-meta">
+        <a href=3D"https://gist.github.com/jharding/9458797/raw/b80575cfad4=
+833259d68b4d8ed06cd842be49bab/multiple-datasets.html" style=3D"float:right"=
+>view raw</a>
+        <a href=3D"https://gist.github.com/jharding/9458797#file-multiple-d=
+atasets-html">multiple-datasets.html</a>
+        hosted with =E2=9D=A4 by <a href=3D"https://github.com/">GitHub</a>
+      </div>
+    </div>
+    <div class=3D"gist-file">
+      <div class=3D"gist-data">
+        <div class=3D"js-gist-file-update-container js-task-list-container =
+file-box">
+  <div id=3D"file-multiple-datasets-js" class=3D"file">
+   =20
+
+  <div itemprop=3D"text" class=3D"blob-wrapper data type-javascript">
+      <table class=3D"highlight tab-size js-file-line-container" data-tab-s=
+ize=3D"8">
+      <tbody><tr>
+        <td id=3D"file-multiple-datasets-js-L1" class=3D"blob-num js-line-n=
+umber" data-line-number=3D"1"></td>
+        <td id=3D"file-multiple-datasets-js-LC1" class=3D"blob-code blob-co=
+de-inner js-file-line"><span class=3D"pl-k">var</span> nbaTeams <span class=
+=3D"pl-k">=3D</span> <span class=3D"pl-k">new</span> <span class=3D"pl-en">=
+Bloodhound</span>({</td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-js-L2" class=3D"blob-num js-line-n=
+umber" data-line-number=3D"2"></td>
+        <td id=3D"file-multiple-datasets-js-LC2" class=3D"blob-code blob-co=
+de-inner js-file-line">  datumTokenizer<span class=3D"pl-k">:</span> <span =
+class=3D"pl-smi">Bloodhound</span>.<span class=3D"pl-smi">tokenizers</span>=
+.<span class=3D"pl-smi">obj</span>.<span class=3D"pl-en">whitespace</span>(=
+<span class=3D"pl-s"><span class=3D"pl-pds">'</span>team<span class=3D"pl-p=
+ds">'</span></span>),</td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-js-L3" class=3D"blob-num js-line-n=
+umber" data-line-number=3D"3"></td>
+        <td id=3D"file-multiple-datasets-js-LC3" class=3D"blob-code blob-co=
+de-inner js-file-line">  queryTokenizer<span class=3D"pl-k">:</span> <span =
+class=3D"pl-smi">Bloodhound</span>.<span class=3D"pl-smi">tokenizers</span>=
+.<span class=3D"pl-smi">whitespace</span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-js-L4" class=3D"blob-num js-line-n=
+umber" data-line-number=3D"4"></td>
+        <td id=3D"file-multiple-datasets-js-LC4" class=3D"blob-code blob-co=
+de-inner js-file-line">  prefetch<span class=3D"pl-k">:</span> <span class=
+=3D"pl-s"><span class=3D"pl-pds">'</span>../data/nba.json<span class=3D"pl-=
+pds">'</span></span></td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-js-L5" class=3D"blob-num js-line-n=
+umber" data-line-number=3D"5"></td>
+        <td id=3D"file-multiple-datasets-js-LC5" class=3D"blob-code blob-co=
+de-inner js-file-line">});</td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-js-L6" class=3D"blob-num js-line-n=
+umber" data-line-number=3D"6"></td>
+        <td id=3D"file-multiple-datasets-js-LC6" class=3D"blob-code blob-co=
+de-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-js-L7" class=3D"blob-num js-line-n=
+umber" data-line-number=3D"7"></td>
+        <td id=3D"file-multiple-datasets-js-LC7" class=3D"blob-code blob-co=
+de-inner js-file-line"><span class=3D"pl-k">var</span> nhlTeams <span class=
+=3D"pl-k">=3D</span> <span class=3D"pl-k">new</span> <span class=3D"pl-en">=
+Bloodhound</span>({</td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-js-L8" class=3D"blob-num js-line-n=
+umber" data-line-number=3D"8"></td>
+        <td id=3D"file-multiple-datasets-js-LC8" class=3D"blob-code blob-co=
+de-inner js-file-line">  datumTokenizer<span class=3D"pl-k">:</span> <span =
+class=3D"pl-smi">Bloodhound</span>.<span class=3D"pl-smi">tokenizers</span>=
+.<span class=3D"pl-smi">obj</span>.<span class=3D"pl-en">whitespace</span>(=
+<span class=3D"pl-s"><span class=3D"pl-pds">'</span>team<span class=3D"pl-p=
+ds">'</span></span>),</td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-js-L9" class=3D"blob-num js-line-n=
+umber" data-line-number=3D"9"></td>
+        <td id=3D"file-multiple-datasets-js-LC9" class=3D"blob-code blob-co=
+de-inner js-file-line">  queryTokenizer<span class=3D"pl-k">:</span> <span =
+class=3D"pl-smi">Bloodhound</span>.<span class=3D"pl-smi">tokenizers</span>=
+.<span class=3D"pl-smi">whitespace</span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-js-L10" class=3D"blob-num js-line-=
+number" data-line-number=3D"10"></td>
+        <td id=3D"file-multiple-datasets-js-LC10" class=3D"blob-code blob-c=
+ode-inner js-file-line">  prefetch<span class=3D"pl-k">:</span> <span class=
+=3D"pl-s"><span class=3D"pl-pds">'</span>../data/nhl.json<span class=3D"pl-=
+pds">'</span></span></td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-js-L11" class=3D"blob-num js-line-=
+number" data-line-number=3D"11"></td>
+        <td id=3D"file-multiple-datasets-js-LC11" class=3D"blob-code blob-c=
+ode-inner js-file-line">});</td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-js-L12" class=3D"blob-num js-line-=
+number" data-line-number=3D"12"></td>
+        <td id=3D"file-multiple-datasets-js-LC12" class=3D"blob-code blob-c=
+ode-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-js-L13" class=3D"blob-num js-line-=
+number" data-line-number=3D"13"></td>
+        <td id=3D"file-multiple-datasets-js-LC13" class=3D"blob-code blob-c=
+ode-inner js-file-line"><span class=3D"pl-en">$</span>(<span class=3D"pl-s"=
+><span class=3D"pl-pds">'</span>#multiple-datasets .typeahead<span class=3D=
+"pl-pds">'</span></span>).<span class=3D"pl-en">typeahead</span>({</td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-js-L14" class=3D"blob-num js-line-=
+number" data-line-number=3D"14"></td>
+        <td id=3D"file-multiple-datasets-js-LC14" class=3D"blob-code blob-c=
+ode-inner js-file-line">  highlight<span class=3D"pl-k">:</span> <span clas=
+s=3D"pl-c1">true</span></td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-js-L15" class=3D"blob-num js-line-=
+number" data-line-number=3D"15"></td>
+        <td id=3D"file-multiple-datasets-js-LC15" class=3D"blob-code blob-c=
+ode-inner js-file-line">},</td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-js-L16" class=3D"blob-num js-line-=
+number" data-line-number=3D"16"></td>
+        <td id=3D"file-multiple-datasets-js-LC16" class=3D"blob-code blob-c=
+ode-inner js-file-line">{</td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-js-L17" class=3D"blob-num js-line-=
+number" data-line-number=3D"17"></td>
+        <td id=3D"file-multiple-datasets-js-LC17" class=3D"blob-code blob-c=
+ode-inner js-file-line">  name<span class=3D"pl-k">:</span> <span class=3D"=
+pl-s"><span class=3D"pl-pds">'</span>nba-teams<span class=3D"pl-pds">'</spa=
+n></span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-js-L18" class=3D"blob-num js-line-=
+number" data-line-number=3D"18"></td>
+        <td id=3D"file-multiple-datasets-js-LC18" class=3D"blob-code blob-c=
+ode-inner js-file-line">  display<span class=3D"pl-k">:</span> <span class=
+=3D"pl-s"><span class=3D"pl-pds">'</span>team<span class=3D"pl-pds">'</span=
+></span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-js-L19" class=3D"blob-num js-line-=
+number" data-line-number=3D"19"></td>
+        <td id=3D"file-multiple-datasets-js-LC19" class=3D"blob-code blob-c=
+ode-inner js-file-line">  source<span class=3D"pl-k">:</span> nbaTeams,</td=
+>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-js-L20" class=3D"blob-num js-line-=
+number" data-line-number=3D"20"></td>
+        <td id=3D"file-multiple-datasets-js-LC20" class=3D"blob-code blob-c=
+ode-inner js-file-line">  templates<span class=3D"pl-k">:</span> {</td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-js-L21" class=3D"blob-num js-line-=
+number" data-line-number=3D"21"></td>
+        <td id=3D"file-multiple-datasets-js-LC21" class=3D"blob-code blob-c=
+ode-inner js-file-line">    header<span class=3D"pl-k">:</span> <span class=
+=3D"pl-s"><span class=3D"pl-pds">'</span>&lt;h3 class=3D"league-name"&gt;NB=
+A Teams&lt;/h3&gt;<span class=3D"pl-pds">'</span></span></td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-js-L22" class=3D"blob-num js-line-=
+number" data-line-number=3D"22"></td>
+        <td id=3D"file-multiple-datasets-js-LC22" class=3D"blob-code blob-c=
+ode-inner js-file-line">  }</td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-js-L23" class=3D"blob-num js-line-=
+number" data-line-number=3D"23"></td>
+        <td id=3D"file-multiple-datasets-js-LC23" class=3D"blob-code blob-c=
+ode-inner js-file-line">},</td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-js-L24" class=3D"blob-num js-line-=
+number" data-line-number=3D"24"></td>
+        <td id=3D"file-multiple-datasets-js-LC24" class=3D"blob-code blob-c=
+ode-inner js-file-line">{</td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-js-L25" class=3D"blob-num js-line-=
+number" data-line-number=3D"25"></td>
+        <td id=3D"file-multiple-datasets-js-LC25" class=3D"blob-code blob-c=
+ode-inner js-file-line">  name<span class=3D"pl-k">:</span> <span class=3D"=
+pl-s"><span class=3D"pl-pds">'</span>nhl-teams<span class=3D"pl-pds">'</spa=
+n></span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-js-L26" class=3D"blob-num js-line-=
+number" data-line-number=3D"26"></td>
+        <td id=3D"file-multiple-datasets-js-LC26" class=3D"blob-code blob-c=
+ode-inner js-file-line">  display<span class=3D"pl-k">:</span> <span class=
+=3D"pl-s"><span class=3D"pl-pds">'</span>team<span class=3D"pl-pds">'</span=
+></span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-js-L27" class=3D"blob-num js-line-=
+number" data-line-number=3D"27"></td>
+        <td id=3D"file-multiple-datasets-js-LC27" class=3D"blob-code blob-c=
+ode-inner js-file-line">  source<span class=3D"pl-k">:</span> nhlTeams,</td=
+>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-js-L28" class=3D"blob-num js-line-=
+number" data-line-number=3D"28"></td>
+        <td id=3D"file-multiple-datasets-js-LC28" class=3D"blob-code blob-c=
+ode-inner js-file-line">  templates<span class=3D"pl-k">:</span> {</td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-js-L29" class=3D"blob-num js-line-=
+number" data-line-number=3D"29"></td>
+        <td id=3D"file-multiple-datasets-js-LC29" class=3D"blob-code blob-c=
+ode-inner js-file-line">    header<span class=3D"pl-k">:</span> <span class=
+=3D"pl-s"><span class=3D"pl-pds">'</span>&lt;h3 class=3D"league-name"&gt;NH=
+L Teams&lt;/h3&gt;<span class=3D"pl-pds">'</span></span></td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-js-L30" class=3D"blob-num js-line-=
+number" data-line-number=3D"30"></td>
+        <td id=3D"file-multiple-datasets-js-LC30" class=3D"blob-code blob-c=
+ode-inner js-file-line">  }</td>
+      </tr>
+      <tr>
+        <td id=3D"file-multiple-datasets-js-L31" class=3D"blob-num js-line-=
+number" data-line-number=3D"31"></td>
+        <td id=3D"file-multiple-datasets-js-LC31" class=3D"blob-code blob-c=
+ode-inner js-file-line">});</td>
+      </tr>
+</tbody></table>
+
+  </div>
+
+  </div>
+ =20
+</div>
+
+      </div>
+      <div class=3D"gist-meta">
+        <a href=3D"https://gist.github.com/jharding/9458797/raw/b80575cfad4=
+833259d68b4d8ed06cd842be49bab/multiple-datasets.js" style=3D"float:right">v=
+iew raw</a>
+        <a href=3D"https://gist.github.com/jharding/9458797#file-multiple-d=
+atasets-js">multiple-datasets.js</a>
+        hosted with =E2=9D=A4 by <a href=3D"https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+
+        </div>
+      </div>
+
+      <div class=3D"example" id=3D"scrollable-dropdown-menu">
+        <h2 class=3D"example-name">Scrollable Dropdown Menu</h2>
+
+        <div class=3D"demo">
+          <span class=3D"twitter-typeahead" style=3D"position: relative; di=
+splay: inline-block;"><input class=3D"typeahead tt-hint" type=3D"text" read=
+only=3D"" autocomplete=3D"off" spellcheck=3D"false" tabindex=3D"-1" dir=3D"=
+ltr" style=3D"position: absolute; top: 0px; left: 0px; border-color: transp=
+arent; box-shadow: none; opacity: 1; background: none 0% 0% / auto repeat s=
+croll padding-box border-box rgb(255, 255, 255);"><input class=3D"typeahead=
+ tt-input" type=3D"text" placeholder=3D"Countries" autocomplete=3D"off" spe=
+llcheck=3D"false" dir=3D"auto" style=3D"position: relative; vertical-align:=
+ top; background-color: transparent;"><pre aria-hidden=3D"true" style=3D"po=
+sition: absolute; visibility: hidden; white-space: pre; font-family: Arial;=
+ font-size: 24px; font-style: normal; font-variant: normal; font-weight: 40=
+0; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering=
+: auto; text-transform: none;"></pre><div class=3D"tt-menu" style=3D"positi=
+on: absolute; top: 100%; left: 0px; z-index: 100; display: none;"><div clas=
+s=3D"tt-dataset tt-dataset-countries"></div></div></span>
+        </div>
+
+        <div class=3D"gist">
+          <link rel=3D"stylesheet" href=3D"https://assets-cdn.github.com/as=
+sets/gist-embed-b03925b9c18fa42b22f168e7d17a7ca70ca50a4126cbfca9f91a1a8bc79=
+b5905.css"><div id=3D"gist9458816" class=3D"gist">
+    <div class=3D"gist-file">
+      <div class=3D"gist-data">
+        <div class=3D"js-gist-file-update-container js-task-list-container =
+file-box">
+  <div id=3D"file-scrollable-dropdown-menu-css" class=3D"file">
+   =20
+
+  <div itemprop=3D"text" class=3D"blob-wrapper data type-css">
+      <table class=3D"highlight tab-size js-file-line-container" data-tab-s=
+ize=3D"8">
+      <tbody><tr>
+        <td id=3D"file-scrollable-dropdown-menu-css-L1" class=3D"blob-num j=
+s-line-number" data-line-number=3D"1"></td>
+        <td id=3D"file-scrollable-dropdown-menu-css-LC1" class=3D"blob-code=
+ blob-code-inner js-file-line"><span class=3D"pl-e">#scrollable-dropdown-me=
+nu</span> <span class=3D"pl-e">.tt-dropdown-menu</span> {</td>
+      </tr>
+      <tr>
+        <td id=3D"file-scrollable-dropdown-menu-css-L2" class=3D"blob-num j=
+s-line-number" data-line-number=3D"2"></td>
+        <td id=3D"file-scrollable-dropdown-menu-css-LC2" class=3D"blob-code=
+ blob-code-inner js-file-line">  <span class=3D"pl-c1"><span class=3D"pl-c1=
+">max-height</span></span>: <span class=3D"pl-c1">150<span class=3D"pl-k">p=
+x</span></span>;</td>
+      </tr>
+      <tr>
+        <td id=3D"file-scrollable-dropdown-menu-css-L3" class=3D"blob-num j=
+s-line-number" data-line-number=3D"3"></td>
+        <td id=3D"file-scrollable-dropdown-menu-css-LC3" class=3D"blob-code=
+ blob-code-inner js-file-line">  <span class=3D"pl-c1"><span class=3D"pl-c1=
+">overflow-y</span></span>: <span class=3D"pl-c1">auto</span>;</td>
+      </tr>
+      <tr>
+        <td id=3D"file-scrollable-dropdown-menu-css-L4" class=3D"blob-num j=
+s-line-number" data-line-number=3D"4"></td>
+        <td id=3D"file-scrollable-dropdown-menu-css-LC4" class=3D"blob-code=
+ blob-code-inner js-file-line">}</td>
+      </tr>
+</tbody></table>
+
+  </div>
+
+  </div>
+ =20
+</div>
+
+      </div>
+      <div class=3D"gist-meta">
+        <a href=3D"https://gist.github.com/jharding/9458816/raw/77276289fbd=
+b910faae7bcf06bb530d76d2264dd/scrollable-dropdown-menu.css" style=3D"float:=
+right">view raw</a>
+        <a href=3D"https://gist.github.com/jharding/9458816#file-scrollable=
+-dropdown-menu-css">scrollable-dropdown-menu.css</a>
+        hosted with =E2=9D=A4 by <a href=3D"https://github.com/">GitHub</a>
+      </div>
+    </div>
+    <div class=3D"gist-file">
+      <div class=3D"gist-data">
+        <div class=3D"js-gist-file-update-container js-task-list-container =
+file-box">
+  <div id=3D"file-scrollable-dropdown-menu-html" class=3D"file">
+   =20
+
+  <div itemprop=3D"text" class=3D"blob-wrapper data type-html">
+      <table class=3D"highlight tab-size js-file-line-container" data-tab-s=
+ize=3D"8">
+      <tbody><tr>
+        <td id=3D"file-scrollable-dropdown-menu-html-L1" class=3D"blob-num =
+js-line-number" data-line-number=3D"1"></td>
+        <td id=3D"file-scrollable-dropdown-menu-html-LC1" class=3D"blob-cod=
+e blob-code-inner js-file-line">&lt;<span class=3D"pl-ent">div</span> <span=
+ class=3D"pl-e">id</span>=3D<span class=3D"pl-s"><span class=3D"pl-pds">"</=
+span>scrollable-dropdown-menu<span class=3D"pl-pds">"</span></span>&gt;</td=
+>
+      </tr>
+      <tr>
+        <td id=3D"file-scrollable-dropdown-menu-html-L2" class=3D"blob-num =
+js-line-number" data-line-number=3D"2"></td>
+        <td id=3D"file-scrollable-dropdown-menu-html-LC2" class=3D"blob-cod=
+e blob-code-inner js-file-line">  &lt;<span class=3D"pl-ent">input</span> <=
+span class=3D"pl-e">class</span>=3D<span class=3D"pl-s"><span class=3D"pl-p=
+ds">"</span>typeahead<span class=3D"pl-pds">"</span></span> <span class=3D"=
+pl-e">type</span>=3D<span class=3D"pl-s"><span class=3D"pl-pds">"</span>tex=
+t<span class=3D"pl-pds">"</span></span> <span class=3D"pl-e">placeholder</s=
+pan>=3D<span class=3D"pl-s"><span class=3D"pl-pds">"</span>Countries<span c=
+lass=3D"pl-pds">"</span></span>&gt;</td>
+      </tr>
+      <tr>
+        <td id=3D"file-scrollable-dropdown-menu-html-L3" class=3D"blob-num =
+js-line-number" data-line-number=3D"3"></td>
+        <td id=3D"file-scrollable-dropdown-menu-html-LC3" class=3D"blob-cod=
+e blob-code-inner js-file-line">&lt;/<span class=3D"pl-ent">div</span>&gt;<=
+/td>
+      </tr>
+</tbody></table>
+
+  </div>
+
+  </div>
+ =20
+</div>
+
+      </div>
+      <div class=3D"gist-meta">
+        <a href=3D"https://gist.github.com/jharding/9458816/raw/77276289fbd=
+b910faae7bcf06bb530d76d2264dd/scrollable-dropdown-menu.html" style=3D"float=
+:right">view raw</a>
+        <a href=3D"https://gist.github.com/jharding/9458816#file-scrollable=
+-dropdown-menu-html">scrollable-dropdown-menu.html</a>
+        hosted with =E2=9D=A4 by <a href=3D"https://github.com/">GitHub</a>
+      </div>
+    </div>
+    <div class=3D"gist-file">
+      <div class=3D"gist-data">
+        <div class=3D"js-gist-file-update-container js-task-list-container =
+file-box">
+  <div id=3D"file-scrollable-dropdown-menu-js" class=3D"file">
+   =20
+
+  <div itemprop=3D"text" class=3D"blob-wrapper data type-javascript">
+      <table class=3D"highlight tab-size js-file-line-container" data-tab-s=
+ize=3D"8">
+      <tbody><tr>
+        <td id=3D"file-scrollable-dropdown-menu-js-L1" class=3D"blob-num js=
+-line-number" data-line-number=3D"1"></td>
+        <td id=3D"file-scrollable-dropdown-menu-js-LC1" class=3D"blob-code =
+blob-code-inner js-file-line"><span class=3D"pl-en">$</span>(<span class=3D=
+"pl-s"><span class=3D"pl-pds">'</span>#scrollable-dropdown-menu .typeahead<=
+span class=3D"pl-pds">'</span></span>).<span class=3D"pl-en">typeahead</spa=
+n>(<span class=3D"pl-c1">null</span>, {</td>
+      </tr>
+      <tr>
+        <td id=3D"file-scrollable-dropdown-menu-js-L2" class=3D"blob-num js=
+-line-number" data-line-number=3D"2"></td>
+        <td id=3D"file-scrollable-dropdown-menu-js-LC2" class=3D"blob-code =
+blob-code-inner js-file-line">  name<span class=3D"pl-k">:</span> <span cla=
+ss=3D"pl-s"><span class=3D"pl-pds">'</span>countries<span class=3D"pl-pds">=
+'</span></span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-scrollable-dropdown-menu-js-L3" class=3D"blob-num js=
+-line-number" data-line-number=3D"3"></td>
+        <td id=3D"file-scrollable-dropdown-menu-js-LC3" class=3D"blob-code =
+blob-code-inner js-file-line">  limit<span class=3D"pl-k">:</span> <span cl=
+ass=3D"pl-c1">10</span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-scrollable-dropdown-menu-js-L4" class=3D"blob-num js=
+-line-number" data-line-number=3D"4"></td>
+        <td id=3D"file-scrollable-dropdown-menu-js-LC4" class=3D"blob-code =
+blob-code-inner js-file-line">  source<span class=3D"pl-k">:</span> countri=
+es</td>
+      </tr>
+      <tr>
+        <td id=3D"file-scrollable-dropdown-menu-js-L5" class=3D"blob-num js=
+-line-number" data-line-number=3D"5"></td>
+        <td id=3D"file-scrollable-dropdown-menu-js-LC5" class=3D"blob-code =
+blob-code-inner js-file-line">});</td>
+      </tr>
+</tbody></table>
+
+  </div>
+
+  </div>
+ =20
+</div>
+
+      </div>
+      <div class=3D"gist-meta">
+        <a href=3D"https://gist.github.com/jharding/9458816/raw/77276289fbd=
+b910faae7bcf06bb530d76d2264dd/scrollable-dropdown-menu.js" style=3D"float:r=
+ight">view raw</a>
+        <a href=3D"https://gist.github.com/jharding/9458816#file-scrollable=
+-dropdown-menu-js">scrollable-dropdown-menu.js</a>
+        hosted with =E2=9D=A4 by <a href=3D"https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+
+        </div>
+      </div>
+
+      <div class=3D"example" id=3D"rtl-support">
+        <h2 class=3D"example-name">RTL Support</h2>
+
+        <div class=3D"demo">
+          <span class=3D"twitter-typeahead" style=3D"position: relative; di=
+splay: inline-block;"><input class=3D"typeahead tt-input" type=3D"text" dir=
+=3D"rtl" placeholder=3D"=D9=86=D8=B9=D9=85" autocomplete=3D"off" spellcheck=
+=3D"false" style=3D"position: relative; vertical-align: top;"><pre aria-hid=
+den=3D"true" style=3D"position: absolute; visibility: hidden; white-space: =
+pre; font-family: Arial; font-size: 24px; font-style: normal; font-variant:=
+ normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-ind=
+ent: 0px; text-rendering: auto; text-transform: none;"></pre><div class=3D"=
+tt-menu" style=3D"position: absolute; top: 100%; left: 0px; z-index: 100; d=
+isplay: none;"><div class=3D"tt-dataset tt-dataset-arabic-phrases"></div></=
+div></span>
+        </div>
+
+        <div class=3D"gist">
+          <link rel=3D"stylesheet" href=3D"https://assets-cdn.github.com/as=
+sets/gist-embed-b03925b9c18fa42b22f168e7d17a7ca70ca50a4126cbfca9f91a1a8bc79=
+b5905.css"><div id=3D"gist9458824" class=3D"gist">
+    <div class=3D"gist-file">
+      <div class=3D"gist-data">
+        <div class=3D"js-gist-file-update-container js-task-list-container =
+file-box">
+  <div id=3D"file-rtl-support-css" class=3D"file">
+   =20
+
+  <div itemprop=3D"text" class=3D"blob-wrapper data type-css">
+      <table class=3D"highlight tab-size js-file-line-container" data-tab-s=
+ize=3D"8">
+      <tbody><tr>
+        <td id=3D"file-rtl-support-css-L1" class=3D"blob-num js-line-number=
+" data-line-number=3D"1"></td>
+        <td id=3D"file-rtl-support-css-LC1" class=3D"blob-code blob-code-in=
+ner js-file-line"><span class=3D"pl-e">#rtl-support</span> <span class=3D"p=
+l-e">.tt-dropdown-menu</span> {</td>
+      </tr>
+      <tr>
+        <td id=3D"file-rtl-support-css-L2" class=3D"blob-num js-line-number=
+" data-line-number=3D"2"></td>
+        <td id=3D"file-rtl-support-css-LC2" class=3D"blob-code blob-code-in=
+ner js-file-line">  <span class=3D"pl-c1"><span class=3D"pl-c1">text-align<=
+/span></span>: <span class=3D"pl-c1">right</span>;</td>
+      </tr>
+      <tr>
+        <td id=3D"file-rtl-support-css-L3" class=3D"blob-num js-line-number=
+" data-line-number=3D"3"></td>
+        <td id=3D"file-rtl-support-css-LC3" class=3D"blob-code blob-code-in=
+ner js-file-line">}</td>
+      </tr>
+</tbody></table>
+
+  </div>
+
+  </div>
+ =20
+</div>
+
+      </div>
+      <div class=3D"gist-meta">
+        <a href=3D"https://gist.github.com/jharding/9458824/raw/91f199c7d5e=
+b92336ca925d35977d0a8284e75be/rtl-support.css" style=3D"float:right">view r=
+aw</a>
+        <a href=3D"https://gist.github.com/jharding/9458824#file-rtl-suppor=
+t-css">rtl-support.css</a>
+        hosted with =E2=9D=A4 by <a href=3D"https://github.com/">GitHub</a>
+      </div>
+    </div>
+    <div class=3D"gist-file">
+      <div class=3D"gist-data">
+        <div class=3D"js-gist-file-update-container js-task-list-container =
+file-box">
+  <div id=3D"file-rtl-support-html" class=3D"file">
+   =20
+
+  <div itemprop=3D"text" class=3D"blob-wrapper data type-html">
+      <table class=3D"highlight tab-size js-file-line-container" data-tab-s=
+ize=3D"8">
+      <tbody><tr>
+        <td id=3D"file-rtl-support-html-L1" class=3D"blob-num js-line-numbe=
+r" data-line-number=3D"1"></td>
+        <td id=3D"file-rtl-support-html-LC1" class=3D"blob-code blob-code-i=
+nner js-file-line">&lt;<span class=3D"pl-ent">div</span> <span class=3D"pl-=
+e">id</span>=3D<span class=3D"pl-s"><span class=3D"pl-pds">"</span>rtl-supp=
+ort<span class=3D"pl-pds">"</span></span>&gt;</td>
+      </tr>
+      <tr>
+        <td id=3D"file-rtl-support-html-L2" class=3D"blob-num js-line-numbe=
+r" data-line-number=3D"2"></td>
+        <td id=3D"file-rtl-support-html-LC2" class=3D"blob-code blob-code-i=
+nner js-file-line">  &lt;<span class=3D"pl-ent">input</span> <span class=3D=
+"pl-e">class</span>=3D<span class=3D"pl-s"><span class=3D"pl-pds">"</span>t=
+ypeahead<span class=3D"pl-pds">"</span></span> <span class=3D"pl-e">type</s=
+pan>=3D<span class=3D"pl-s"><span class=3D"pl-pds">"</span>text<span class=
+=3D"pl-pds">"</span></span> <span class=3D"pl-e">dir</span>=3D<span class=
+=3D"pl-s"><span class=3D"pl-pds">"</span>rtl<span class=3D"pl-pds">"</span>=
+</span> <span class=3D"pl-e">placeholder</span>=3D<span class=3D"pl-s"><spa=
+n class=3D"pl-pds">"</span>=D9=86=D8=B9=D9=85<span class=3D"pl-pds">"</span=
+></span>&gt;</td>
+      </tr>
+      <tr>
+        <td id=3D"file-rtl-support-html-L3" class=3D"blob-num js-line-numbe=
+r" data-line-number=3D"3"></td>
+        <td id=3D"file-rtl-support-html-LC3" class=3D"blob-code blob-code-i=
+nner js-file-line">&lt;/<span class=3D"pl-ent">div</span>&gt;</td>
+      </tr>
+</tbody></table>
+
+  </div>
+
+  </div>
+ =20
+</div>
+
+      </div>
+      <div class=3D"gist-meta">
+        <a href=3D"https://gist.github.com/jharding/9458824/raw/91f199c7d5e=
+b92336ca925d35977d0a8284e75be/rtl-support.html" style=3D"float:right">view =
+raw</a>
+        <a href=3D"https://gist.github.com/jharding/9458824#file-rtl-suppor=
+t-html">rtl-support.html</a>
+        hosted with =E2=9D=A4 by <a href=3D"https://github.com/">GitHub</a>
+      </div>
+    </div>
+    <div class=3D"gist-file">
+      <div class=3D"gist-data">
+        <div class=3D"js-gist-file-update-container js-task-list-container =
+file-box">
+  <div id=3D"file-rtl-support-js" class=3D"file">
+   =20
+
+  <div itemprop=3D"text" class=3D"blob-wrapper data type-javascript">
+      <table class=3D"highlight tab-size js-file-line-container" data-tab-s=
+ize=3D"8">
+      <tbody><tr>
+        <td id=3D"file-rtl-support-js-L1" class=3D"blob-num js-line-number"=
+ data-line-number=3D"1"></td>
+        <td id=3D"file-rtl-support-js-LC1" class=3D"blob-code blob-code-inn=
+er js-file-line"><span class=3D"pl-k">var</span> arabicPhrases <span class=
+=3D"pl-k">=3D</span> <span class=3D"pl-k">new</span> <span class=3D"pl-en">=
+Bloodhound</span>({</td>
+      </tr>
+      <tr>
+        <td id=3D"file-rtl-support-js-L2" class=3D"blob-num js-line-number"=
+ data-line-number=3D"2"></td>
+        <td id=3D"file-rtl-support-js-LC2" class=3D"blob-code blob-code-inn=
+er js-file-line">  datumTokenizer<span class=3D"pl-k">:</span> <span class=
+=3D"pl-smi">Bloodhound</span>.<span class=3D"pl-smi">tokenizers</span>.<spa=
+n class=3D"pl-smi">whitespace</span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-rtl-support-js-L3" class=3D"blob-num js-line-number"=
+ data-line-number=3D"3"></td>
+        <td id=3D"file-rtl-support-js-LC3" class=3D"blob-code blob-code-inn=
+er js-file-line">  queryTokenizer<span class=3D"pl-k">:</span> <span class=
+=3D"pl-smi">Bloodhound</span>.<span class=3D"pl-smi">tokenizers</span>.<spa=
+n class=3D"pl-smi">whitespace</span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-rtl-support-js-L4" class=3D"blob-num js-line-number"=
+ data-line-number=3D"4"></td>
+        <td id=3D"file-rtl-support-js-LC4" class=3D"blob-code blob-code-inn=
+er js-file-line">  local<span class=3D"pl-k">:</span> [</td>
+      </tr>
+      <tr>
+        <td id=3D"file-rtl-support-js-L5" class=3D"blob-num js-line-number"=
+ data-line-number=3D"5"></td>
+        <td id=3D"file-rtl-support-js-LC5" class=3D"blob-code blob-code-inn=
+er js-file-line">    <span class=3D"pl-s"><span class=3D"pl-pds">"</span>=
+=D8=A7=D9=84=D8=A5=D9=86=D8=AC=D9=84=D9=8A=D8=B2=D9=8A=D8=A9<span class=3D"=
+pl-pds">"</span></span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-rtl-support-js-L6" class=3D"blob-num js-line-number"=
+ data-line-number=3D"6"></td>
+        <td id=3D"file-rtl-support-js-LC6" class=3D"blob-code blob-code-inn=
+er js-file-line">    <span class=3D"pl-s"><span class=3D"pl-pds">"</span>=
+=D9=86=D8=B9=D9=85<span class=3D"pl-pds">"</span></span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-rtl-support-js-L7" class=3D"blob-num js-line-number"=
+ data-line-number=3D"7"></td>
+        <td id=3D"file-rtl-support-js-LC7" class=3D"blob-code blob-code-inn=
+er js-file-line">    <span class=3D"pl-s"><span class=3D"pl-pds">"</span>=
+=D9=84=D8=A7<span class=3D"pl-pds">"</span></span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-rtl-support-js-L8" class=3D"blob-num js-line-number"=
+ data-line-number=3D"8"></td>
+        <td id=3D"file-rtl-support-js-LC8" class=3D"blob-code blob-code-inn=
+er js-file-line">    <span class=3D"pl-s"><span class=3D"pl-pds">"</span>=
+=D9=85=D8=B1=D8=AD=D8=A8=D8=A7<span class=3D"pl-pds">"</span></span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-rtl-support-js-L9" class=3D"blob-num js-line-number"=
+ data-line-number=3D"9"></td>
+        <td id=3D"file-rtl-support-js-LC9" class=3D"blob-code blob-code-inn=
+er js-file-line">    <span class=3D"pl-s"><span class=3D"pl-pds">"</span>=
+=D8=A3=D9=87=D9=84=D8=A7<span class=3D"pl-pds">"</span></span></td>
+      </tr>
+      <tr>
+        <td id=3D"file-rtl-support-js-L10" class=3D"blob-num js-line-number=
+" data-line-number=3D"10"></td>
+        <td id=3D"file-rtl-support-js-LC10" class=3D"blob-code blob-code-in=
+ner js-file-line">  ]</td>
+      </tr>
+      <tr>
+        <td id=3D"file-rtl-support-js-L11" class=3D"blob-num js-line-number=
+" data-line-number=3D"11"></td>
+        <td id=3D"file-rtl-support-js-LC11" class=3D"blob-code blob-code-in=
+ner js-file-line">});</td>
+      </tr>
+      <tr>
+        <td id=3D"file-rtl-support-js-L12" class=3D"blob-num js-line-number=
+" data-line-number=3D"12"></td>
+        <td id=3D"file-rtl-support-js-LC12" class=3D"blob-code blob-code-in=
+ner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id=3D"file-rtl-support-js-L13" class=3D"blob-num js-line-number=
+" data-line-number=3D"13"></td>
+        <td id=3D"file-rtl-support-js-LC13" class=3D"blob-code blob-code-in=
+ner js-file-line"><span class=3D"pl-en">$</span>(<span class=3D"pl-s"><span=
+ class=3D"pl-pds">'</span>#rtl-support .typeahead<span class=3D"pl-pds">'</=
+span></span>).<span class=3D"pl-en">typeahead</span>({</td>
+      </tr>
+      <tr>
+        <td id=3D"file-rtl-support-js-L14" class=3D"blob-num js-line-number=
+" data-line-number=3D"14"></td>
+        <td id=3D"file-rtl-support-js-LC14" class=3D"blob-code blob-code-in=
+ner js-file-line">  hint<span class=3D"pl-k">:</span> <span class=3D"pl-c1"=
+>false</span></td>
+      </tr>
+      <tr>
+        <td id=3D"file-rtl-support-js-L15" class=3D"blob-num js-line-number=
+" data-line-number=3D"15"></td>
+        <td id=3D"file-rtl-support-js-LC15" class=3D"blob-code blob-code-in=
+ner js-file-line">},</td>
+      </tr>
+      <tr>
+        <td id=3D"file-rtl-support-js-L16" class=3D"blob-num js-line-number=
+" data-line-number=3D"16"></td>
+        <td id=3D"file-rtl-support-js-LC16" class=3D"blob-code blob-code-in=
+ner js-file-line">{</td>
+      </tr>
+      <tr>
+        <td id=3D"file-rtl-support-js-L17" class=3D"blob-num js-line-number=
+" data-line-number=3D"17"></td>
+        <td id=3D"file-rtl-support-js-LC17" class=3D"blob-code blob-code-in=
+ner js-file-line">  name<span class=3D"pl-k">:</span> <span class=3D"pl-s">=
+<span class=3D"pl-pds">'</span>arabic-phrases<span class=3D"pl-pds">'</span=
+></span>,</td>
+      </tr>
+      <tr>
+        <td id=3D"file-rtl-support-js-L18" class=3D"blob-num js-line-number=
+" data-line-number=3D"18"></td>
+        <td id=3D"file-rtl-support-js-LC18" class=3D"blob-code blob-code-in=
+ner js-file-line">  source<span class=3D"pl-k">:</span> arabicPhrases</td>
+      </tr>
+      <tr>
+        <td id=3D"file-rtl-support-js-L19" class=3D"blob-num js-line-number=
+" data-line-number=3D"19"></td>
+        <td id=3D"file-rtl-support-js-LC19" class=3D"blob-code blob-code-in=
+ner js-file-line">});</td>
+      </tr>
+</tbody></table>
+
+  </div>
+
+  </div>
+ =20
+</div>
+
+      </div>
+      <div class=3D"gist-meta">
+        <a href=3D"https://gist.github.com/jharding/9458824/raw/91f199c7d5e=
+b92336ca925d35977d0a8284e75be/rtl-support.js" style=3D"float:right">view ra=
+w</a>
+        <a href=3D"https://gist.github.com/jharding/9458824#file-rtl-suppor=
+t-js">rtl-support.js</a>
+        hosted with =E2=9D=A4 by <a href=3D"https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+   =20
+   =20
+   =20
+   =20
+   =20
+ =20
+
+</body><style type=3D"text/css" id=3D"103588455947"></style></html>
+------=_NextPart_000_9CF8_A37549AA.84C210E3
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://twitter.github.io/typeahead.js/css/examples.css
+
+html { overflow-y: scroll; }
+
+.container { max-width: 750px; margin: 0px auto; text-align: center; }
+
+.tt-menu, .gist { text-align: left; }
+
+html { font-style: normal; font-variant: normal; font-weight: normal; font-=
+stretch: normal; font-size: 18px; line-height: 1.2; font-family: 'Helvetica=
+ Neue', Roboto, 'Segoe UI', Calibri, sans-serif; color: rgb(41, 47, 51); }
+
+a { color: rgb(3, 115, 156); text-decoration: none; }
+
+a:hover { text-decoration: underline; }
+
+.table-of-contents li { display: inline-block; zoom: 1; }
+
+.table-of-contents li a { font-size: 16px; color: rgb(153, 153, 153); }
+
+p + p { margin: 30px 0px 0px; }
+
+.title { margin: 20px 0px 0px; font-size: 64px; }
+
+.example { padding: 30px 0px; }
+
+.example-name { margin: 20px 0px; font-size: 32px; }
+
+.demo { position: relative; margin: 50px 0px; }
+
+.typeahead, .tt-query, .tt-hint { width: 396px; height: 30px; padding: 8px =
+12px; font-size: 24px; line-height: 30px; border: 2px solid rgb(204, 204, 2=
+04); border-radius: 8px; outline: none; }
+
+.typeahead { background-color: rgb(255, 255, 255); }
+
+.typeahead:focus { border: 2px solid rgb(0, 151, 207); }
+
+.tt-query { box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px inset; }
+
+.tt-hint { color: rgb(153, 153, 153); }
+
+.tt-menu { width: 422px; margin: 12px 0px; padding: 8px 0px; border: 1px so=
+lid rgba(0, 0, 0, 0.2); border-radius: 8px; box-shadow: rgba(0, 0, 0, 0.2) =
+0px 5px 10px; background-color: rgb(255, 255, 255); }
+
+.tt-suggestion { padding: 3px 20px; font-size: 18px; line-height: 24px; }
+
+.tt-suggestion:hover { cursor: pointer; color: rgb(255, 255, 255); backgrou=
+nd-color: rgb(0, 151, 207); }
+
+.tt-suggestion.tt-cursor { color: rgb(255, 255, 255); background-color: rgb=
+(0, 151, 207); }
+
+.tt-suggestion p { margin: 0px; }
+
+.gist { font-size: 14px; }
+
+#custom-templates .empty-message { padding: 5px 10px; text-align: center; }
+
+#multiple-datasets .league-name { margin: 0px 20px 5px; padding: 3px 0px; b=
+order-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: r=
+gb(204, 204, 204); }
+
+#scrollable-dropdown-menu .tt-menu { max-height: 150px; overflow-y: auto; }
+
+#rtl-support .tt-menu { text-align: right; }
+------=_NextPart_000_9CF8_A37549AA.84C210E3
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: https://assets-cdn.github.com/assets/gist-embed-b03925b9c18fa42b22f168e7d17a7ca70ca50a4126cbfca9f91a1a8bc79b5905.css
+
+.gist { font-size: 16px; color: rgb(51, 51, 51); text-align: left; directio=
+n: ltr; }
+
+.gist .markdown-body { font-family: -apple-system, BlinkMacSystemFont, 'Seg=
+oe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe U=
+I Emoji', 'Segoe UI Symbol'; font-size: 16px; line-height: 1.5; word-wrap: =
+break-word; }
+
+.gist .markdown-body::before { display: table; content: ""; }
+
+.gist .markdown-body::after { display: table; clear: both; content: ""; }
+
+.gist .markdown-body > :first-child { margin-top: 0px !important; }
+
+.gist .markdown-body > :last-child { margin-bottom: 0px !important; }
+
+.gist .markdown-body a:not([href]) { color: inherit; text-decoration: none;=
+ }
+
+.gist .markdown-body .absent { color: rgb(204, 0, 0); }
+
+.gist .markdown-body .anchor { float: left; padding-right: 4px; margin-left=
+: -20px; line-height: 1; }
+
+.gist .markdown-body .anchor:focus { outline: none; }
+
+.gist .markdown-body p, .gist .markdown-body blockquote, .gist .markdown-bo=
+dy ul, .gist .markdown-body ol, .gist .markdown-body dl, .gist .markdown-bo=
+dy table, .gist .markdown-body pre { margin-top: 0px; margin-bottom: 16px; =
+}
+
+.gist .markdown-body hr { height: 0.25em; padding: 0px; margin: 24px 0px; b=
+order: 0px; background-color: rgb(231, 231, 231); }
+
+.gist .markdown-body blockquote { padding: 0px 1em; color: rgb(119, 119, 11=
+9); border-left-width: 0.25em; border-left-style: solid; border-left-color:=
+ rgb(221, 221, 221); }
+
+.gist .markdown-body blockquote > :first-child { margin-top: 0px; }
+
+.gist .markdown-body blockquote > :last-child { margin-bottom: 0px; }
+
+.gist .markdown-body kbd { display: inline-block; padding: 3px 5px; font-si=
+ze: 11px; line-height: 10px; color: rgb(85, 85, 85); vertical-align: middle=
+; border-style: solid; border-width: 1px; border-color: rgb(204, 204, 204) =
+rgb(204, 204, 204) rgb(187, 187, 187); border-radius: 3px; box-shadow: rgb(=
+187, 187, 187) 0px -1px 0px inset; background-color: rgb(252, 252, 252); }
+
+.gist .markdown-body .loweralpha { list-style-type: lower-alpha; }
+
+.gist .markdown-body h1, .gist .markdown-body h2, .gist .markdown-body h3, =
+.gist .markdown-body h4, .gist .markdown-body h5, .gist .markdown-body h6 {=
+ margin-top: 24px; margin-bottom: 16px; font-weight: 600; line-height: 1.25=
+; }
+
+.gist .markdown-body h1 .octicon-link, .gist .markdown-body h2 .octicon-lin=
+k, .gist .markdown-body h3 .octicon-link, .gist .markdown-body h4 .octicon-=
+link, .gist .markdown-body h5 .octicon-link, .gist .markdown-body h6 .octic=
+on-link { color: rgb(0, 0, 0); vertical-align: middle; visibility: hidden; =
+}
+
+.gist .markdown-body h1:hover .anchor, .gist .markdown-body h2:hover .ancho=
+r, .gist .markdown-body h3:hover .anchor, .gist .markdown-body h4:hover .an=
+chor, .gist .markdown-body h5:hover .anchor, .gist .markdown-body h6:hover =
+.anchor { text-decoration: none; }
+
+.gist .markdown-body h1:hover .anchor .octicon-link, .gist .markdown-body h=
+2:hover .anchor .octicon-link, .gist .markdown-body h3:hover .anchor .octic=
+on-link, .gist .markdown-body h4:hover .anchor .octicon-link, .gist .markdo=
+wn-body h5:hover .anchor .octicon-link, .gist .markdown-body h6:hover .anch=
+or .octicon-link { visibility: visible; }
+
+.gist .markdown-body h1 tt, .gist .markdown-body h1 code, .gist .markdown-b=
+ody h2 tt, .gist .markdown-body h2 code, .gist .markdown-body h3 tt, .gist =
+.markdown-body h3 code, .gist .markdown-body h4 tt, .gist .markdown-body h4=
+ code, .gist .markdown-body h5 tt, .gist .markdown-body h5 code, .gist .mar=
+kdown-body h6 tt, .gist .markdown-body h6 code { font-size: inherit; }
+
+.gist .markdown-body h1 { padding-bottom: 0.3em; font-size: 2em; border-bot=
+tom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(238, 2=
+38, 238); }
+
+.gist .markdown-body h2 { padding-bottom: 0.3em; font-size: 1.5em; border-b=
+ottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(238,=
+ 238, 238); }
+
+.gist .markdown-body h3 { font-size: 1.25em; }
+
+.gist .markdown-body h4 { font-size: 1em; }
+
+.gist .markdown-body h5 { font-size: 0.875em; }
+
+.gist .markdown-body h6 { font-size: 0.85em; color: rgb(119, 119, 119); }
+
+.gist .markdown-body ul, .gist .markdown-body ol { padding-left: 2em; }
+
+.gist .markdown-body ul.no-list, .gist .markdown-body ol.no-list { padding:=
+ 0px; list-style-type: none; }
+
+.gist .markdown-body ul ul, .gist .markdown-body ul ol, .gist .markdown-bod=
+y ol ol, .gist .markdown-body ol ul { margin-top: 0px; margin-bottom: 0px; =
+}
+
+.gist .markdown-body li > p { margin-top: 16px; }
+
+.gist .markdown-body li + li { margin-top: 0.25em; }
+
+.gist .markdown-body dl { padding: 0px; }
+
+.gist .markdown-body dl dt { padding: 0px; margin-top: 16px; font-size: 1em=
+; font-style: italic; font-weight: bold; }
+
+.gist .markdown-body dl dd { padding: 0px 16px; margin-bottom: 16px; }
+
+.gist .markdown-body table { display: block; width: 100%; overflow: auto; w=
+ord-break: keep-all; }
+
+.gist .markdown-body table th { font-weight: bold; }
+
+.gist .markdown-body table th, .gist .markdown-body table td { padding: 6px=
+ 13px; border: 1px solid rgb(221, 221, 221); }
+
+.gist .markdown-body table tr { border-top-width: 1px; border-top-style: so=
+lid; border-top-color: rgb(204, 204, 204); background-color: rgb(255, 255, =
+255); }
+
+.gist .markdown-body table tr:nth-child(2n) { background-color: rgb(248, 24=
+8, 248); }
+
+.gist .markdown-body img { max-width: 100%; box-sizing: content-box; backgr=
+ound-color: rgb(255, 255, 255); }
+
+.gist .markdown-body img[align=3D"right"] { padding-left: 20px; }
+
+.gist .markdown-body img[align=3D"left"] { padding-right: 20px; }
+
+.gist .markdown-body .emoji { max-width: none; vertical-align: text-top; ba=
+ckground-color: transparent; }
+
+.gist .markdown-body span.frame { display: block; overflow: hidden; }
+
+.gist .markdown-body span.frame > span { display: block; float: left; width=
+: auto; padding: 7px; margin: 13px 0px 0px; overflow: hidden; border: 1px s=
+olid rgb(221, 221, 221); }
+
+.gist .markdown-body span.frame span img { display: block; float: left; }
+
+.gist .markdown-body span.frame span span { display: block; padding: 5px 0p=
+x 0px; clear: both; color: rgb(51, 51, 51); }
+
+.gist .markdown-body span.align-center { display: block; overflow: hidden; =
+clear: both; }
+
+.gist .markdown-body span.align-center > span { display: block; margin: 13p=
+x auto 0px; overflow: hidden; text-align: center; }
+
+.gist .markdown-body span.align-center span img { margin: 0px auto; text-al=
+ign: center; }
+
+.gist .markdown-body span.align-right { display: block; overflow: hidden; c=
+lear: both; }
+
+.gist .markdown-body span.align-right > span { display: block; margin: 13px=
+ 0px 0px; overflow: hidden; text-align: right; }
+
+.gist .markdown-body span.align-right span img { margin: 0px; text-align: r=
+ight; }
+
+.gist .markdown-body span.float-left { display: block; float: left; margin-=
+right: 13px; overflow: hidden; }
+
+.gist .markdown-body span.float-left span { margin: 13px 0px 0px; }
+
+.gist .markdown-body span.float-right { display: block; float: right; margi=
+n-left: 13px; overflow: hidden; }
+
+.gist .markdown-body span.float-right > span { display: block; margin: 13px=
+ auto 0px; overflow: hidden; text-align: right; }
+
+.gist .markdown-body code, .gist .markdown-body tt { padding: 0.2em 0px; ma=
+rgin: 0px; font-size: 85%; border-radius: 3px; background-color: rgba(0, 0,=
+ 0, 0.0392157); }
+
+.gist .markdown-body code::before, .gist .markdown-body code::after, .gist =
+.markdown-body tt::before, .gist .markdown-body tt::after { letter-spacing:=
+ -0.2em; content: "=C2=A0"; }
+
+.gist .markdown-body code br, .gist .markdown-body tt br { display: none; }
+
+.gist .markdown-body del code { text-decoration: inherit; }
+
+.gist .markdown-body pre { word-wrap: normal; }
+
+.gist .markdown-body pre > code { padding: 0px; margin: 0px; font-size: 100=
+%; word-break: normal; white-space: pre; border: 0px; background: transpare=
+nt; }
+
+.gist .markdown-body .highlight { margin-bottom: 16px; }
+
+.gist .markdown-body .highlight pre { margin-bottom: 0px; word-break: norma=
+l; }
+
+.gist .markdown-body .highlight pre, .gist .markdown-body pre { padding: 16=
+px; overflow: auto; font-size: 85%; line-height: 1.45; border-radius: 3px; =
+background-color: rgb(247, 247, 247); }
+
+.gist .markdown-body pre code, .gist .markdown-body pre tt { display: inlin=
+e; padding: 0px; margin: 0px; overflow: visible; line-height: inherit; word=
+-wrap: normal; border: 0px; background-color: transparent; }
+
+.gist .markdown-body pre code::before, .gist .markdown-body pre code::after=
+, .gist .markdown-body pre tt::before, .gist .markdown-body pre tt::after {=
+ content: normal; }
+
+.gist .pl-c { color: rgb(150, 152, 150); }
+
+.gist .pl-c1, .gist .pl-s .pl-v { color: rgb(0, 134, 179); }
+
+.gist .pl-e, .gist .pl-en { color: rgb(121, 93, 163); }
+
+.gist .pl-smi, .gist .pl-s .pl-s1 { color: rgb(51, 51, 51); }
+
+.gist .pl-ent { color: rgb(99, 163, 92); }
+
+.gist .pl-k { color: rgb(167, 29, 93); }
+
+.gist .pl-s, .gist .pl-pds, .gist .pl-s .pl-pse .pl-s1, .gist .pl-sr, .gist=
+ .pl-sr .pl-cce, .gist .pl-sr .pl-sre, .gist .pl-sr .pl-sra { color: rgb(24=
+, 54, 145); }
+
+.gist .pl-v { color: rgb(237, 106, 67); }
+
+.gist .pl-id { color: rgb(181, 42, 29); }
+
+.gist .pl-ii { color: rgb(248, 248, 248); background-color: rgb(181, 42, 29=
+); }
+
+.gist .pl-sr .pl-cce { font-weight: bold; color: rgb(99, 163, 92); }
+
+.gist .pl-ml { color: rgb(105, 58, 23); }
+
+.gist .pl-mh, .gist .pl-mh .pl-en, .gist .pl-ms { font-weight: bold; color:=
+ rgb(29, 62, 129); }
+
+.gist .pl-mq { color: rgb(0, 128, 128); }
+
+.gist .pl-mi { font-style: italic; color: rgb(51, 51, 51); }
+
+.gist .pl-mb { font-weight: bold; color: rgb(51, 51, 51); }
+
+.gist .pl-md { color: rgb(189, 44, 0); background-color: rgb(255, 236, 236)=
+; }
+
+.gist .pl-mi1 { color: rgb(85, 165, 50); background-color: rgb(234, 255, 23=
+4); }
+
+.gist .pl-mdr { font-weight: bold; color: rgb(121, 93, 163); }
+
+.gist .pl-mo { color: rgb(29, 62, 129); }
+
+.gist .breadcrumb { margin-bottom: 10px; font-size: 18px; color: rgb(118, 1=
+18, 118); }
+
+.gist .breadcrumb .separator::before, .gist .breadcrumb .separator::after {=
+ content: " "; }
+
+.gist .breadcrumb strong.final-path { color: rgb(51, 51, 51); }
+
+.gist .breadcrumb .zeroclipboard-button { display: inline-block; margin-lef=
+t: 5px; }
+
+.gist .breadcrumb .repo-root { font-weight: bold; }
+
+.gist .breadcrumb .octicon { vertical-align: -2px; }
+
+.gist .editor-license-template, .gist .editor-gitignore-template { position=
+: relative; top: 3px; display: none; float: right; font-size: 14px; }
+
+.gist .editor-license-template.is-visible, .gist .editor-gitignore-template=
+.is-visible { display: block; }
+
+.gist .editor-license-template .select-menu-git-ignore, .gist .editor-licen=
+se-template .select-menu-license-picker, .gist .editor-gitignore-template .=
+select-menu-git-ignore, .gist .editor-gitignore-template .select-menu-licen=
+se-picker { right: 0px; }
+
+.gist .editor-abort { display: inline; font-size: 14px; }
+
+.gist .blob-interaction-bar { position: relative; border-bottom-width: 1px;=
+ border-bottom-style: solid; border-bottom-color: rgb(229, 229, 229); backg=
+round-color: rgb(242, 242, 242); }
+
+.gist .blob-interaction-bar::before { display: table; content: ""; }
+
+.gist .blob-interaction-bar::after { display: table; clear: both; content: =
+""; }
+
+.gist .blob-interaction-bar .octicon-search { position: absolute; top: 10px=
+; left: 10px; font-size: 12px; color: rgb(118, 118, 118); }
+
+.gist .blob-filter { width: 100%; padding: 4px 20px 5px 30px; font-size: 12=
+px; border: 0px; border-radius: 0px; outline: none; }
+
+.gist .blob-filter:focus { outline: none; }
+
+.gist .html-blob { margin-bottom: 15px; }
+
+.gist .blob-wrapper { overflow-x: auto; overflow-y: hidden; border-bottom-r=
+ight-radius: 3px; border-bottom-left-radius: 3px; }
+
+.gist .diff-table { width: 100%; border-collapse: separate; }
+
+.gist .diff-table .line-comments { padding: 10px; vertical-align: top; bord=
+er-top-width: 1px; border-top-style: solid; border-top-color: rgb(238, 238,=
+ 238); }
+
+.gist .diff-table .line-comments:first-child + .empty-cell { border-left-wi=
+dth: 1px; }
+
+.gist .diff-table tr:not(:last-child) .line-comments { border-top-width: 1p=
+x; border-top-style: solid; border-top-color: rgb(238, 238, 238); border-bo=
+ttom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(238, =
+238, 238); }
+
+.gist .blob-num { width: 1%; min-width: 50px; padding-right: 10px; padding-=
+left: 10px; font-family: Consolas, 'Liberation Mono', Menlo, Courier, monos=
+pace; font-size: 12px; line-height: 20px; color: rgba(0, 0, 0, 0.298039); t=
+ext-align: right; white-space: nowrap; vertical-align: top; cursor: pointer=
+; -webkit-user-select: none; border-style: solid; border-color: rgb(238, 23=
+8, 238); border-width: 0px 1px 0px 0px; }
+
+.gist .blob-num:hover { color: rgba(0, 0, 0, 0.6); }
+
+.gist .blob-num::before { content: attr(data-line-number); }
+
+.gist .blob-num.non-expandable { cursor: default; }
+
+.gist .blob-num.non-expandable:hover { color: rgba(0, 0, 0, 0.298039); }
+
+.gist .blob-code { position: relative; padding-right: 10px; padding-left: 1=
+0px; line-height: 20px; vertical-align: top; }
+
+.gist .blob-code-inner { overflow: visible; font-family: Consolas, 'Liberat=
+ion Mono', Menlo, Courier, monospace; font-size: 12px; color: rgb(51, 51, 5=
+1); word-wrap: normal; white-space: pre; }
+
+.gist .blob-code-inner .x-first { border-top-left-radius: 0.2em; border-bot=
+tom-left-radius: 0.2em; }
+
+.gist .blob-code-inner .x-last { border-top-right-radius: 0.2em; border-bot=
+tom-right-radius: 0.2em; }
+
+.gist .blob-code-inner::before { content: ""; }
+
+.gist .soft-wrap .diff-table { table-layout: fixed; }
+
+.gist .soft-wrap .blob-code { padding-left: 18px; text-indent: -7px; }
+
+.gist .soft-wrap .blob-code-inner { word-wrap: break-word; white-space: pre=
+-wrap; }
+
+.gist .soft-wrap .no-nl-marker { display: none; }
+
+.gist .soft-wrap .add-line-comment { margin-left: -28px; }
+
+.gist .blob-num-hunk, .gist .blob-code-hunk, .gist .blob-num-expandable, .g=
+ist .blob-code-expandable { color: rgba(0, 0, 0, 0.298039); vertical-align:=
+ middle; border-color: rgb(210, 223, 240); }
+
+.gist .blob-num-hunk, .gist .blob-num-expandable { background-color: rgb(23=
+7, 242, 249); }
+
+.gist .blob-code-hunk, .gist .blob-code-expandable { padding-top: 4px; padd=
+ing-bottom: 4px; border-width: 1px 0px; background-color: rgb(244, 247, 251=
+); }
+
+.gist .blob-expanded .blob-num, .gist .blob-expanded .blob-code { backgroun=
+d-color: rgb(250, 250, 250); }
+
+.gist .blob-expanded + tr:not(.blob-expanded) .blob-num, .gist .blob-expand=
+ed + tr:not(.blob-expanded) .blob-code { border-top-width: 1px; border-top-=
+style: solid; border-top-color: rgb(238, 238, 238); }
+
+.gist .blob-expanded .blob-num-hunk { border-top-width: 1px; border-top-sty=
+le: solid; border-top-color: rgb(238, 238, 238); }
+
+.gist tr:not(.blob-expanded) + .blob-expanded .blob-num, .gist tr:not(.blob=
+-expanded) + .blob-expanded .blob-code { border-top-width: 1px; border-top-=
+style: solid; border-top-color: rgb(238, 238, 238); }
+
+.gist .blob-num-expandable { padding: 0px; font-size: 12px; text-align: cen=
+ter; }
+
+.gist .blob-num-expandable .octicon { vertical-align: top; }
+
+.gist .blob-num-expandable .diff-expander { display: block; width: auto; he=
+ight: auto; padding: 4px 11px 4px 10px; margin-right: -1px; color: rgb(118,=
+ 118, 118); cursor: pointer; }
+
+.gist .blob-num-expandable .diff-expander:hover { color: rgb(255, 255, 255)=
+; text-shadow: none; border-color: rgb(64, 120, 192); background-color: rgb=
+(64, 120, 192); }
+
+.gist .blob-code-addition { background-color: rgb(234, 255, 234); }
+
+.gist .blob-code-addition .x { color: rgb(51, 51, 51); background-color: rg=
+b(166, 243, 166); }
+
+.gist .blob-num-addition { border-color: rgb(193, 233, 193); background-col=
+or: rgb(219, 255, 219); }
+
+.gist .blob-code-deletion { background-color: rgb(255, 236, 236); }
+
+.gist .blob-code-deletion .x { color: rgb(51, 51, 51); background-color: rg=
+b(248, 203, 203); }
+
+.gist .blob-num-deletion { border-color: rgb(241, 192, 192); background-col=
+or: rgb(255, 221, 221); }
+
+.gist .selected-line.blob-code { background-color: rgb(248, 238, 199); }
+
+.gist .selected-line.blob-code .x { background-color: transparent; }
+
+.gist .selected-line.blob-num { border-color: rgb(240, 219, 136); backgroun=
+d-color: rgb(246, 232, 181); }
+
+.gist .add-line-comment { position: relative; z-index: 5; float: left; widt=
+h: 22px; height: 22px; margin: -2px -10px -2px -20px; line-height: 21px; co=
+lor: rgb(255, 255, 255); text-align: center; text-indent: 0px; cursor: poin=
+ter; border-radius: 3px; box-shadow: rgba(0, 0, 0, 0.14902) 0px 1px 4px; op=
+acity: 0; transition: transform 0.1s ease-in-out; transform: scale(0.8, 0.8=
+); background-image: linear-gradient(rgb(83, 134, 198), rgb(64, 120, 192));=
+ background-color: rgb(64, 120, 192); }
+
+.gist .add-line-comment:hover { transform: scale(1, 1); }
+
+.is-hovered .gist .add-line-comment, .gist .add-line-comment:focus { opacit=
+y: 1; }
+
+.gist .add-line-comment .octicon { vertical-align: text-top; pointer-events=
+: none; }
+
+.gist .add-line-comment.octicon-check { opacity: 1; background: rgb(51, 51,=
+ 51); }
+
+.gist .inline-comment-form { border: 1px solid rgb(221, 221, 221); border-r=
+adius: 3px; }
+
+.gist .inline-review-comment { margin-top: 0px !important; margin-bottom: 1=
+0px !important; }
+
+.gist .inline-review-comment .gc:first-child + tr .blob-num, .gist .inline-=
+review-comment .gc:first-child + tr .blob-code { padding-top: 5px; }
+
+.gist .inline-review-comment tr:last-child { border-bottom-right-radius: 2p=
+x; border-bottom-left-radius: 2px; }
+
+.gist .inline-review-comment tr:last-child .blob-num, .gist .inline-review-=
+comment tr:last-child .blob-code { padding-bottom: 8px; }
+
+.gist .inline-review-comment tr:last-child .blob-num:first-child, .gist .in=
+line-review-comment tr:last-child .blob-code:first-child { border-bottom-le=
+ft-radius: 2px; }
+
+.gist .inline-review-comment tr:last-child .blob-num:last-child, .gist .inl=
+ine-review-comment tr:last-child .blob-code:last-child { border-bottom-righ=
+t-radius: 2px; }
+
+.gist .timeline-inline-comments { width: 100%; table-layout: fixed; }
+
+.gist .timeline-inline-comments .inline-comments, .gist .show-inline-notes =
+.inline-comments { display: table-row; }
+
+.gist .inline-comments { display: none; }
+
+.gist .inline-comments.is-collapsed { display: none; }
+
+.gist .inline-comments .line-comments.is-collapsed { visibility: hidden; }
+
+.gist .inline-comments .line-comments + .blob-num { border-left-width: 1px;=
+ }
+
+.gist .inline-comments .timeline-comment { margin-bottom: 10px; }
+
+.gist .inline-comments .inline-comment-form, .gist .inline-comments .inline=
+-comment-form-container { max-width: 780px; }
+
+.gist .comment-holder { max-width: 780px; }
+
+.gist .line-comments + .line-comments, .gist .empty-cell + .line-comments {=
+ border-left-width: 1px; border-left-style: solid; border-left-color: rgb(2=
+38, 238, 238); }
+
+.gist .inline-comment-form-container .inline-comment-form, .gist .inline-co=
+mment-form-container.open .inline-comment-form-actions { display: none; }
+
+.gist .inline-comment-form-container .inline-comment-form-actions, .gist .i=
+nline-comment-form-container.open .inline-comment-form { display: block; }
+
+.gist body.split-diff .container, .gist body.full-width .container { width:=
+ 100%; padding-right: 30px; padding-left: 30px; }
+
+.gist body.split-diff .repository-content, .gist body.full-width .repositor=
+y-content { width: 100%; }
+
+.gist body.split-diff .new-pr-form, .gist body.full-width .new-pr-form { ma=
+x-width: 980px; }
+
+.gist body.split-diff .new-pr-form .discussion-sidebar, .gist body.full-wid=
+th .new-pr-form .discussion-sidebar { width: 200px; }
+
+.gist .file-diff-split { table-layout: fixed; }
+
+.gist .file-diff-split .blob-code + .blob-num { border-left-width: 1px; }
+
+.gist .file-diff-split .blob-code-inner { word-wrap: break-word; white-spac=
+e: pre-wrap; }
+
+.gist .file-diff-split .empty-cell { cursor: default; border-right-color: r=
+gb(238, 238, 238); background-color: rgb(250, 250, 250); }
+
+.gist .task-list-item { list-style-type: none; }
+
+.gist .task-list-item label { font-weight: normal; }
+
+.gist .task-list-item.enabled label { cursor: pointer; }
+
+.gist .task-list-item + .task-list-item { margin-top: 3px; }
+
+.gist .task-list-item .handle { display: none; }
+
+.gist .task-list-item-checkbox { margin: 0px 0.2em 0.25em -1.6em; vertical-=
+align: middle; }
+
+.gist .reorderable-task-lists .markdown-body .contains-task-list { padding:=
+ 0px; }
+
+.gist .reorderable-task-lists .markdown-body li:not(.task-list-item) { marg=
+in-left: 26px; }
+
+.gist .reorderable-task-lists .markdown-body ol:not(.contains-task-list) li=
+, .gist .reorderable-task-lists .markdown-body ul:not(.contains-task-list) =
+li { margin-left: 0px; }
+
+.gist .reorderable-task-lists .markdown-body li p { margin-top: 0px; }
+
+.gist .reorderable-task-lists .markdown-body .task-list-item { padding-righ=
+t: 15px; padding-left: 42px; margin-right: -15px; margin-left: -15px; borde=
+r: 1px solid transparent; }
+
+.gist .reorderable-task-lists .markdown-body .task-list-item + .task-list-i=
+tem { margin-top: 0px; }
+
+.gist .reorderable-task-lists .markdown-body .task-list-item .contains-task=
+-list { padding-top: 4px; }
+
+.gist .reorderable-task-lists .markdown-body .task-list-item .handle { disp=
+lay: block; float: left; width: 20px; padding: 2px 0px 0px 2px; margin-left=
+: -43px; opacity: 0; }
+
+.gist .reorderable-task-lists .markdown-body .task-list-item .drag-handle {=
+ fill: rgb(51, 51, 51); }
+
+.gist .reorderable-task-lists .markdown-body .task-list-item.hovered { bord=
+er-top-color: rgb(237, 237, 237); border-bottom-color: rgb(237, 237, 237); =
+background: rgb(250, 250, 250); }
+
+.gist .reorderable-task-lists .markdown-body .task-list-item.hovered > .han=
+dle { opacity: 1; }
+
+.gist .reorderable-task-lists .markdown-body .task-list-item.is-dragging { =
+opacity: 0; }
+
+.gist .reorderable-task-lists .markdown-body .task-list-item.is-ghost { bor=
+der-right-color: rgb(237, 237, 237); border-left-color: rgb(237, 237, 237);=
+ }
+
+.gist .highlight { padding: 0px; margin: 0px; font-family: Consolas, 'Liber=
+ation Mono', Menlo, Courier, monospace; font-size: 12px; font-weight: norma=
+l; line-height: 1.4; color: rgb(51, 51, 51); border: 0px; background: rgb(2=
+55, 255, 255); }
+
+.gist .render-viewer-error, .gist .render-viewer-fatal, .gist .render-viewe=
+r-invalid, .gist .octospinner { display: none; }
+
+.gist iframe.render-viewer { width: 100%; height: 480px; overflow: hidden; =
+border: 0px; }
+
+.gist pre, .gist code { white-space: pre; font-family: Consolas, 'Liberatio=
+n Mono', Menlo, Courier, monospace !important; }
+
+.gist .gist-meta { padding: 10px; overflow: hidden; font-style: normal; fon=
+t-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12=
+px; line-height: normal; font-family: -apple-system, BlinkMacSystemFont, 'S=
+egoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe=
+ UI Emoji', 'Segoe UI Symbol'; color: rgb(118, 118, 118); border-radius: 0p=
+x 0px 2px 2px; background-color: rgb(247, 247, 247); }
+
+.gist .gist-meta a { font-weight: bold; color: rgb(102, 102, 102); text-dec=
+oration: none; border: 0px; }
+
+.gist .gist-data { overflow: auto; word-wrap: normal; border-bottom-width: =
+1px; border-bottom-style: solid; border-bottom-color: rgb(221, 221, 221); b=
+order-radius: 2px 2px 0px 0px; background-color: rgb(255, 255, 255); }
+
+.gist .gist-file { margin-bottom: 1em; font-family: Consolas, 'Liberation M=
+ono', Menlo, Courier, monospace; border-width: 1px; border-style: solid; bo=
+rder-color: rgb(221, 221, 221) rgb(221, 221, 221) rgb(204, 204, 204); borde=
+r-radius: 3px; }
+
+.gist .gist-file article { padding: 6px; }
+
+.gist .gist-file .scroll .gist-data { position: absolute; top: 0px; right: =
+0px; bottom: 30px; left: 0px; overflow: scroll; }
+
+.gist .gist-file .scroll .gist-meta { position: absolute; right: 0px; botto=
+m: 0px; left: 0px; }
+
+.gist .blob-num { min-width: inherit; padding: 1px 10px !important; backgro=
+und: transparent; }
+
+.gist .blob-code { text-align: left; border: 0px; padding: 1px 10px !import=
+ant; background: transparent; }
+
+.gist .blob-wrapper table { border-collapse: collapse; }
+
+.gist .blob-wrapper tr:first-child td { padding-top: 4px; }
+
+.gist .markdown-body .anchor { display: none; }
+------=_NextPart_000_9CF8_A37549AA.84C210E3--
